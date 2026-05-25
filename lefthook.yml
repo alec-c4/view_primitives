@@ -1,0 +1,11 @@
+pre-commit:
+  parallel: true
+  commands:
+    appraisal:
+      glob: "{Gemfile,view_primitives.gemspec,lib/view_primitives/version.rb}"
+      run: bundle exec appraisal install && git add gemfiles/*.lock
+    rubocop:
+      glob: "*.rb"
+      run: bundle exec rubocop --force-exclusion {staged_files}
+    minitest:
+      run: bundle exec rake test

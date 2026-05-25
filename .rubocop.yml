@@ -1,8 +1,24 @@
+require:
+  - standard
+
+plugins:
+  - rubocop-minitest
+  - rubocop-performance
+
+inherit_gem:
+  standard: config/base.yml
+
 AllCops:
   TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - bin/**/*
+    - vendor/**/*
+    - tmp/**/*
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+Minitest:
+  Enabled: true
 
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
+Performance:
+  Enabled: true
