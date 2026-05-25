@@ -1,0 +1,10 @@
+<%= tag.div(class: "w-full", **wrapper_attrs) do %>
+  <% @items_data.each do |item| %>
+    <%= render UI::AccordionItemComponent.new(title: item[:title], open: item.fetch(:open, false)) do %>
+      <%= item[:content] %>
+    <% end %>
+  <% end %>
+  <% items.each do |item| %>
+    <%= item %>
+  <% end %>
+<% end %>

@@ -7,7 +7,7 @@ class TestViewPrimitives < Minitest::Test
     refute_nil ::ViewPrimitives::VERSION
   end
 
-  def test_it_does_something_useful
-    assert false
+  def test_error_class_inherits_from_standard_error
+    assert_kind_of StandardError, ViewPrimitives::Error.new
   end
 end
