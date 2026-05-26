@@ -46,6 +46,17 @@ load_tt "skeleton/skeleton_component.rb.tt"
 load_tt "progress/progress_component.rb.tt"
 load_tt "aspect_ratio/aspect_ratio_component.rb.tt"
 
+# Load Phase 3
+load_tt "input/input_component.rb.tt"
+load_tt "textarea/textarea_component.rb.tt"
+load_tt "checkbox/checkbox_component.rb.tt"
+load_tt "radio_group/radio_group_component.rb.tt"
+load_tt "select/select_component.rb.tt"
+load_tt "switch/switch_component.rb.tt"
+load_tt "toggle/toggle_component.rb.tt"
+load_tt "toggle_group/toggle_group_component.rb.tt"
+load_tt "form_field/form_field_component.rb.tt"
+
 # Load Phase 2 — new
 load_tt "rating_input/rating_input_component.rb.tt"
 load_tt "spinner/spinner_component.rb.tt"
@@ -375,6 +386,277 @@ class TestProgressComponent < Minitest::Test
     c = UI::ProgressComponent.new(value: 3, max: 10)
 
     assert_in_delta 30.0, c.instance_variable_get(:@pct)
+  end
+end
+
+class TestInputComponent < Minitest::Test
+  def test_default_type
+    c = UI::InputComponent.new
+
+    assert_equal "text", c.instance_variable_get(:@type)
+  end
+
+  def test_custom_type
+    c = UI::InputComponent.new(type: "email")
+
+    assert_equal "email", c.instance_variable_get(:@type)
+  end
+
+  def test_class_extracted
+    c = UI::InputComponent.new(class: "w-full")
+
+    assert_equal "w-full", c.instance_variable_get(:@extra_class)
+    refute c.instance_variable_get(:@html_attrs).key?(:class)
+  end
+
+  def test_html_attrs_forwarded
+    c = UI::InputComponent.new(placeholder: "Email", disabled: true)
+
+    assert_equal "Email", c.instance_variable_get(:@html_attrs)[:placeholder]
+    assert c.instance_variable_get(:@html_attrs)[:disabled]
+  end
+end
+
+class TestTextareaComponent < Minitest::Test
+  def test_class_extracted
+    c = UI::TextareaComponent.new(class: "min-h-[160px]")
+
+    assert_equal "min-h-[160px]", c.instance_variable_get(:@extra_class)
+  end
+
+  def test_html_attrs_forwarded
+    c = UI::TextareaComponent.new(placeholder: "Write...", rows: 5)
+
+    assert_equal "Write...", c.instance_variable_get(:@html_attrs)[:placeholder]
+    assert_equal 5, c.instance_variable_get(:@html_attrs)[:rows]
+  end
+end
+
+class TestCheckboxComponent < Minitest::Test
+  def test_label_stored
+    c = UI::CheckboxComponent.new(label: "Accept terms")
+
+    assert_equal "Accept terms", c.instance_variable_get(:@label)
+  end
+
+  def test_checked_defaults_to_false
+    c = UI::CheckboxComponent.new
+
+    refute c.instance_variable_get(:@checked)
+  end
+
+  def test_checked_stored
+    c = UI::CheckboxComponent.new(checked: true)
+
+    assert c.instance_variable_get(:@checked)
+  end
+
+  def test_id_derived_from_name
+    c = UI::CheckboxComponent.new(name: "user[terms]")
+
+    assert_equal "user_terms_", c.instance_variable_get(:@id)
+  end
+
+  def test_explicit_id_takes_precedence
+    c = UI::CheckboxComponent.new(id: "my-checkbox", name: "terms")
+
+    assert_equal "my-checkbox", c.instance_variable_get(:@id)
+  end
+end
+
+class TestRadioGroupComponent < Minitest::Test
+  def test_name_stored
+    c = UI::RadioGroupComponent.new(name: "plan")
+
+    assert_equal "plan", c.instance_variable_get(:@name)
+  end
+
+  def test_items_stored
+    items = [{value: "free", label: "Free"}, {value: "pro", label: "Pro"}]
+    c = UI::RadioGroupComponent.new(name: "plan", items: items)
+
+    assert_equal items, c.instance_variable_get(:@items)
+  end
+
+  def test_items_defaults_to_empty_array
+    c = UI::RadioGroupComponent.new(name: "plan")
+
+    assert_equal [], c.instance_variable_get(:@items)
+  end
+end
+
+class TestSelectComponent < Minitest::Test
+  def test_options_stored
+    c = UI::SelectComponent.new(options: %w[a b c])
+
+    assert_equal %w[a b c], c.instance_variable_get(:@options)
+  end
+
+  def test_selected_stored
+    c = UI::SelectComponent.new(selected: "b")
+
+    assert_equal "b", c.instance_variable_get(:@selected)
+  end
+
+  def test_include_blank_defaults_to_false
+    c = UI::SelectComponent.new
+
+    refute c.instance_variable_get(:@include_blank)
+  end
+
+  def test_normalized_options_from_strings
+    c = UI::SelectComponent.new(options: %w[Apple Banana])
+    normalized = c.send(:normalized_options)
+
+    assert_equal [["Apple", "Apple"], ["Banana", "Banana"]], normalized
+  end
+
+  def test_normalized_options_from_pairs
+    c = UI::SelectComponent.new(options: [["us", "United States"], ["gb", "United Kingdom"]])
+    normalized = c.send(:normalized_options)
+
+    assert_equal [["us", "United States"], ["gb", "United Kingdom"]], normalized
+  end
+
+  def test_normalized_options_from_hash
+    c = UI::SelectComponent.new(options: {us: "United States", gb: "United Kingdom"})
+    normalized = c.send(:normalized_options)
+
+    assert_equal 2, normalized.size
+  end
+end
+
+class TestSwitchComponent < Minitest::Test
+  def test_label_stored
+    c = UI::SwitchComponent.new(label: "Dark mode")
+
+    assert_equal "Dark mode", c.instance_variable_get(:@label)
+  end
+
+  def test_checked_defaults_to_false
+    c = UI::SwitchComponent.new
+
+    refute c.instance_variable_get(:@checked)
+  end
+
+  def test_id_derived_from_name
+    c = UI::SwitchComponent.new(name: "dark_mode")
+
+    assert_equal "dark_mode", c.instance_variable_get(:@id)
+  end
+end
+
+class TestToggleComponent < Minitest::Test
+  def test_positional_label
+    c = UI::ToggleComponent.new("Bold")
+
+    assert_equal "Bold", c.instance_variable_get(:@label)
+  end
+
+  def test_pressed_defaults_to_false
+    c = UI::ToggleComponent.new
+
+    refute c.instance_variable_get(:@pressed)
+  end
+
+  def test_pressed_stored
+    c = UI::ToggleComponent.new(pressed: true)
+
+    assert c.instance_variable_get(:@pressed)
+  end
+
+  def test_default_size
+    c = UI::ToggleComponent.new
+
+    assert_equal :default, c.instance_variable_get(:@size)
+  end
+
+  def test_all_sizes_defined
+    %i[default sm lg].each do |size|
+      assert UI::ToggleComponent::SIZES.key?(size), "Missing size #{size}"
+    end
+  end
+
+  def test_value_stored
+    c = UI::ToggleComponent.new(value: "bold")
+
+    assert_equal "bold", c.instance_variable_get(:@value)
+  end
+end
+
+class TestToggleGroupComponent < Minitest::Test
+  def test_default_type
+    c = UI::ToggleGroupComponent.new
+
+    assert_equal :single, c.instance_variable_get(:@type)
+  end
+
+  def test_type_stored_as_symbol
+    c = UI::ToggleGroupComponent.new(type: "multiple")
+
+    assert_equal :multiple, c.instance_variable_get(:@type)
+  end
+
+  def test_single_value_normalized_to_array
+    c = UI::ToggleGroupComponent.new(value: "bold")
+
+    assert_equal ["bold"], c.instance_variable_get(:@value)
+  end
+
+  def test_array_value_stored
+    c = UI::ToggleGroupComponent.new(value: %w[bold underline])
+
+    assert_equal %w[bold underline], c.instance_variable_get(:@value)
+  end
+
+  def test_nil_value_becomes_empty_array
+    c = UI::ToggleGroupComponent.new
+
+    assert_equal [], c.instance_variable_get(:@value)
+  end
+
+  def test_item_pressed_true_when_in_value
+    c = UI::ToggleGroupComponent.new(value: "bold")
+
+    assert c.item_pressed?("bold")
+  end
+
+  def test_item_pressed_false_when_not_in_value
+    c = UI::ToggleGroupComponent.new(value: "bold")
+
+    refute c.item_pressed?("italic")
+  end
+end
+
+class TestFormFieldComponent < Minitest::Test
+  def test_label_stored
+    c = UI::FormFieldComponent.new(label: "Email")
+
+    assert_equal "Email", c.instance_variable_get(:@label)
+  end
+
+  def test_hint_stored
+    c = UI::FormFieldComponent.new(hint: "Letters only")
+
+    assert_equal "Letters only", c.instance_variable_get(:@hint)
+  end
+
+  def test_error_stored
+    c = UI::FormFieldComponent.new(error: "is required")
+
+    assert_equal "is required", c.instance_variable_get(:@error)
+  end
+
+  def test_required_defaults_to_false
+    c = UI::FormFieldComponent.new
+
+    refute c.instance_variable_get(:@required)
+  end
+
+  def test_required_stored
+    c = UI::FormFieldComponent.new(required: true)
+
+    assert c.instance_variable_get(:@required)
   end
 end
 

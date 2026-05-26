@@ -15,6 +15,7 @@ module ViewPrimitives
         button alert accordion
         badge avatar card separator label skeleton progress aspect_ratio
         spinner kbd rating rating_input indicator list_group banner button_group
+        input textarea checkbox radio_group select switch toggle toggle_group form_field
       ].freeze
 
       def copy_components
@@ -161,6 +162,51 @@ module ViewPrimitives
       def copy_button_group
         template "button_group/button_group_component.rb.tt",
           "app/components/ui/button_group_component.rb"
+      end
+
+      def copy_input
+        template "input/input_component.rb.tt",
+          "app/components/ui/input_component.rb"
+      end
+
+      def copy_textarea
+        template "textarea/textarea_component.rb.tt",
+          "app/components/ui/textarea_component.rb"
+      end
+
+      def copy_checkbox
+        template "checkbox/checkbox_component.rb.tt",
+          "app/components/ui/checkbox_component.rb"
+      end
+
+      def copy_radio_group
+        template "radio_group/radio_group_component.rb.tt",
+          "app/components/ui/radio_group_component.rb"
+      end
+
+      def copy_select
+        template "select/select_component.rb.tt",
+          "app/components/ui/select_component.rb"
+      end
+
+      def copy_switch
+        template "switch/switch_component.rb.tt",
+          "app/components/ui/switch_component.rb"
+      end
+
+      def copy_toggle
+        template "toggle/toggle_component.rb.tt",
+          "app/components/ui/toggle_component.rb"
+      end
+
+      def copy_toggle_group
+        template "toggle_group/toggle_group_component.rb.tt",
+          "app/components/ui/toggle_group_component.rb"
+      end
+
+      def copy_form_field
+        template "form_field/form_field_component.rb.tt",
+          "app/components/ui/form_field_component.rb"
       end
     end
   end

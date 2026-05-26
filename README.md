@@ -95,6 +95,15 @@ ViewPrimitives automatically adds two helpers to all views:
 | List Group | Bordered list with optional links and active state | [docs](docs/components/list_group.md) |
 | Banner | Styled announcement strip with variants | [docs](docs/components/banner.md) |
 | Button Group | Visually joined row of buttons | [docs](docs/components/button_group.md) |
+| Input | Styled text input with ring/border | — |
+| Textarea | Styled multi-line input | — |
+| Checkbox | Accessible checkbox with optional label | — |
+| Radio Group | Group of radio inputs | — |
+| Select | Native styled select element | — |
+| Switch | CSS-only on/off toggle | — |
+| Toggle | Single pressable toggle button | — |
+| Toggle Group | Group of related toggles (single or multiple) | — |
+| Form Field | Label + input + hint + error layout wrapper | — |
 
 ### Coming soon
 
@@ -104,20 +113,12 @@ See [ROADMAP.md](ROADMAP.md) for the full list organised by release phase.
 
 ## Customisation
 
-### Theming
+See **[docs/customization.md](docs/customization.md)** for the full guide covering:
 
-Override CSS custom properties in your stylesheet to change the colour palette:
-
-```css
-:root {
-  --primary: 262.1 83.3% 57.8%;   /* purple */
-  --radius: 0.75rem;
-}
-```
-
-### Modifying components
-
-Because components live in your `app/components/ui/` directory, you can edit them directly. Add variants, change classes, or extend with new slots — there is no upstream to conflict with.
+- Design tokens (OKLCH colors, radius) — change the whole palette in one file
+- Editing component constants — add variants, change classes
+- Per-instance `class:` overrides — append utilities without touching the file
+- Full brand theming example
 
 ## Development
 

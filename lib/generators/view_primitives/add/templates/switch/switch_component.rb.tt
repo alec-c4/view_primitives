@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+module UI
+  class SwitchComponent < ApplicationComponent
+    TRACK = "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent " \
+            "shadow-sm transition-colors " \
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background " \
+            "disabled:cursor-not-allowed disabled:opacity-50 " \
+            "bg-input checked:bg-primary"
+    THUMB = "pointer-events-none block h-4 w-4 rounded-full bg-background shadow-lg ring-0 transition-transform " \
+            "translate-x-0 peer-checked:translate-x-4"
+
+    def initialize(label: nil, checked: false, **html_attrs)
+      @label = label
+      @checked = checked
+      @id = html_attrs[:id] || html_attrs[:name]&.gsub(/\W/, "_") || "switch_#{object_id}"
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs = html_attrs
+    end
+
+    def call
+      content_tag(:div, class: cn("inline-flex items-center gap-2", @extra_class)) do
+        concat track
+        concat label_tag if @label
+      end
+    end
+
+    private
+
+    def track
+      attrs = @html_attrs.merge(type: "checkbox", role: "switch", id: @id, class: TRACK)
+      attrs[:"aria-checked"] = @checked.to_s
+      attrs[:checked] = true if @checked
+      # visually hidden checkbox drives the CSS peer- classes
+      content_tag(:input, nil, **attrs) +
+        content_tag(:span, nil, class: THUMB, "aria-hidden": "true")
+    end
+
+    def label_tag
+      content_tag(:label, @label,
+        for: @id,
+        class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70")
+    end
+  end
+end

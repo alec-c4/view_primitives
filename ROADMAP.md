@@ -42,15 +42,15 @@ Legend: JS = requires JavaScript | Status: done / planned
 
 | Component | Description | JS needed | Status |
 |-----------|-------------|-----------|--------|
-| Input | Styled text input with consistent ring/border | No | planned |
-| Textarea | Styled multi-line input | No | planned |
-| Checkbox | Accessible checkbox with label | No | planned |
-| Radio Group | Group of radio inputs | No | planned |
-| Select | Native styled select element | No | planned |
-| Switch | Toggle on/off using checkbox hack | No | planned |
-| Toggle | Single pressable toggle button | No | planned |
-| Toggle Group | Group of related toggles (single or multiple selection) | No | planned |
-| Form | Wrapper that wires labels, inputs, and error messages together | No | planned |
+| Input | Styled text input with consistent ring/border | No | done |
+| Textarea | Styled multi-line input | No | done |
+| Checkbox | Accessible checkbox with optional label | No | done |
+| Radio Group | Group of radio inputs with items: array API | No | done |
+| Select | Native styled select with value/label pairs and blank option | No | done |
+| Switch | CSS-only toggle using checkbox + peer classes | No | done |
+| Toggle | Single pressable toggle button with pressed state | No | done |
+| Toggle Group | Group of toggles, single or multiple selection | No | done |
+| Form Field | Wraps label + input + hint + error into a consistent layout | No | done |
 | File Input | Styled file upload input | No | planned |
 | Search Input | Input with built-in search icon and clear button | No | planned |
 | Number Input | Input with increment/decrement controls | No | planned |

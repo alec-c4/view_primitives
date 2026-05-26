@@ -1,0 +1,24 @@
+# frozen_string_literal: true
+
+module UI
+  class InputComponent < ApplicationComponent
+    BASE = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm " \
+           "transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium " \
+           "placeholder:text-muted-foreground " \
+           "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring " \
+           "disabled:cursor-not-allowed disabled:opacity-50"
+
+    def initialize(type: "text", **html_attrs)
+      @type = type
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs = html_attrs
+    end
+
+    def call
+      content_tag(:input, nil,
+        type: @type,
+        class: cn(BASE, @extra_class),
+        **@html_attrs)
+    end
+  end
+end

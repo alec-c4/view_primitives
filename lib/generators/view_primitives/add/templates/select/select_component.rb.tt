@@ -1,0 +1,45 @@
+# frozen_string_literal: true
+
+module UI
+  class SelectComponent < ApplicationComponent
+    BASE = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm " \
+           "focus:outline-none focus:ring-1 focus:ring-ring " \
+           "disabled:cursor-not-allowed disabled:opacity-50"
+
+    # options: array of strings, or [value, label] pairs, or { value: label } hash
+    def initialize(options: [], selected: nil, include_blank: false, **html_attrs)
+      @options = options
+      @selected = selected
+      @include_blank = include_blank
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs = html_attrs
+    end
+
+    def call
+      content_tag(:select, class: cn(BASE, @extra_class), **@html_attrs) do
+        safe_join(option_tags)
+      end
+    end
+
+    private
+
+    def option_tags
+      tags = []
+      tags << content_tag(:option, "", value: "") if @include_blank
+      normalized_options.each do |(val, label)|
+        attrs = { value: val }
+        attrs[:selected] = true if val.to_s == @selected.to_s
+        tags << content_tag(:option, label, **attrs)
+      end
+      tags
+    end
+
+    def normalized_options
+      case @options
+      when Hash  then @options.map { |v, l| [v, l] }
+      when Array then @options.map { |o| o.is_a?(Array) ? o : [o, o] }
+      else []
+      end
+    end
+  end
+end

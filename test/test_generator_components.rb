@@ -8,7 +8,8 @@ class TestGeneratorComponents < Minitest::Test
     badge avatar card separator label skeleton progress aspect_ratio
     spinner kbd rating rating_input indicator list_group banner button_group
   ].freeze
-  ALL_COMPONENTS = (PHASE1 + PHASE2).freeze
+  PHASE3 = %w[input textarea checkbox radio_group select switch toggle toggle_group form_field].freeze
+  ALL_COMPONENTS = (PHASE1 + PHASE2 + PHASE3).freeze
 
   TEMPLATE_ROOT = File.expand_path("../lib/generators/view_primitives/add/templates", __dir__)
 

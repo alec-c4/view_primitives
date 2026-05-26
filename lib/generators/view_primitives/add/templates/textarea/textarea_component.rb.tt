@@ -1,0 +1,21 @@
+# frozen_string_literal: true
+
+module UI
+  class TextareaComponent < ApplicationComponent
+    BASE = "flex min-h-[80px] w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm " \
+           "placeholder:text-muted-foreground " \
+           "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring " \
+           "disabled:cursor-not-allowed disabled:opacity-50"
+
+    def initialize(**html_attrs)
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs = html_attrs
+    end
+
+    def call
+      content_tag(:textarea, content,
+        class: cn(BASE, @extra_class),
+        **@html_attrs)
+    end
+  end
+end

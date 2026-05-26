@@ -1,0 +1,51 @@
+# frozen_string_literal: true
+
+module UI
+  # Wraps a label + input + optional hint and error message into a consistent field layout.
+  #
+  # Usage:
+  #   <%= ui "form_field", label: "Email", error: @user.errors[:email].first do %>
+  #     <%= ui "input", type: "email", name: "user[email]", id: "user_email" %>
+  #   <% end %>
+  class FormFieldComponent < ApplicationComponent
+    def initialize(label: nil, hint: nil, error: nil, required: false, **html_attrs)
+      @label = label
+      @hint = hint
+      @error = error
+      @required = required
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs = html_attrs
+    end
+
+    def call
+      content_tag(:div, class: cn("space-y-1.5", @extra_class), **@html_attrs) do
+        concat field_label if @label
+        concat content
+        concat hint_tag if @hint && @error.blank?
+        concat error_tag if @error.present?
+      end
+    end
+
+    private
+
+    def field_label
+      content_tag(:label,
+        label_text,
+        class: "text-sm font-medium leading-none")
+    end
+
+    def label_text
+      return @label unless @required
+
+      safe_join([@label, content_tag(:span, " *", class: "text-destructive")])
+    end
+
+    def hint_tag
+      content_tag(:p, @hint, class: "text-xs text-muted-foreground")
+    end
+
+    def error_tag
+      content_tag(:p, @error, class: "text-xs text-destructive", role: "alert")
+    end
+  end
+end
