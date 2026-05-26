@@ -15,16 +15,16 @@ Creates 6 files under `app/components/ui/`: `card_component.rb`, `card_header_co
 ## Usage
 
 ```erb
-<%= ui "card" do %>
-  <%= ui "card_header" do %>
-    <%= ui "card_title", "Account Settings" %>
-    <%= ui "card_description", "Manage your account preferences." %>
+<%= ui :card do %>
+  <%= ui :card_header do %>
+    <%= ui :card_title, "Account Settings" %>
+    <%= ui :card_description, "Manage your account preferences." %>
   <% end %>
-  <%= ui "card_content" do %>
+  <%= ui :card_content do %>
     <p>Content goes here.</p>
   <% end %>
-  <%= ui "card_footer" do %>
-    <%= ui "button", "Save" %>
+  <%= ui :card_footer do %>
+    <%= ui :button, "Save" %>
   <% end %>
 <% end %>
 ```

@@ -14,13 +14,13 @@ Creates `app/components/ui/kbd_component.rb`.
 
 ```erb
 <%# Positional key label %>
-<%= ui "kbd", "⌘" %>
+<%= ui :kbd, "⌘" %>
 
 <%# Keyword label %>
-<%= ui "kbd", label: "Enter" %>
+<%= ui :kbd, label: "Enter" %>
 
 <%# Block content %>
-<%= ui "kbd" do %>Ctrl<% end %>
+<%= ui :kbd do %>Ctrl<% end %>
 ```
 
 ## Shortcut combinations
@@ -29,7 +29,7 @@ Render multiple `KbdComponent`s inline with separator text:
 
 ```erb
 <span class="text-sm text-muted-foreground">
-  Press <%= ui "kbd", "⌘" %> + <%= ui "kbd", "K" %> to open search.
+  Press <%= ui :kbd, "⌘" %> + <%= ui :kbd, "K" %> to open search.
 </span>
 ```
 

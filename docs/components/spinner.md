@@ -13,7 +13,7 @@ Creates `app/components/ui/spinner_component.rb`.
 ## Usage
 
 ```erb
-<%= ui "spinner" %>
+<%= ui :spinner %>
 ```
 
 ## Sizes
@@ -25,16 +25,16 @@ Creates `app/components/ui/spinner_component.rb`.
 | `lg` | `size-10` |
 
 ```erb
-<%= ui "spinner", size: :sm %>
-<%= ui "spinner" %>
-<%= ui "spinner", size: :lg %>
+<%= ui :spinner, size: :sm %>
+<%= ui :spinner %>
+<%= ui :spinner, size: :lg %>
 ```
 
 ## Loading button
 
 ```erb
-<%= ui "button", variant: :outline, disabled: true do %>
-  <%= ui "spinner", size: :sm, class: "mr-2" %>
+<%= ui :button, variant: :outline, disabled: true do %>
+  <%= ui :spinner, size: :sm, class: "mr-2" %>
   Saving…
 <% end %>
 ```

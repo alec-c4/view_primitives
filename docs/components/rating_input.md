@@ -24,7 +24,7 @@ application.register("rating", RatingController)
 ### Standalone (no submission)
 
 ```erb
-<%= ui "rating_input", value: 3 %>
+<%= ui :rating_input, value: 3 %>
 ```
 
 ### Inside a form
@@ -33,7 +33,7 @@ Pass `name:` to render a hidden `<input>` that is submitted with the form:
 
 ```erb
 <%= form_with url: reviews_path do |f| %>
-  <%= ui "rating_input", value: 0, name: "review[rating]" %>
+  <%= ui :rating_input, value: 0, name: "review[rating]" %>
   <%= f.submit "Submit" %>
 <% end %>
 ```
@@ -43,7 +43,7 @@ Pass `name:` to render a hidden `<input>` that is submitted with the form:
 Pass `url:` to have the controller `POST { value: N }` as JSON on every click:
 
 ```erb
-<%= ui "rating_input", value: @post.rating, url: rate_post_path(@post) %>
+<%= ui :rating_input, value: @post.rating, url: rate_post_path(@post) %>
 ```
 
 Server receives: `{ "value" => 4 }` with `Content-Type: application/json` and the CSRF token.

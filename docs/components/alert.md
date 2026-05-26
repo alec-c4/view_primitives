@@ -14,10 +14,10 @@ Creates `app/components/ui/alert_component.rb`.
 
 ```erb
 <%# Kwargs — plain text, no block needed %>
-<%= ui "alert", title: "Heads up!", description: "You can change this in your account settings." %>
+<%= ui :alert, title: "Heads up!", description: "You can change this in your account settings." %>
 
 <%# Slots — for rich HTML content %>
-<%= ui "alert" do |alert| %>
+<%= ui :alert do |alert| %>
   <% alert.with_alert_title { "Heads up!" } %>
   <% alert.with_alert_description { "You can change this in your account settings." } %>
 <% end %>
@@ -33,11 +33,11 @@ Slots take precedence over kwargs when both are provided.
 | `destructive` | Error or danger — uses `--destructive` colour |
 
 ```erb
-<%= ui "alert", variant: :default,
+<%= ui :alert, variant: :default,
                 title: "Note",
                 description: "Your free trial expires in 3 days." %>
 
-<%= ui "alert", variant: :destructive,
+<%= ui :alert, variant: :destructive,
                 title: "Error",
                 description: "Your session has expired. Please log in again." %>
 ```
@@ -48,10 +48,10 @@ Use slots when the content contains HTML, links, or other components:
 
 ```erb
 <%# Title only %>
-<%= ui "alert", title: "Maintenance scheduled for Sunday 02:00 UTC." %>
+<%= ui :alert, title: "Maintenance scheduled for Sunday 02:00 UTC." %>
 
 <%# Rich description via slot %>
-<%= ui "alert", title: "Action required" do |alert| %>
+<%= ui :alert, title: "Action required" do |alert| %>
   <% alert.with_alert_description do %>
     Please <%= link_to "update your billing info", billing_path %> before Friday.
   <% end %>
@@ -63,7 +63,7 @@ Use slots when the content contains HTML, links, or other components:
 Place an SVG before the slots. The component shifts content right automatically via `[&>svg~*]:pl-7`:
 
 ```erb
-<%= ui "alert", variant: :destructive do |alert| %>
+<%= ui :alert, variant: :destructive do |alert| %>
   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" ...>...</svg>
   <% alert.with_alert_title { "Error" } %>
   <% alert.with_alert_description { "Something went wrong." } %>
@@ -75,7 +75,7 @@ Place an SVG before the slots. The component shifts content right automatically 
 ```erb
 <%# app/views/shared/_flash.html.erb %>
 <% flash.each do |type, message| %>
-  <%= ui "alert", variant: flash_variant(type), description: message %>
+  <%= ui :alert, variant: flash_variant(type), description: message %>
 <% end %>
 ```
 

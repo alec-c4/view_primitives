@@ -14,13 +14,13 @@ Creates `app/components/ui/badge_component.rb`.
 
 ```erb
 <%# Positional label %>
-<%= ui "badge", "New" %>
+<%= ui :badge, "New" %>
 
 <%# Keyword label %>
-<%= ui "badge", label: "Draft" %>
+<%= ui :badge, label: "Draft" %>
 
 <%# Block content %>
-<%= ui "badge" do %>In Review<% end %>
+<%= ui :badge do %>In Review<% end %>
 ```
 
 ## Variants
@@ -33,10 +33,10 @@ Creates `app/components/ui/badge_component.rb`.
 | `outline` | Border only, transparent background |
 
 ```erb
-<%= ui "badge", "Active",   variant: :default %>
-<%= ui "badge", "Draft",    variant: :secondary %>
-<%= ui "badge", "Removed",  variant: :destructive %>
-<%= ui "badge", "Pending",  variant: :outline %>
+<%= ui :badge, "Active",   variant: :default %>
+<%= ui :badge, "Draft",    variant: :secondary %>
+<%= ui :badge, "Removed",  variant: :destructive %>
+<%= ui :badge, "Pending",  variant: :outline %>
 ```
 
 ## API

@@ -14,13 +14,13 @@ Creates `app/components/ui/banner_component.rb`.
 
 ```erb
 <%# Positional message %>
-<%= ui "banner", "We just released version 2.0!" %>
+<%= ui :banner, "We just released version 2.0!" %>
 
 <%# Keyword message %>
-<%= ui "banner", message: "Scheduled maintenance on Sunday." %>
+<%= ui :banner, message: "Scheduled maintenance on Sunday." %>
 
 <%# Block content with a link %>
-<%= ui "banner", variant: :info do %>
+<%= ui :banner, variant: :info do %>
   New components are available.
   <a href="/changelog" class="ml-1 font-medium underline underline-offset-4">View changelog</a>
 <% end %>
@@ -37,10 +37,10 @@ Creates `app/components/ui/banner_component.rb`.
 | `success` | Green tones |
 
 ```erb
-<%= ui "banner", "Trial expires in 3 days.",          variant: :warning %>
-<%= ui "banner", "Payment failed. Update billing.",   variant: :destructive %>
-<%= ui "banner", "Deployment succeeded.",             variant: :success %>
-<%= ui "banner", "Read the updated privacy policy.",  variant: :info %>
+<%= ui :banner, "Trial expires in 3 days.",          variant: :warning %>
+<%= ui :banner, "Payment failed. Update billing.",   variant: :destructive %>
+<%= ui :banner, "Deployment succeeded.",             variant: :success %>
+<%= ui :banner, "Read the updated privacy policy.",  variant: :info %>
 ```
 
 ## API

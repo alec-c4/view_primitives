@@ -14,10 +14,10 @@ Creates `app/components/ui/button_component.rb`.
 
 ```erb
 <%# Positional label — no block needed %>
-<%= ui "button", "Save changes" %>
+<%= ui :button, "Save changes" %>
 
 <%# Block — for icons or complex content %>
-<%= ui "button" do %>Save changes<% end %>
+<%= ui :button do %>Save changes<% end %>
 ```
 
 ## Variants
@@ -32,12 +32,12 @@ Creates `app/components/ui/button_component.rb`.
 | `link` | Looks like a text link, no border or background |
 
 ```erb
-<%= ui "button", "Save",   variant: :default %>
-<%= ui "button", "Delete", variant: :destructive %>
-<%= ui "button", "Cancel", variant: :outline %>
-<%= ui "button", "Draft",  variant: :secondary %>
-<%= ui "button", "Skip",   variant: :ghost %>
-<%= ui "button", "More",   variant: :link %>
+<%= ui :button, "Save",   variant: :default %>
+<%= ui :button, "Delete", variant: :destructive %>
+<%= ui :button, "Cancel", variant: :outline %>
+<%= ui :button, "Draft",  variant: :secondary %>
+<%= ui :button, "Skip",   variant: :ghost %>
+<%= ui :button, "More",   variant: :link %>
 ```
 
 ## Sizes
@@ -50,10 +50,10 @@ Creates `app/components/ui/button_component.rb`.
 | `icon` | Square (`size-9`), for icon-only buttons |
 
 ```erb
-<%= ui "button", "Small",  size: :sm %>
-<%= ui "button", "Normal", size: :default %>
-<%= ui "button", "Large",  size: :lg %>
-<%= ui "button", size: :icon do %><!-- svg --><% end %>
+<%= ui :button, "Small",  size: :sm %>
+<%= ui :button, "Normal", size: :default %>
+<%= ui :button, "Large",  size: :lg %>
+<%= ui :button, size: :icon do %><!-- svg --><% end %>
 ```
 
 ## Links
@@ -61,16 +61,16 @@ Creates `app/components/ui/button_component.rb`.
 Pass `href:` to render an `<a>` tag automatically:
 
 ```erb
-<%= ui "button", "Go home",      href: root_path %>
-<%= ui "button", "Edit profile", href: edit_profile_path, variant: :ghost %>
-<%= ui "button", "Delete",       href: item_path(@item), variant: :destructive,
+<%= ui :button, "Go home",      href: root_path %>
+<%= ui :button, "Edit profile", href: edit_profile_path, variant: :ghost %>
+<%= ui :button, "Delete",       href: item_path(@item), variant: :destructive,
                                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 ```
 
 To use a different element explicitly, use `tag:`:
 
 ```erb
-<%= ui "button", tag: :a, href: root_path do %>Home<% end %>
+<%= ui :button, tag: :a, href: root_path do %>Home<% end %>
 ```
 
 ## HTML attributes
@@ -78,9 +78,9 @@ To use a different element explicitly, use `tag:`:
 Any extra keyword arguments are forwarded to the element:
 
 ```erb
-<%= ui "button", "Submit", disabled: true %>
-<%= ui "button", "Confirm", data: { turbo_confirm: "Are you sure?" } %>
-<%= ui "button", "Submit", form: "my-form", type: "submit" %>
+<%= ui :button, "Submit", disabled: true %>
+<%= ui :button, "Confirm", data: { turbo_confirm: "Are you sure?" } %>
+<%= ui :button, "Submit", form: "my-form", type: "submit" %>
 ```
 
 ## API

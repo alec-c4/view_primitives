@@ -14,13 +14,13 @@ Creates `app/components/ui/progress_component.rb`.
 
 ```erb
 <%# 40% complete %>
-<%= ui "progress", value: 40 %>
+<%= ui :progress, value: 40 %>
 
 <%# Custom max %>
-<%= ui "progress", value: 3, max: 10 %>
+<%= ui :progress, value: 3, max: 10 %>
 
 <%# Custom width %>
-<%= ui "progress", value: 75, class: "w-64" %>
+<%= ui :progress, value: 75, class: "w-64" %>
 ```
 
 ## Behaviour

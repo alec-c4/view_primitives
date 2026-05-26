@@ -14,17 +14,17 @@ Creates `app/components/ui/aspect_ratio_component.rb`.
 
 ```erb
 <%# 16:9 video embed %>
-<%= ui "aspect_ratio", ratio: 16.0/9 do %>
+<%= ui :aspect_ratio, ratio: 16.0/9 do %>
   <iframe src="..." class="size-full"></iframe>
 <% end %>
 
 <%# Square image %>
-<%= ui "aspect_ratio", ratio: 1 do %>
+<%= ui :aspect_ratio, ratio: 1 do %>
   <%= image_tag "photo.jpg", class: "size-full object-cover" %>
 <% end %>
 
 <%# 4:3 thumbnail %>
-<%= ui "aspect_ratio", ratio: 4.0/3 do %>
+<%= ui :aspect_ratio, ratio: 4.0/3 do %>
   <%= image_tag "thumbnail.jpg", class: "size-full object-cover" %>
 <% end %>
 ```

@@ -14,13 +14,13 @@ Creates `app/components/ui/avatar_component.rb`.
 
 ```erb
 <%# Image avatar %>
-<%= ui "avatar", src: user.avatar_url, alt: user.name %>
+<%= ui :avatar, src: user.avatar_url, alt: user.name %>
 
 <%# Fallback to initials when no image %>
-<%= ui "avatar", fallback: "Jane Doe" %>
+<%= ui :avatar, fallback: "Jane Doe" %>
 
 <%# Explicit fallback text (overrides alt for initials) %>
-<%= ui "avatar", src: nil, alt: "John Smith", fallback: "John Smith" %>
+<%= ui :avatar, src: nil, alt: "John Smith", fallback: "John Smith" %>
 ```
 
 ## Sizes
@@ -32,9 +32,9 @@ Creates `app/components/ui/avatar_component.rb`.
 | `lg` | `size-12` | Large (48px) |
 
 ```erb
-<%= ui "avatar", src: url, size: :sm %>
-<%= ui "avatar", src: url, size: :default %>
-<%= ui "avatar", src: url, size: :lg %>
+<%= ui :avatar, src: url, size: :sm %>
+<%= ui :avatar, src: url, size: :default %>
+<%= ui :avatar, src: url, size: :lg %>
 ```
 
 ## API

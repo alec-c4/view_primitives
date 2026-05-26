@@ -14,13 +14,13 @@ Creates `app/components/ui/separator_component.rb`.
 
 ```erb
 <%# Horizontal (default) %>
-<%= ui "separator" %>
+<%= ui :separator %>
 
 <%# Vertical %>
-<%= ui "separator", orientation: :vertical %>
+<%= ui :separator, orientation: :vertical %>
 
 <%# Non-decorative (semantic separator for screen readers) %>
-<%= ui "separator", decorative: false %>
+<%= ui :separator, decorative: false %>
 ```
 
 ## API

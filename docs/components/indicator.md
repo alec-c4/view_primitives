@@ -14,13 +14,13 @@ Creates `app/components/ui/indicator_component.rb`.
 
 ```erb
 <%# Online dot over an avatar %>
-<%= ui "indicator", variant: :success do %>
-  <%= ui "avatar", fallback: "Alice" %>
+<%= ui :indicator, variant: :success do %>
+  <%= ui :avatar, fallback: "Alice" %>
 <% end %>
 
 <%# Notification count on a button %>
-<%= ui "indicator", count: 3 do %>
-  <%= ui "button", "Inbox", variant: :outline %>
+<%= ui :indicator, count: 3 do %>
+  <%= ui :button, "Inbox", variant: :outline %>
 <% end %>
 ```
 
@@ -43,8 +43,8 @@ Creates `app/components/ui/indicator_component.rb`.
 | `bottom_left` | Bottom-left corner |
 
 ```erb
-<%= ui "indicator", variant: :destructive, position: :bottom_right do %>
-  <%= ui "avatar", fallback: "Bob" %>
+<%= ui :indicator, variant: :destructive, position: :bottom_right do %>
+  <%= ui :avatar, fallback: "Bob" %>
 <% end %>
 ```
 

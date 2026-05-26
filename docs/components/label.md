@@ -14,13 +14,13 @@ Creates `app/components/ui/label_component.rb`.
 
 ```erb
 <%# Positional text %>
-<%= ui "label", "Email address", for: "email" %>
+<%= ui :label, "Email address", for: "email" %>
 
 <%# Keyword label %>
-<%= ui "label", label: "Password", for: "password" %>
+<%= ui :label, label: "Password", for: "password" %>
 
 <%# Block content (for rich labels) %>
-<%= ui "label", for: "terms" do %>
+<%= ui :label, for: "terms" do %>
   I accept the <a href="/terms">terms of service</a>
 <% end %>
 ```

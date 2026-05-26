@@ -14,16 +14,16 @@ Creates `app/components/ui/skeleton_component.rb`.
 
 ```erb
 <%# Text line placeholder %>
-<%= ui "skeleton", class: "h-4 w-48" %>
+<%= ui :skeleton, class: "h-4 w-48" %>
 
 <%# Avatar placeholder %>
-<%= ui "skeleton", class: "size-10 rounded-full" %>
+<%= ui :skeleton, class: "size-10 rounded-full" %>
 
 <%# Card placeholder %>
 <div class="space-y-2">
-  <%= ui "skeleton", class: "h-4 w-full" %>
-  <%= ui "skeleton", class: "h-4 w-3/4" %>
-  <%= ui "skeleton", class: "h-4 w-1/2" %>
+  <%= ui :skeleton, class: "h-4 w-full" %>
+  <%= ui :skeleton, class: "h-4 w-3/4" %>
+  <%= ui :skeleton, class: "h-4 w-1/2" %>
 </div>
 ```
 

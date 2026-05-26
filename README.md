@@ -55,13 +55,13 @@ ViewPrimitives automatically adds two helpers to all views:
 
 ```erb
 <%# Positional label — no block needed %>
-<%= ui "button", "Save changes", variant: :outline %>
-<%= ui "alert", title: "Heads up!", description: "Check your settings." %>
-<%= ui "accordion", items: [{ title: "FAQ", content: "Answer here." }] %>
+<%= ui :button, "Save changes", variant: :outline %>
+<%= ui :alert, title: "Heads up!", description: "Check your settings." %>
+<%= ui :accordion, items: [{ title: "FAQ", content: "Answer here." }] %>
 
 <%# Block — for icons, slots, or complex content %>
-<%= ui "button" do %><svg .../> Save<% end %>
-<%= ui "alert" do |a| %><% a.with_alert_title { "Note" } %><% end %>
+<%= ui :button do %><svg .../> Save<% end %>
+<%= ui :alert do |a| %><% a.with_alert_title { "Note" } %><% end %>
 
 <%# Any component by namespaced path %>
 <%= component "ui/button", "Go back", href: root_path %>
@@ -108,8 +108,6 @@ ViewPrimitives automatically adds two helpers to all views:
 ### Coming soon
 
 See [ROADMAP.md](ROADMAP.md) for the full planned component list organised by phase.
-
-See [ROADMAP.md](ROADMAP.md) for the full list organised by release phase.
 
 ## Customisation
 

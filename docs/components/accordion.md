@@ -18,14 +18,14 @@ Creates:
 
 ```erb
 <%# items: array — plain text, no block needed %>
-<%= ui "accordion", items: [
+<%= ui :accordion, items: [
   { title: "What is ViewPrimitives?",      content: "A shadcn-inspired component library for Rails." },
   { title: "Do I need to configure it?",   content: "No. Works with any Tailwind setup." },
   { title: "Can I customise the styles?",  content: "Yes — the files are yours to edit." }
 ] %>
 
 <%# Slot API — for rich HTML inside items %>
-<%= ui "accordion" do |accordion| %>
+<%= ui :accordion do |accordion| %>
   <% accordion.with_item(title: "What is ViewPrimitives?") do %>
     A shadcn-inspired component library for Rails using ViewComponent and Tailwind.
   <% end %>
@@ -38,13 +38,13 @@ Pass `open: true` in the data hash or slot:
 
 ```erb
 <%# Data array %>
-<%= ui "accordion", items: [
+<%= ui :accordion, items: [
   { title: "Expanded on load", content: "Visible immediately.", open: true },
   { title: "Collapsed",        content: "Click to expand." }
 ] %>
 
 <%# Slot API %>
-<%= ui "accordion" do |accordion| %>
+<%= ui :accordion do |accordion| %>
   <% accordion.with_item(title: "Expanded on load", open: true) do %>
     Visible immediately.
   <% end %>
@@ -56,7 +56,7 @@ Pass `open: true` in the data hash or slot:
 Use the slot API when items contain HTML, links, or other components:
 
 ```erb
-<%= ui "accordion" do |accordion| %>
+<%= ui :accordion do |accordion| %>
   <% accordion.with_item(title: "Pricing") do %>
     <ul class="list-disc pl-4 space-y-1">
       <li>Starter — free forever</li>
@@ -73,14 +73,14 @@ Pass `exclusive: true` to close all other items when one opens. Powered by a Sti
 
 ```erb
 <%# items: array %>
-<%= ui "accordion", exclusive: true, items: [
+<%= ui :accordion, exclusive: true, items: [
   { title: "First",  content: "Opening this closes the others." },
   { title: "Second", content: "No page reload, no Turbo frames." },
   { title: "Third",  content: "Works with the slot API too." }
 ] %>
 
 <%# Slot API %>
-<%= ui "accordion", exclusive: true do |accordion| %>
+<%= ui :accordion, exclusive: true do |accordion| %>
   <% accordion.with_item(title: "One") do %>Content<% end %>
   <% accordion.with_item(title: "Two", open: true) do %>Starts open<% end %>
   <% accordion.with_item(title: "Three") do %>Content<% end %>

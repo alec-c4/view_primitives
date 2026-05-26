@@ -13,10 +13,10 @@ Creates `app/components/ui/button_group_component.rb`.
 ## Usage
 
 ```erb
-<%= ui "button_group" do %>
-  <%= ui "button", "Previous", variant: :outline %>
-  <%= ui "button", "Current",  variant: :outline %>
-  <%= ui "button", "Next",     variant: :outline %>
+<%= ui :button_group do %>
+  <%= ui :button, "Previous", variant: :outline %>
+  <%= ui :button, "Current",  variant: :outline %>
+  <%= ui :button, "Next",     variant: :outline %>
 <% end %>
 ```
 
@@ -25,10 +25,10 @@ Creates `app/components/ui/button_group_component.rb`.
 Each child button can use a different variant:
 
 ```erb
-<%= ui "button_group" do %>
-  <%= ui "button", "Copy",   variant: :secondary %>
-  <%= ui "button", "Paste",  variant: :secondary %>
-  <%= ui "button", "Delete", variant: :destructive %>
+<%= ui :button_group do %>
+  <%= ui :button, "Copy",   variant: :secondary %>
+  <%= ui :button, "Paste",  variant: :secondary %>
+  <%= ui :button, "Delete", variant: :destructive %>
 <% end %>
 ```
 

@@ -95,7 +95,7 @@ VARIANTS = {
 Then use it:
 
 ```erb
-<%= ui "button", "Subscribe", variant: :brand %>
+<%= ui :button, "Subscribe", variant: :brand %>
 ```
 
 ### Adding a variant to Badge
@@ -132,13 +132,13 @@ Pass `class:` to any component to append Tailwind utilities to the generated cla
 
 ```erb
 <%# Wider button %>
-<%= ui "button", "Continue", class: "w-full" %>
+<%= ui :button, "Continue", class: "w-full" %>
 
 <%# Tighter card %>
-<%= ui "card", class: "p-3 gap-3" %>
+<%= ui :card, class: "p-3 gap-3" %>
 
 <%# Muted badge with extra spacing %>
-<%= ui "badge", "Draft", variant: :outline, class: "ml-2 opacity-60" %>
+<%= ui :badge, "Draft", variant: :outline, class: "ml-2 opacity-60" %>
 ```
 
 This works because all components pass `@extra_class` last through the `cn()` helper, which joins and deduplicates class names.

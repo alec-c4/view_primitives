@@ -13,14 +13,14 @@ Creates `app/components/ui/rating_component.rb`.
 ## Usage
 
 ```erb
-<%= ui "rating", value: 4 %>
+<%= ui :rating, value: 4 %>
 ```
 
 ## Custom max
 
 ```erb
 <%# 7 out of 10 %>
-<%= ui "rating", value: 7, max: 10 %>
+<%= ui :rating, value: 7, max: 10 %>
 ```
 
 ## API

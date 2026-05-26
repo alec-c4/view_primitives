@@ -15,11 +15,11 @@ Creates:
 ## Usage
 
 ```erb
-<%= ui "list_group" do %>
-  <%= ui "list_group_item", "Dashboard" %>
-  <%= ui "list_group_item", "Settings", active: true %>
-  <%= ui "list_group_item", "Billing" %>
-  <%= ui "list_group_item", "Help", variant: :muted %>
+<%= ui :list_group do %>
+  <%= ui :list_group_item, "Dashboard" %>
+  <%= ui :list_group_item, "Settings", active: true %>
+  <%= ui :list_group_item, "Billing" %>
+  <%= ui :list_group_item, "Help", variant: :muted %>
 <% end %>
 ```
 
@@ -28,18 +28,18 @@ Creates:
 Pass `href:` to render each item as an `<a>` tag:
 
 ```erb
-<%= ui "list_group" do %>
-  <%= ui "list_group_item", "Home",     href: "/" %>
-  <%= ui "list_group_item", "Profile",  href: "/profile", active: true %>
-  <%= ui "list_group_item", "Logout",   href: "/logout" %>
+<%= ui :list_group do %>
+  <%= ui :list_group_item, "Home",     href: "/" %>
+  <%= ui :list_group_item, "Profile",  href: "/profile", active: true %>
+  <%= ui :list_group_item, "Logout",   href: "/logout" %>
 <% end %>
 ```
 
 ## Rich content via block
 
 ```erb
-<%= ui "list_group" do %>
-  <%= ui "list_group_item" do %>
+<%= ui :list_group do %>
+  <%= ui :list_group_item do %>
     <span class="font-medium">Alice</span>
     <span class="text-muted-foreground text-xs">Online</span>
   <% end %>
