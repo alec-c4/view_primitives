@@ -104,6 +104,13 @@ ViewPrimitives automatically adds two helpers to all views:
 | Toggle | Single pressable toggle button | — |
 | Toggle Group | Group of related toggles (single or multiple) | — |
 | Form Field | Label + input + hint + error layout wrapper | — |
+| Breadcrumb | Navigational breadcrumb trail with separator | — |
+| Pagination | Page number links with prev/next and ellipsis | — |
+| Stepper | Multi-step progress indicator (horizontal + vertical) | — |
+| Tabs | Tab bar with content panels (array API + slot API) | — |
+| Navbar | Responsive top navigation bar with hamburger menu | — |
+| Bottom Nav | Mobile-style tab bar fixed to the bottom | — |
+| Footer | Page footer with columns, links, and copyright | — |
 
 ### Coming soon
 

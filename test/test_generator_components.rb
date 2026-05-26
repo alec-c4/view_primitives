@@ -9,7 +9,8 @@ class TestGeneratorComponents < Minitest::Test
     spinner kbd rating rating_input indicator list_group banner button_group
   ].freeze
   PHASE3 = %w[input textarea checkbox radio_group select switch toggle toggle_group form_field].freeze
-  ALL_COMPONENTS = (PHASE1 + PHASE2 + PHASE3).freeze
+  PHASE4 = %w[breadcrumb pagination stepper bottom_nav footer tabs navbar].freeze
+  ALL_COMPONENTS = (PHASE1 + PHASE2 + PHASE3 + PHASE4).freeze
 
   TEMPLATE_ROOT = File.expand_path("../lib/generators/view_primitives/add/templates", __dir__)
 
@@ -98,5 +99,27 @@ class TestGeneratorComponents < Minitest::Test
     js_file = File.join(TEMPLATE_ROOT, "rating_input", "rating_controller.js")
 
     assert_path_exists js_file, "rating_input should include rating_controller.js"
+  end
+
+  def test_tabs_copies_two_rb_tt_files
+    files = Dir[File.join(TEMPLATE_ROOT, "tabs", "*.rb.tt")]
+
+    assert_operator files.size, :>=, 2,
+      "tabs should have tabs_component and tabs_item_component templates"
+  end
+
+  def test_tabs_has_html_erb_template
+    assert_path_exists File.join(TEMPLATE_ROOT, "tabs", "tabs_component.html.erb"),
+      "tabs should include tabs_component.html.erb"
+  end
+
+  def test_tabs_has_js_controller
+    assert_path_exists File.join(TEMPLATE_ROOT, "tabs", "tabs_controller.js"),
+      "tabs should include tabs_controller.js"
+  end
+
+  def test_navbar_has_js_controller
+    assert_path_exists File.join(TEMPLATE_ROOT, "navbar", "navbar_controller.js"),
+      "navbar should include navbar_controller.js"
   end
 end

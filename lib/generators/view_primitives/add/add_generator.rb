@@ -16,6 +16,7 @@ module ViewPrimitives
         badge avatar card separator label skeleton progress aspect_ratio
         spinner kbd rating rating_input indicator list_group banner button_group
         input textarea checkbox radio_group select switch toggle toggle_group form_field
+        breadcrumb pagination stepper bottom_nav footer tabs navbar
       ].freeze
 
       def copy_components
@@ -207,6 +208,47 @@ module ViewPrimitives
       def copy_form_field
         template "form_field/form_field_component.rb.tt",
           "app/components/ui/form_field_component.rb"
+      end
+
+      def copy_breadcrumb
+        template "breadcrumb/breadcrumb_component.rb.tt",
+          "app/components/ui/breadcrumb_component.rb"
+      end
+
+      def copy_pagination
+        template "pagination/pagination_component.rb.tt",
+          "app/components/ui/pagination_component.rb"
+      end
+
+      def copy_stepper
+        template "stepper/stepper_component.rb.tt",
+          "app/components/ui/stepper_component.rb"
+      end
+
+      def copy_bottom_nav
+        template "bottom_nav/bottom_nav_component.rb.tt",
+          "app/components/ui/bottom_nav_component.rb"
+      end
+
+      def copy_footer
+        template "footer/footer_component.rb.tt",
+          "app/components/ui/footer_component.rb"
+      end
+
+      def copy_tabs
+        template "tabs/tabs_component.rb.tt",
+          "app/components/ui/tabs_component.rb"
+        template "tabs/tabs_item_component.rb.tt",
+          "app/components/ui/tabs_item_component.rb"
+        copy_file "tabs/tabs_component.html.erb",
+          "app/components/ui/tabs_component.html.erb"
+        copy_js_controller "tabs/tabs_controller.js", "tabs"
+      end
+
+      def copy_navbar
+        template "navbar/navbar_component.rb.tt",
+          "app/components/ui/navbar_component.rb"
+        copy_js_controller "navbar/navbar_controller.js", "navbar"
       end
     end
   end

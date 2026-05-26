@@ -1,0 +1,50 @@
+<%= tag.div(
+  class: cn("w-full", @extra_class),
+  data: { controller: "tabs", tabs_index_value: @default_index },
+  **@html_attrs
+) do %>
+  <div role="tablist"
+       class="inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
+    <% @items_data.each_with_index do |item, i| %>
+      <button type="button"
+              role="tab"
+              data-action="click->tabs#select"
+              data-tabs-index-param="<%= i %>"
+              data-tabs-target="trigger"
+              data-state="<%= i == @default_index ? 'active' : 'inactive' %>"
+              aria-selected="<%= i == @default_index %>"
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow">
+        <%= item[:title] %>
+      </button>
+    <% end %>
+    <% tabs.each_with_index do |tab, i| %>
+      <button type="button"
+              role="tab"
+              data-action="click->tabs#select"
+              data-tabs-index-param="<%= @items_data.size + i %>"
+              data-tabs-target="trigger"
+              data-state="<%= (@items_data.size + i) == @default_index ? 'active' : 'inactive' %>"
+              aria-selected="<%= (@items_data.size + i) == @default_index %>"
+              class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow">
+        <%= tab.title %>
+      </button>
+    <% end %>
+  </div>
+
+  <% @items_data.each_with_index do |item, i| %>
+    <div role="tabpanel"
+         data-tabs-target="panel"
+         class="mt-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+         <%= i != @default_index ? "hidden" : "" %>>
+      <%= item[:content] %>
+    </div>
+  <% end %>
+  <% tabs.each_with_index do |tab, i| %>
+    <div role="tabpanel"
+         data-tabs-target="panel"
+         class="mt-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+         <%= (@items_data.size + i) != @default_index ? "hidden" : "" %>>
+      <%= tab.call %>
+    </div>
+  <% end %>
+<% end %>
