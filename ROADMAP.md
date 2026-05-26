@@ -5,6 +5,8 @@ No runtime dependency — Tailwind classes live in your files.
 
 Legend: JS = requires JavaScript | Status: done / planned
 
+**Media & semantic HTML** (Phase 9) — not styled shadcn blocks; ViewComponents that emit correct native markup (`<picture>`, `<video>`, …) with sensible defaults (`alt`, `loading`, `poster`, captions). Same `ui :picture` API; files still live in `app/components/ui/`.
+
 ---
 
 ## Phase 1 — Foundation
@@ -15,7 +17,7 @@ Legend: JS = requires JavaScript | Status: done / planned
 | add generator | Copies component files into app/components/ui/ | No | done |
 | Button | Clickable element with variants (default, destructive, outline, secondary, ghost, link) and sizes | No | done |
 | Alert | Informational banner with title and description slots, default and destructive variants | No | done |
-| Accordion | Collapsible content sections using native `<details>`/`<summary>`, no JS | No | done |
+| Accordion | Collapsible sections via `<details>`/`<summary>`; optional `exclusive:` mode uses Stimulus | Optional | done |
 
 ## Phase 2 — Display
 
@@ -121,3 +123,18 @@ Legend: JS = requires JavaScript | Status: done / planned
 | Sonner (Toast) | Stacked toast notifications | Yes | planned |
 | Timeline | Vertical timeline with event items | No | planned |
 | WYSIWYG | Rich text editor wrapper (e.g. Trix or Quill adapter) | Yes | planned |
+
+## Phase 9 — Media & semantic HTML
+
+Native elements where a component prevents structural mistakes and encodes MDN-style patterns. Composes with existing **Aspect Ratio**; distinct from **Avatar** (UI chrome) and **Gallery** (grid + lightbox, Phase 7).
+
+| Component | Description | JS needed | Status |
+|-----------|-------------|-----------|--------|
+| Picture | `<picture>` + `<source>` (`media`, `srcset`, `sizes`, `type`) + fallback `<img>`; art direction & modern formats (AVIF/WebP) | No | planned |
+| Video | `<video>` + `<source>`; `poster`, `controls`, `preload`, `playsinline`; optional `<track>` for captions/subtitles | Optional | planned |
+| Figure | `<figure>` + `<figcaption>`; slot for image/video/picture child | No | planned |
+| Image | Standalone responsive `<img>` with `srcset` / `sizes` when `<picture>` is overkill | No | planned |
+| Audio | `<audio>` + `<source>`; `controls`, `preload`; optional transcript link | No | planned |
+| Iframe | Sandboxed embed wrapper; required `title`, optional `loading="lazy"` | No | planned |
+| Track | `<track>` helper (VTT captions/subtitles/chapters) for Video | No | planned |
+| Map / Area | Image map + clickable regions (rare; low priority) | No | planned |

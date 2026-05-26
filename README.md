@@ -6,9 +6,9 @@ Components are **copied into your app** via a generator — not imported from a 
 
 ## Requirements
 
-- Ruby >= 3.2
-- Rails >= 7.0
-- [ViewComponent](https://viewcomponent.org)
+- Ruby >= 3.2 (developed with 4.0.5 — use [mise](https://mise.jdx.dev) or see `.ruby-version`)
+- Rails >= 7.1 (required by ViewComponent 4)
+- [ViewComponent](https://viewcomponent.org) >= 4.0
 - [Tailwind CSS](https://tailwindcss.com) (any setup)
 
 ## Installation
@@ -32,26 +32,34 @@ This will:
 Then import it in your Tailwind CSS entry point:
 
 ```css
-/* tailwindcss-rails  → app/assets/stylesheets/application.tailwind.css  */
+/* tailwindcss-rails  → app/assets/tailwind/application.css              */
+/* tailwind (legacy)  → app/assets/stylesheets/application.tailwind.css  */
 /* cssbundling/Vite   → app/javascript/application.css                    */
 
 @import "./view_primitives";
 ```
+
+The install generator auto-detects these entry points and injects the import when possible.
+
+### UI namespace
+
+Components live under `UI::` (files in `app/components/ui/`). The gem registers the `UI` acronym with ActiveSupport so `ui :button` resolves to `UI::ButtonComponent`.
 
 That's it — no `tailwind.config.js` required. Tailwind 4 reads the `@theme inline` block directly from the CSS.
 
 ## Adding components
 
 ```bash
+rails g view_primitives:list                         # available + installed status
 rails g view_primitives:add button
 rails g view_primitives:add button alert accordion   # multiple at once
 ```
 
-Each component is copied into `app/components/ui/` as plain Ruby and ERB files you own and can modify freely.
+Each component is copied into `app/components/ui/` as plain Ruby and ERB files you own and can modify freely. Re-running `add` overwrites existing files (a warning is printed). Unknown component names fail with a non-zero exit code.
 
 ## View helpers
 
-ViewPrimitives automatically adds two helpers to all views:
+ViewPrimitives adds the `ui` helper to views and mailers:
 
 ```erb
 <%# Positional label — no block needed %>
@@ -62,13 +70,9 @@ ViewPrimitives automatically adds two helpers to all views:
 <%# Block — for icons, slots, or complex content %>
 <%= ui :button do %><svg .../> Save<% end %>
 <%= ui :alert do |a| %><% a.with_alert_title { "Note" } %><% end %>
-
-<%# Any component by namespaced path %>
-<%= component "ui/button", "Go back", href: root_path %>
-<%= component "admin/stats_card", title: "Revenue" %>
 ```
 
-`ui` is a shorthand for the `UI::` namespace. `component` resolves any path. Both are equivalent to `render UI::ButtonComponent.new(...)` but shorter and consistent across all components.
+`ui` is shorthand for `render UI::SomeComponent.new(...)`. For components outside `app/components/ui/`, use `render` as usual.
 
 ## Components
 
@@ -122,6 +126,8 @@ ViewPrimitives automatically adds two helpers to all views:
 ### Coming soon
 
 See [ROADMAP.md](ROADMAP.md) for the full planned component list organised by phase.
+
+**Media & semantic HTML** (next focus): `picture`, `video`, `figure`, and related primitives — correct native markup via `ui :picture`, not just Tailwind wrappers.
 
 ## Customisation
 
