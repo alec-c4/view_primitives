@@ -57,6 +57,15 @@ load_tt "toggle/toggle_component.rb.tt"
 load_tt "toggle_group/toggle_group_component.rb.tt"
 load_tt "form_field/form_field_component.rb.tt"
 
+# Load Phase 5
+load_tt "dialog/dialog_component.rb.tt"
+load_tt "alert_dialog/alert_dialog_component.rb.tt"
+load_tt "sheet/sheet_component.rb.tt"
+load_tt "drawer/drawer_component.rb.tt"
+load_tt "popover/popover_component.rb.tt"
+load_tt "tooltip/tooltip_component.rb.tt"
+load_tt "hover_card/hover_card_component.rb.tt"
+
 # Load Phase 4
 load_tt "breadcrumb/breadcrumb_component.rb.tt"
 load_tt "pagination/pagination_component.rb.tt"
@@ -1191,5 +1200,204 @@ class TestNavbarComponent < Minitest::Test
     c = UI::NavbarComponent.new("data-testid": "main-nav")
 
     assert_equal "main-nav", c.instance_variable_get(:@html_attrs)[:"data-testid"]
+  end
+end
+
+# ---------------------------------------------------------------------------
+# Phase 5 — Overlays
+# ---------------------------------------------------------------------------
+
+class TestDialogComponent < Minitest::Test
+  def test_title_stored
+    c = UI::DialogComponent.new(title: "Edit Profile")
+
+    assert_equal "Edit Profile", c.instance_variable_get(:@title)
+  end
+
+  def test_description_stored
+    c = UI::DialogComponent.new(description: "Make changes here.")
+
+    assert_equal "Make changes here.", c.instance_variable_get(:@description)
+  end
+
+  def test_nil_title_default
+    c = UI::DialogComponent.new
+
+    assert_nil c.instance_variable_get(:@title)
+  end
+
+  def test_nil_description_default
+    c = UI::DialogComponent.new
+
+    assert_nil c.instance_variable_get(:@description)
+  end
+
+  def test_class_extracted
+    c = UI::DialogComponent.new(class: "max-w-sm")
+
+    assert_equal "max-w-sm", c.instance_variable_get(:@extra_class)
+  end
+end
+
+class TestAlertDialogComponent < Minitest::Test
+  def test_title_stored
+    c = UI::AlertDialogComponent.new(title: "Are you sure?")
+
+    assert_equal "Are you sure?", c.instance_variable_get(:@title)
+  end
+
+  def test_description_stored
+    c = UI::AlertDialogComponent.new(description: "This cannot be undone.")
+
+    assert_equal "This cannot be undone.", c.instance_variable_get(:@description)
+  end
+
+  def test_nil_defaults
+    c = UI::AlertDialogComponent.new
+
+    assert_nil c.instance_variable_get(:@title)
+    assert_nil c.instance_variable_get(:@description)
+  end
+end
+
+class TestSheetComponent < Minitest::Test
+  def test_default_side
+    c = UI::SheetComponent.new
+
+    assert_equal :right, c.instance_variable_get(:@side)
+  end
+
+  def test_custom_side
+    c = UI::SheetComponent.new(side: :left)
+
+    assert_equal :left, c.instance_variable_get(:@side)
+  end
+
+  def test_string_side_coerced_to_symbol
+    c = UI::SheetComponent.new(side: "bottom")
+
+    assert_equal :bottom, c.instance_variable_get(:@side)
+  end
+
+  def test_all_sides_defined
+    %i[right left top bottom].each do |side|
+      assert UI::SheetComponent::SIDES.key?(side), "Missing side #{side}"
+    end
+  end
+
+  def test_class_extracted
+    c = UI::SheetComponent.new(class: "text-sm")
+
+    assert_equal "text-sm", c.instance_variable_get(:@extra_class)
+  end
+end
+
+class TestDrawerComponent < Minitest::Test
+  def test_title_stored
+    c = UI::DrawerComponent.new(title: "Move to project")
+
+    assert_equal "Move to project", c.instance_variable_get(:@title)
+  end
+
+  def test_nil_title_default
+    c = UI::DrawerComponent.new
+
+    assert_nil c.instance_variable_get(:@title)
+  end
+
+  def test_class_extracted
+    c = UI::DrawerComponent.new(class: "max-h-[80vh]")
+
+    assert_equal "max-h-[80vh]", c.instance_variable_get(:@extra_class)
+  end
+end
+
+class TestPopoverComponent < Minitest::Test
+  def test_default_align
+    c = UI::PopoverComponent.new
+
+    assert_equal :start, c.instance_variable_get(:@align)
+  end
+
+  def test_default_side
+    c = UI::PopoverComponent.new
+
+    assert_equal :bottom, c.instance_variable_get(:@side)
+  end
+
+  def test_custom_align
+    c = UI::PopoverComponent.new(align: :center)
+
+    assert_equal :center, c.instance_variable_get(:@align)
+  end
+
+  def test_custom_side
+    c = UI::PopoverComponent.new(side: :top)
+
+    assert_equal :top, c.instance_variable_get(:@side)
+  end
+
+  def test_all_aligns_defined
+    %i[start center end].each do |align|
+      assert UI::PopoverComponent::ALIGN.key?(align), "Missing align #{align}"
+    end
+  end
+
+  def test_all_sides_defined
+    %i[bottom top left right].each do |side|
+      assert UI::PopoverComponent::SIDE.key?(side), "Missing side #{side}"
+    end
+  end
+end
+
+class TestTooltipComponent < Minitest::Test
+  def test_text_stored
+    c = UI::TooltipComponent.new(text: "Save your work")
+
+    assert_equal "Save your work", c.instance_variable_get(:@text)
+  end
+
+  def test_default_side
+    c = UI::TooltipComponent.new(text: "Hello")
+
+    assert_equal :top, c.instance_variable_get(:@side)
+  end
+
+  def test_custom_side
+    c = UI::TooltipComponent.new(text: "Hello", side: :bottom)
+
+    assert_equal :bottom, c.instance_variable_get(:@side)
+  end
+
+  def test_all_positions_defined
+    %i[top bottom left right].each do |side|
+      assert UI::TooltipComponent::POSITIONS.key?(side), "Missing position #{side}"
+    end
+  end
+end
+
+class TestHoverCardComponent < Minitest::Test
+  def test_default_side
+    c = UI::HoverCardComponent.new
+
+    assert_equal :bottom, c.instance_variable_get(:@side)
+  end
+
+  def test_custom_side
+    c = UI::HoverCardComponent.new(side: :top)
+
+    assert_equal :top, c.instance_variable_get(:@side)
+  end
+
+  def test_all_positions_defined
+    %i[bottom top left right].each do |side|
+      assert UI::HoverCardComponent::POSITIONS.key?(side), "Missing position #{side}"
+    end
+  end
+
+  def test_class_extracted
+    c = UI::HoverCardComponent.new(class: "w-80")
+
+    assert_equal "w-80", c.instance_variable_get(:@extra_class)
   end
 end

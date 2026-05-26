@@ -1,0 +1,42 @@
+# frozen_string_literal: true
+
+module UI
+  class TooltipComponent < ApplicationComponent
+    BUBBLE_BASE = "absolute z-50 px-3 py-1.5 text-xs rounded-md shadow-sm " \
+                  "bg-primary text-primary-foreground " \
+                  "opacity-0 group-hover:opacity-100 pointer-events-none whitespace-nowrap " \
+                  "transition-opacity duration-200"
+
+    POSITIONS = {
+      top:    "bottom-full left-1/2 -translate-x-1/2 mb-2",
+      bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
+      left:   "right-full top-1/2 -translate-y-1/2 mr-2",
+      right:  "left-full top-1/2 -translate-y-1/2 ml-2"
+    }.freeze
+
+    def initialize(text:, side: :top, **html_attrs)
+      @text        = text
+      @side        = side.to_sym
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs  = html_attrs
+    end
+
+    def call
+      content_tag(:span,
+        class: cn("relative inline-flex group", @extra_class),
+        **@html_attrs) do
+        concat content
+        concat tooltip_bubble
+      end
+    end
+
+    private
+
+    def tooltip_bubble
+      content_tag(:span,
+        @text,
+        class: cn(BUBBLE_BASE, POSITIONS.fetch(@side, POSITIONS[:top])),
+        role: "tooltip")
+    end
+  end
+end

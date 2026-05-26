@@ -75,13 +75,13 @@ Legend: JS = requires JavaScript | Status: done / planned
 
 | Component | Description | JS needed | Status |
 |-----------|-------------|-----------|--------|
-| Dialog | Modal dialog with overlay, title, description, and action slots | Yes | planned |
-| Alert Dialog | Blocking confirmation dialog | Yes | planned |
-| Sheet | Slide-in panel (drawer from an edge) | Yes | planned |
-| Drawer | Bottom sheet / mobile drawer | Yes | planned |
-| Popover | Floating panel anchored to a trigger | Yes | planned |
-| Tooltip | Short contextual label on hover | Yes | planned |
-| Hover Card | Rich hover preview card | Yes | planned |
+| Dialog | Modal dialog with overlay, title, description, and action slots | Yes | done |
+| Alert Dialog | Blocking confirmation dialog | Yes | done |
+| Sheet | Slide-in panel (drawer from an edge) | Yes | done |
+| Drawer | Bottom sheet / mobile drawer | Yes | done |
+| Popover | Floating panel anchored to a trigger | Yes | done |
+| Tooltip | Short contextual label on hover (CSS-only) | No | done |
+| Hover Card | Rich hover preview card (CSS-only) | No | done |
 
 ## Phase 6 — Menus
 

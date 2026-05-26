@@ -111,6 +111,13 @@ ViewPrimitives automatically adds two helpers to all views:
 | Navbar | Responsive top navigation bar with hamburger menu | — |
 | Bottom Nav | Mobile-style tab bar fixed to the bottom | — |
 | Footer | Page footer with columns, links, and copyright | — |
+| Dialog | Modal dialog with trigger, title, description, footer slots | — |
+| Alert Dialog | Blocking confirmation dialog | — |
+| Sheet | Slide-in panel from any edge (left/right/top/bottom) | — |
+| Drawer | Bottom sheet with drag handle — mobile drawer pattern | — |
+| Popover | Floating panel anchored to a trigger | — |
+| Tooltip | Hover label — CSS-only, no JS | — |
+| Hover Card | Rich hover preview card — CSS-only, no JS | — |
 
 ### Coming soon
 

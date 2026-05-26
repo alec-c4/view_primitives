@@ -1,0 +1,78 @@
+# frozen_string_literal: true
+
+module UI
+  class SheetComponent < ApplicationComponent
+    renders_one :trigger
+    renders_one :footer
+
+    OVERLAY = "fixed inset-0 z-50 bg-black/80"
+
+    SIDES = {
+      right:  "fixed inset-y-0 right-0 h-full w-3/4 max-w-sm border-l",
+      left:   "fixed inset-y-0 left-0 h-full w-3/4 max-w-sm border-r",
+      top:    "fixed inset-x-0 top-0 h-auto max-h-[60vh] border-b",
+      bottom: "fixed inset-x-0 bottom-0 h-auto max-h-[60vh] border-t"
+    }.freeze
+
+    def initialize(title: nil, description: nil, side: :right, **html_attrs)
+      @title       = title
+      @description = description
+      @side        = side.to_sym
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs  = html_attrs
+    end
+
+    def call
+      content_tag(:div, data: { controller: "sheet" }, **@html_attrs) do
+        concat content_tag(:span, trigger, data: { action: "click->sheet#open" }, class: "contents") if trigger
+        concat panel
+      end
+    end
+
+    private
+
+    def panel
+      content_tag(:div, data: { sheet_target: "panel" }, hidden: true) do
+        concat content_tag(:div, nil,
+          class: OVERLAY,
+          data: { action: "click->sheet#close" },
+          "aria-hidden": "true")
+        concat content_tag(:div,
+          class: cn("z-50 bg-background p-6 shadow-xl overflow-y-auto",
+                    SIDES.fetch(@side, SIDES[:right]),
+                    @extra_class),
+          role: "dialog",
+          "aria-modal": "true",
+          "aria-label": @title,
+          data: { action: "keydown.escape@window->sheet#close" }) {
+          concat close_button
+          concat header_area
+          concat content_tag(:div, content, class: "flex-1 text-sm")
+          concat content_tag(:div, footer, class: "mt-6 flex justify-end gap-2") if footer
+        }
+      end
+    end
+
+    def header_area
+      return "" if @title.nil? && @description.nil?
+
+      content_tag(:div, class: "mb-4 pr-6") do
+        concat content_tag(:h2, @title, class: "text-lg font-semibold leading-none tracking-tight") if @title
+        concat content_tag(:p, @description, class: "mt-2 text-sm text-muted-foreground") if @description
+      end
+    end
+
+    def close_button
+      content_tag(:button,
+        close_svg,
+        type: "button",
+        class: "absolute right-4 top-4 rounded-sm p-1 opacity-70 hover:opacity-100 transition-opacity",
+        data: { action: "click->sheet#close" },
+        "aria-label": "Close")
+    end
+
+    def close_svg
+      raw('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>')
+    end
+  end
+end
