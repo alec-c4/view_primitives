@@ -25,10 +25,10 @@ Gem::Specification.new do |spec|
   end
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "railties", ">= 7.0"
-  spec.add_dependency "view_component"
+  spec.add_dependency "railties", ">= 7.1"
+  spec.add_dependency "view_component", ">= 4.0"
 
-  spec.add_development_dependency "rails", ">= 7.0"
+  spec.add_development_dependency "rails", ">= 7.1"
   spec.add_development_dependency "simplecov", "~> 0.21"
   spec.add_development_dependency "appraisal"
   spec.add_development_dependency "lefthook"

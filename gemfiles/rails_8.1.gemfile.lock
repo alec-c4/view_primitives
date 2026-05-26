@@ -1,5 +1,5 @@
 PATH
-  remote: .
+  remote: ..
   specs:
     view_primitives (0.1.0)
       railties (>= 7.1)
@@ -290,7 +290,7 @@ DEPENDENCIES
   irb
   lefthook
   minitest (>= 5.16)
-  rails (>= 7.1)
+  rails (~> 8.1.0)
   rake (~> 13.0)
   rubocop-minitest
   rubocop-performance
