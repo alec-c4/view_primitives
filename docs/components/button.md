@@ -92,4 +92,5 @@ Any extra keyword arguments are forwarded to the element:
 | `size` | Symbol | `:default` | Size — see Sizes table |
 | `href` | String | `nil` | Renders `<a>` with this href; sets `tag: :a` automatically |
 | `tag` | Symbol | `:button` | Override HTML element |
+| `type` | String | `"button"` | Set automatically for `<button>`; pass `type: "submit"` for form submit |
 | `**html_attrs` | Hash | — | Forwarded to the element |
