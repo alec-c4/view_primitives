@@ -92,6 +92,11 @@ load_tt "tabs/tabs_item_component.rb.tt"
 load_tt "navbar/navbar_component.rb.tt"
 load_tt "navigation_menu/navigation_menu_component.rb.tt"
 load_tt "mega_menu/mega_menu_component.rb.tt"
+load_tt "collapsible/collapsible_component.rb.tt"
+load_tt "scroll_area/scroll_area_component.rb.tt"
+load_tt "chat_bubble/chat_bubble_component.rb.tt"
+load_tt "device_mockup/device_mockup_component.rb.tt"
+load_tt "qr_code/qr_code_component.rb.tt"
 
 # Load Phase 2 — new
 load_tt "rating_input/rating_input_component.rb.tt"
@@ -1955,5 +1960,111 @@ class TestMegaMenuComponent < Minitest::Test
 
     assert_equal "Products", col.instance_variable_get(:@heading)
     assert_equal 1, col.instance_variable_get(:@items).size
+  end
+end
+
+class TestCollapsibleComponent < Minitest::Test
+  def test_open_defaults_to_false
+    c = UI::CollapsibleComponent.new
+
+    refute c.instance_variable_get(:@open)
+  end
+
+  def test_open_stored
+    c = UI::CollapsibleComponent.new(open: true)
+
+    assert c.instance_variable_get(:@open)
+  end
+end
+
+class TestScrollAreaComponent < Minitest::Test
+  def test_orientation_defaults_to_vertical
+    c = UI::ScrollAreaComponent.new
+
+    assert_equal :vertical, c.instance_variable_get(:@orientation)
+  end
+
+  def test_max_h_default
+    c = UI::ScrollAreaComponent.new
+
+    assert_equal "max-h-72", c.instance_variable_get(:@max_h)
+  end
+
+  def test_orientation_stored
+    c = UI::ScrollAreaComponent.new(orientation: :horizontal)
+
+    assert_equal :horizontal, c.instance_variable_get(:@orientation)
+  end
+end
+
+class TestChatBubbleComponent < Minitest::Test
+  def test_sent_defaults_to_false
+    c = UI::ChatBubbleComponent.new
+
+    refute c.instance_variable_get(:@sent)
+  end
+
+  def test_sent_stored
+    c = UI::ChatBubbleComponent.new(sent: true)
+
+    assert c.instance_variable_get(:@sent)
+  end
+
+  def test_timestamp_nil_by_default
+    c = UI::ChatBubbleComponent.new
+
+    assert_nil c.instance_variable_get(:@timestamp)
+  end
+
+  def test_timestamp_stored
+    c = UI::ChatBubbleComponent.new(timestamp: "12:34")
+
+    assert_equal "12:34", c.instance_variable_get(:@timestamp)
+  end
+end
+
+class TestDeviceMockupComponent < Minitest::Test
+  def test_variant_defaults_to_phone
+    c = UI::DeviceMockupComponent.new
+
+    assert_equal :phone, c.instance_variable_get(:@variant)
+  end
+
+  def test_variant_stored
+    c = UI::DeviceMockupComponent.new(variant: :browser)
+
+    assert_equal :browser, c.instance_variable_get(:@variant)
+  end
+
+  def test_url_nil_by_default
+    c = UI::DeviceMockupComponent.new
+
+    assert_nil c.instance_variable_get(:@url)
+  end
+end
+
+class TestQrCodeComponent < Minitest::Test
+  def test_src_nil_by_default
+    c = UI::QrCodeComponent.new
+
+    assert_nil c.instance_variable_get(:@src)
+  end
+
+  def test_src_stored
+    c = UI::QrCodeComponent.new(src: "https://example.com/qr.png")
+
+    assert_equal "https://example.com/qr.png", c.instance_variable_get(:@src)
+  end
+
+  def test_size_default
+    c = UI::QrCodeComponent.new
+
+    assert_equal 200, c.instance_variable_get(:@size)
+  end
+
+  def test_alt_default
+    c = UI::QrCodeComponent.new
+
+    assert_equal "QR code", c.instance_variable_get(:@alt)
   end
 end

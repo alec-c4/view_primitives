@@ -1,0 +1,65 @@
+# frozen_string_literal: true
+
+module UI
+  class DeviceMockupComponent < ApplicationComponent
+    VARIANTS = {
+      phone: {
+        outer:  "relative mx-auto h-[600px] w-[300px] rounded-[2.5rem] border-[14px] " \
+                "border-foreground bg-foreground shadow-xl",
+        screen: "relative h-full w-full overflow-hidden rounded-[2rem] bg-white dark:bg-zinc-900",
+        notch:  "absolute left-1/2 top-0 z-10 h-6 w-28 -translate-x-1/2 rounded-b-2xl bg-foreground"
+      },
+      browser: {
+        outer:  "relative mx-auto overflow-hidden rounded-xl border border-border bg-background shadow-xl",
+        bar:    "flex h-10 items-center gap-2 border-b border-border bg-muted px-4",
+        dots:   "flex gap-1.5",
+        screen: "overflow-hidden bg-white dark:bg-zinc-900"
+      },
+      tablet: {
+        outer:  "relative mx-auto h-[500px] w-[700px] rounded-[1.75rem] border-[12px] " \
+                "border-foreground bg-foreground shadow-xl",
+        screen: "relative h-full w-full overflow-hidden rounded-[1.25rem] bg-white dark:bg-zinc-900",
+        notch:  nil
+      }
+    }.freeze
+
+    # variant: :phone (default) | :browser | :tablet
+    # url:     address bar text for :browser variant
+    def initialize(variant: :phone, url: nil, **html_attrs)
+      @variant = variant.to_sym
+      @url     = url
+      @extra_class = html_attrs.delete(:class)
+      @html_attrs  = html_attrs
+    end
+
+    def call
+      cfg = VARIANTS.fetch(@variant, VARIANTS[:phone])
+
+      content_tag(:div, class: cn(cfg[:outer], @extra_class), **@html_attrs) do
+        if @variant == :browser
+          concat browser_bar(cfg)
+          concat content_tag(:div, content, class: cfg[:screen])
+        else
+          concat content_tag(:div, nil, class: cfg[:notch]) if cfg[:notch]
+          concat content_tag(:div, content, class: cfg[:screen])
+        end
+      end
+    end
+
+    private
+
+    def browser_bar(cfg)
+      content_tag(:div, class: cfg[:bar]) do
+        concat content_tag(:div, class: cfg[:dots]) do
+          %w[bg-red-400 bg-yellow-400 bg-green-400].each do |color|
+            concat content_tag(:div, nil, class: "size-3 rounded-full #{color}")
+          end
+        end
+        if @url
+          concat content_tag(:div, @url,
+            class: "ml-4 flex-1 truncate rounded-md bg-background px-3 py-1 text-xs text-muted-foreground")
+        end
+      end
+    end
+  end
+end

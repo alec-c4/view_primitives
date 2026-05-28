@@ -13,8 +13,9 @@ class TestGeneratorComponents < Minitest::Test
   PHASE4 = %w[breadcrumb pagination stepper bottom_nav footer tabs navbar navigation_menu mega_menu].freeze
   PHASE5 = %w[dialog alert_dialog sheet drawer popover tooltip hover_card].freeze
   PHASE6 = %w[dropdown_menu context_menu menubar command combobox].freeze
+  PHASE7 = %w[collapsible scroll_area chat_bubble device_mockup qr_code].freeze
   PHASE9 = %w[image figure picture video audio iframe].freeze
-  ALL_COMPONENTS = (PHASE1 + PHASE2 + PHASE3 + PHASE4 + PHASE5 + PHASE6 + PHASE9).freeze
+  ALL_COMPONENTS = (PHASE1 + PHASE2 + PHASE3 + PHASE4 + PHASE5 + PHASE6 + PHASE7 + PHASE9).freeze
 
   TEMPLATE_ROOT = File.expand_path("../lib/generators/view_primitives/add/templates", __dir__)
 
@@ -257,5 +258,40 @@ class TestGeneratorComponents < Minitest::Test
     source = File.read(File.join(TEMPLATE_ROOT, "mega_menu", "mega_menu_component.rb.tt"))
 
     assert_includes source, "ColumnComponent"
+  end
+
+  # --- Phase 7 (no-JS) -------------------------------------------------------
+
+  def test_collapsible_uses_details_element
+    source = File.read(File.join(TEMPLATE_ROOT, "collapsible", "collapsible_component.rb.tt"))
+
+    assert_includes source, ":details"
+  end
+
+  def test_scroll_area_has_scrollbar_classes
+    source = File.read(File.join(TEMPLATE_ROOT, "scroll_area", "scroll_area_component.rb.tt"))
+
+    assert_includes source, "scrollbar"
+  end
+
+  def test_chat_bubble_has_sent_and_received_variants
+    source = File.read(File.join(TEMPLATE_ROOT, "chat_bubble", "chat_bubble_component.rb.tt"))
+
+    assert_includes source, "sent"
+    assert_includes source, "BUBBLE_RECV"
+  end
+
+  def test_device_mockup_has_phone_and_browser_variants
+    source = File.read(File.join(TEMPLATE_ROOT, "device_mockup", "device_mockup_component.rb.tt"))
+
+    assert_includes source, "phone"
+    assert_includes source, "browser"
+  end
+
+  def test_qr_code_supports_src_and_block
+    source = File.read(File.join(TEMPLATE_ROOT, "qr_code", "qr_code_component.rb.tt"))
+
+    assert_includes source, "src:"
+    assert_includes source, "content"
   end
 end

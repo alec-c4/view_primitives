@@ -106,14 +106,14 @@ Legend: JS = requires JavaScript | Status: done / planned
 | Data Table | Sortable, filterable table with pagination | Yes | planned |
 | Sidebar | Collapsible application sidebar with nav groups | Yes | planned |
 | Input OTP | One-time-password digit input group | Yes | planned |
-| Collapsible | Single collapsible section (simpler than Accordion) | No | planned |
+| Collapsible | Single collapsible section (simpler than Accordion) | No | done |
 | Resizable | Drag-to-resize panel layout | Yes | planned |
-| Scroll Area | Custom scrollbar container | No | planned |
+| Scroll Area | Custom scrollbar container | No | done |
 | Gallery | Responsive image grid with optional lightbox | Yes | planned |
-| Chat Bubble | Styled message bubble for chat or comment threads | No | planned |
+| Chat Bubble | Styled message bubble for chat or comment threads | No | done |
 | Speed Dial | Floating action button that expands into sub-actions | Yes | planned |
-| Device Mockup | Phone or browser frame for marketing screenshots | No | planned |
-| QR Code | QR code display from a given value | No | planned |
+| Device Mockup | Phone or browser frame for marketing screenshots | No | done |
+| QR Code | QR code display from a given value | No | done |
 
 ## Phase 8 — Advanced
 
