@@ -31,6 +31,8 @@ module UI
         type: "button",
         "aria-pressed": @pressed.to_s,
         "data-state": @pressed ? "on" : "off",
+        "data-controller": "toggle",
+        "data-action": "click->toggle#toggle",
         value: @value,
         class: cn(BASE, SIZES.fetch(@size, SIZES[:default]), @extra_class),
         **@html_attrs)

@@ -58,6 +58,11 @@ load_tt "switch/switch_component.rb.tt"
 load_tt "toggle/toggle_component.rb.tt"
 load_tt "toggle_group/toggle_group_component.rb.tt"
 load_tt "form_field/form_field_component.rb.tt"
+load_tt "file_input/file_input_component.rb.tt"
+load_tt "search_input/search_input_component.rb.tt"
+load_tt "number_input/number_input_component.rb.tt"
+load_tt "range/range_component.rb.tt"
+load_tt "floating_label/floating_label_component.rb.tt"
 
 # Load Phase 6
 load_tt "dropdown_menu/dropdown_menu_component.rb.tt"
@@ -1787,5 +1792,115 @@ class TestIframeComponent < Minitest::Test
     c = UI::IframeComponent.new(src: "https://example.com", title: "Example", aspect: "16/9")
 
     assert_equal "16/9", c.instance_variable_get(:@aspect)
+  end
+end
+
+class TestFileInputComponent < Minitest::Test
+  def test_accept_nil_by_default
+    c = UI::FileInputComponent.new
+
+    assert_nil c.instance_variable_get(:@accept)
+  end
+
+  def test_accept_stored
+    c = UI::FileInputComponent.new(accept: "image/*")
+
+    assert_equal "image/*", c.instance_variable_get(:@accept)
+  end
+
+  def test_multiple_false_by_default
+    c = UI::FileInputComponent.new
+
+    refute c.instance_variable_get(:@multiple)
+  end
+
+  def test_multiple_stored
+    c = UI::FileInputComponent.new(multiple: true)
+
+    assert c.instance_variable_get(:@multiple)
+  end
+end
+
+class TestSearchInputComponent < Minitest::Test
+  def test_default_placeholder
+    c = UI::SearchInputComponent.new
+
+    assert_equal "Search…", c.instance_variable_get(:@placeholder)
+  end
+
+  def test_custom_placeholder
+    c = UI::SearchInputComponent.new(placeholder: "Find something")
+
+    assert_equal "Find something", c.instance_variable_get(:@placeholder)
+  end
+end
+
+class TestNumberInputComponent < Minitest::Test
+  def test_min_max_step_defaults
+    c = UI::NumberInputComponent.new
+
+    assert_nil c.instance_variable_get(:@min)
+    assert_nil c.instance_variable_get(:@max)
+    assert_nil c.instance_variable_get(:@step)
+  end
+
+  def test_min_max_step_stored
+    c = UI::NumberInputComponent.new(min: 0, max: 100, step: 5)
+
+    assert_equal 0, c.instance_variable_get(:@min)
+    assert_equal 100, c.instance_variable_get(:@max)
+    assert_equal 5, c.instance_variable_get(:@step)
+  end
+
+  def test_value_nil_by_default
+    c = UI::NumberInputComponent.new
+
+    assert_nil c.instance_variable_get(:@value)
+  end
+end
+
+class TestRangeComponent < Minitest::Test
+  def test_defaults
+    c = UI::RangeComponent.new
+
+    assert_equal 0, c.instance_variable_get(:@min)
+    assert_equal 100, c.instance_variable_get(:@max)
+    assert_equal 1, c.instance_variable_get(:@step)
+    assert_nil c.instance_variable_get(:@value)
+  end
+
+  def test_custom_values_stored
+    c = UI::RangeComponent.new(min: 10, max: 50, step: 2, value: 30)
+
+    assert_equal 10, c.instance_variable_get(:@min)
+    assert_equal 50, c.instance_variable_get(:@max)
+    assert_equal 2, c.instance_variable_get(:@step)
+    assert_equal 30, c.instance_variable_get(:@value)
+  end
+end
+
+class TestFloatingLabelComponent < Minitest::Test
+  def test_label_stored
+    c = UI::FloatingLabelComponent.new(label: "Email")
+
+    assert_equal "Email", c.instance_variable_get(:@label)
+  end
+
+  def test_type_defaults_to_text
+    c = UI::FloatingLabelComponent.new(label: "Name")
+
+    assert_equal "text", c.instance_variable_get(:@type)
+  end
+
+  def test_id_derived_from_name
+    c = UI::FloatingLabelComponent.new(label: "Email", name: "user[email]")
+
+    assert_equal "user_email_", c.instance_variable_get(:@id)
+  end
+
+  def test_explicit_id_takes_precedence
+    c = UI::FloatingLabelComponent.new(label: "Email", id: "my-email", name: "email")
+
+    assert_equal "my-email", c.instance_variable_get(:@id)
   end
 end

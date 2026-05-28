@@ -8,7 +8,8 @@ class TestGeneratorComponents < Minitest::Test
     badge avatar card separator label skeleton progress aspect_ratio
     spinner kbd rating rating_input indicator list_group banner button_group
   ].freeze
-  PHASE3 = %w[input textarea checkbox radio_group select switch toggle toggle_group form_field].freeze
+  PHASE3 = %w[input textarea checkbox radio_group select switch toggle toggle_group form_field
+    file_input search_input number_input range floating_label].freeze
   PHASE4 = %w[breadcrumb pagination stepper bottom_nav footer tabs navbar].freeze
   PHASE5 = %w[dialog alert_dialog sheet drawer popover tooltip hover_card].freeze
   PHASE6 = %w[dropdown_menu context_menu menubar command combobox].freeze
@@ -199,5 +200,38 @@ class TestGeneratorComponents < Minitest::Test
     source = File.read(File.join(TEMPLATE_ROOT, "iframe", "iframe_component.rb.tt"))
 
     assert_includes source, "title:"
+  end
+
+  # --- Phase 3 additions -----------------------------------------------------
+
+  def test_file_input_accepts_multiple
+    source = File.read(File.join(TEMPLATE_ROOT, "file_input", "file_input_component.rb.tt"))
+
+    assert_includes source, "multiple"
+  end
+
+  def test_search_input_uses_type_search
+    source = File.read(File.join(TEMPLATE_ROOT, "search_input", "search_input_component.rb.tt"))
+
+    assert_includes source, 'type: "search"'
+  end
+
+  def test_number_input_hides_spin_buttons
+    source = File.read(File.join(TEMPLATE_ROOT, "number_input", "number_input_component.rb.tt"))
+
+    assert_includes source, "spin-button"
+  end
+
+  def test_range_styles_thumb
+    source = File.read(File.join(TEMPLATE_ROOT, "range", "range_component.rb.tt"))
+
+    assert_includes source, "slider-thumb"
+  end
+
+  def test_floating_label_has_peer_classes
+    source = File.read(File.join(TEMPLATE_ROOT, "floating_label", "floating_label_component.rb.tt"))
+
+    assert_includes source, "peer"
+    assert_includes source, "label:"
   end
 end

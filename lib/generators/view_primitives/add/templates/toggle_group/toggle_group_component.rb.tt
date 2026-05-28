@@ -20,6 +20,8 @@ module UI
         content,
         class: cn(BASE, @extra_class),
         role: "group",
+        "data-controller": "toggle-group",
+        "data-toggle-group-type-value": @type,
         **@html_attrs)
     end
 

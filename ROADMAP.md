@@ -53,11 +53,11 @@ Legend: JS = requires JavaScript | Status: done / planned
 | Toggle | Single pressable toggle button with pressed state | No | done |
 | Toggle Group | Group of toggles, single or multiple selection | No | done |
 | Form Field | Wraps label + input + hint + error into a consistent layout | No | done |
-| File Input | Styled file upload input | No | planned |
-| Search Input | Input with built-in search icon and clear button | No | planned |
-| Number Input | Input with increment/decrement controls | No | planned |
-| Range | Styled range slider | No | planned |
-| Floating Label | Input with a floating placeholder label | No | planned |
+| File Input | Styled file upload input | No | done |
+| Search Input | Input with built-in search icon and clear button | No | done |
+| Number Input | Input with increment/decrement controls | No | done |
+| Range | Styled range slider | No | done |
+| Floating Label | Input with a floating placeholder label | No | done |
 
 ## Phase 4 — Navigation
 
