@@ -110,13 +110,20 @@ ViewPrimitives adds the `ui` helper to views and mailers:
 | Toggle | Single pressable toggle button | — |
 | Toggle Group | Group of related toggles (single or multiple) | — |
 | Form Field | Label + input + hint + error layout wrapper | — |
+| File Input | Styled file upload input | — |
+| Search Input | Text input with built-in search icon and clear button | — |
+| Number Input | Text input with increment/decrement controls | — |
+| Range | Styled range slider | — |
+| Floating Label | Input with floating placeholder label | — |
 | Breadcrumb | Navigational breadcrumb trail with separator | — |
 | Pagination | Page number links with prev/next and ellipsis | — |
 | Stepper | Multi-step progress indicator (horizontal + vertical) | — |
 | Tabs | Tab bar with content panels (array API + slot API) | — |
 | Navbar | Responsive top navigation bar with hamburger menu | — |
+| Navigation Menu | Top-level navigation with optional dropdown flyouts | — |
 | Bottom Nav | Mobile-style tab bar fixed to the bottom | — |
 | Footer | Page footer with columns, links, and copyright | — |
+| Mega Menu | Full-width dropdown panel with grouped links and images | — |
 | Dialog | Modal dialog with trigger, title, description, footer slots | — |
 | Alert Dialog | Blocking confirmation dialog | — |
 | Sheet | Slide-in panel from any edge (left/right/top/bottom) | — |
@@ -124,17 +131,44 @@ ViewPrimitives adds the `ui` helper to views and mailers:
 | Popover | Floating panel anchored to a trigger | — |
 | Tooltip | Hover label — CSS-only, no JS | — |
 | Hover Card | Rich hover preview card — CSS-only, no JS | — |
-| Dropdown Menu | Trigger-anchored menu with items and separators | `dropdown` |
-| Context Menu | Right-click context menu positioned at cursor | `context-menu` |
-| Menubar | Horizontal application-style menu bar | `menubar` |
-| Command | Modal command palette with live search filtering | `command` |
-| Combobox | Autocomplete select with live search | `combobox` |
+| Dropdown Menu | Trigger-anchored menu with items and separators | — |
+| Context Menu | Right-click context menu positioned at cursor | — |
+| Menubar | Horizontal application-style menu bar | — |
+| Command | Modal command palette with live search filtering | — |
+| Combobox | Autocomplete select with live search | — |
+| Calendar | Date picker calendar grid | — |
+| Date Picker | Input that opens a Calendar popover | — |
+| Timepicker | Input for selecting a time value | — |
+| Carousel | Scrollable item carousel with prev/next controls | — |
+| Data Table | Sortable, filterable table with pagination | — |
+| Sidebar | Collapsible application sidebar with nav groups | — |
+| Input OTP | One-time-password digit input group | — |
+| Collapsible | Single collapsible section (simpler than Accordion) | — |
+| Resizable | Drag-to-resize panel layout | — |
+| Scroll Area | Custom scrollbar container | — |
+| Gallery | Responsive image grid with optional lightbox | — |
+| Chat Bubble | Styled message bubble for chat or comment threads | — |
+| Speed Dial | Floating action button that expands into sub-actions | — |
+| Device Mockup | Phone or browser frame for marketing screenshots | — |
+| QR Code | QR code display from a given value | — |
+| Timeline | Vertical timeline with event items | — |
+| Toaster | Stacked toast notifications (Sonner-style) | — |
+| Chart | Chart.js adapter — bar, line, pie, doughnut, radar, polar area | — |
+| Picture | `<picture>` + `<source>` for art direction and modern formats (AVIF/WebP) | — |
+| Video | `<video>` + `<source>` with poster, controls, and caption tracks | — |
+| Figure | `<figure>` + `<figcaption>` wrapper for media content | — |
+| Image | Responsive `<img>` with `srcset` / `sizes` | — |
+| Audio | `<audio>` + `<source>` with optional transcript link | — |
+| Iframe | Sandboxed embed wrapper with required `title` and lazy loading | — |
 
 ### Coming soon
 
-See [ROADMAP.md](ROADMAP.md) for the full planned component list organised by phase.
+| Component | Description |
+|-----------|-------------|
+| WYSIWYG | Rich text editor wrapper (Trix or Quill adapter) |
+| Map / Area | Image map with clickable regions |
 
-**Media & semantic HTML** (next focus): `picture`, `video`, `figure`, and related primitives — correct native markup via `ui :picture`, not just Tailwind wrappers.
+See [ROADMAP.md](ROADMAP.md) for the full component list organised by phase.
 
 ## Customisation
 
