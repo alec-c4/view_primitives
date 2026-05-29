@@ -5,7 +5,7 @@ module UI
     # Drag-to-resize panel layout — two panels separated by a draggable handle.
     #
     # Usage:
-    #   ui "resizable", direction: :horizontal do |r|
+    #   ui :resizable, direction: :horizontal do |r|
     #     r.with_panel(min: 20, default: 30) { left_content }
     #     r.with_panel { right_content }
     #   end

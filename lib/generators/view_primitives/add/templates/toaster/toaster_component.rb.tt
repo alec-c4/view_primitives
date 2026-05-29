@@ -7,7 +7,7 @@ module UI
     # the renders_many slot or client-side via a `toaster:add` window event.
     #
     # Usage (layout):
-    #   ui "toaster" do |t|
+    #   ui :toaster do |t|
     #     t.with_toast(message: "Profile saved", variant: :success)
     #   end
     #

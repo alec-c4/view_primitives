@@ -5,7 +5,7 @@ module UI
     # Scrollable carousel with prev/next controls and optional dot indicators.
     #
     # Usage:
-    #   ui "carousel" do |c|
+    #   ui :carousel do |c|
     #     c.with_slide { image_tag "slide1.jpg" }
     #     c.with_slide { image_tag "slide2.jpg" }
     #   end

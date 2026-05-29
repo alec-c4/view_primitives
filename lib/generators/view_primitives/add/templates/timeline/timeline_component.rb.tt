@@ -5,7 +5,7 @@ module UI
     # Vertical timeline of dated events.
     #
     # Usage:
-    #   ui "timeline" do |t|
+    #   ui :timeline do |t|
     #     t.with_item(date: "Jan 2025", title: "Project started")
     #     t.with_item(date: "Feb 2025", title: "Milestone reached",
     #                 description: "Foundation phase complete", variant: :success)

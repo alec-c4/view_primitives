@@ -5,7 +5,7 @@ module UI
     # Collapsible application sidebar with nav groups.
     #
     # Usage:
-    #   ui "sidebar" do |s|
+    #   ui :sidebar do |s|
     #     s.with_group(label: "Main") do |g|
     #       g.with_item(label: "Dashboard", href: "/", icon: :home, active: true)
     #       g.with_item(label: "Settings",  href: "/settings", icon: :settings)

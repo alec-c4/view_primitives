@@ -5,7 +5,7 @@ module UI
     # Floating action button that expands into a stack of sub-action buttons.
     #
     # Usage:
-    #   ui "speed_dial", icon: :plus do |dial|
+    #   ui :speed_dial, icon: :plus do |dial|
     #     dial.with_action(label: "New document", icon: :file, href: "/docs/new")
     #     dial.with_action(label: "Upload",        icon: :upload, data: { action: "..." })
     #   end

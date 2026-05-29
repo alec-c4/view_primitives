@@ -5,7 +5,7 @@ module UI
     # Responsive image grid with optional lightbox on click.
     #
     # Usage:
-    #   ui "gallery", cols: 3 do |g|
+    #   ui :gallery, cols: 3 do |g|
     #     g.with_image(src: "/img/a.jpg", alt: "Photo A")
     #     g.with_image(src: "/img/b.jpg", alt: "Photo B", caption: "The coast")
     #   end
