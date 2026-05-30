@@ -122,7 +122,7 @@ Legend: JS = requires JavaScript | Status: done / planned
 | Chart | Wrapper for charting (line, bar, pie) via a JS adapter | Yes | done |
 | Sonner (Toast) | Stacked toast notifications | Yes | done |
 | Timeline | Vertical timeline with event items | No | done |
-| WYSIWYG | Rich text editor wrapper (e.g. Trix or Quill adapter) | Yes | planned |
+| WYSIWYG | Rich text editor wrapper — Trix (default) or Quill adapter | Yes | done |
 
 ## Phase 9 — Media & semantic HTML
 
@@ -137,4 +137,5 @@ Native elements where a component prevents structural mistakes and encodes MDN-s
 | Audio | `<audio>` + `<source>`; `controls`, `preload`; optional transcript link | No | done |
 | Iframe | Sandboxed embed wrapper; required `title`, optional `loading="lazy"` | No | done |
 | Track | `<track>` helper — nested inside VideoComponent (no standalone generator) | No | done |
-| Map / Area | Image map + clickable regions (rare; low priority) | No | planned |
+| Map / Area | Image map + clickable `<area>` regions | No | done |
+| Embed | Third-party embeds — YouTube, Vimeo, Spotify, Google Maps, Yandex Maps, Loom, SoundCloud, X, Telegram, Facebook | No | done |

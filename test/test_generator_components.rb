@@ -18,8 +18,8 @@ class TestGeneratorComponents < Minitest::Test
     speed_dial gallery carousel input_otp sidebar resizable calendar
     date_picker timepicker data_table
   ].freeze
-  PHASE8 = %w[timeline toaster chart].freeze
-  PHASE9 = %w[image figure picture video audio iframe].freeze
+  PHASE8 = %w[timeline toaster chart wysiwyg].freeze
+  PHASE9 = %w[image figure picture video audio iframe map_area embed].freeze
   ALL_COMPONENTS = (PHASE1 + PHASE2 + PHASE3 + PHASE4 + PHASE5 + PHASE6 + PHASE7 + PHASE8 + PHASE9).freeze
 
   TEMPLATE_ROOT = File.expand_path("../lib/generators/view_primitives/add/templates", __dir__)
@@ -521,5 +521,145 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes components_rb, '"chart"'
     assert_includes components_rb, "chart.js"
     assert_includes components_rb, "importmap"
+  end
+
+  def test_wysiwyg_supports_trix_and_quill_adapters
+    source = File.read(File.join(TEMPLATE_ROOT, "wysiwyg", "wysiwyg_component.rb.tt"))
+
+    assert_includes source, "ADAPTERS"
+    assert_includes source, "trix"
+    assert_includes source, "quill"
+  end
+
+  def test_wysiwyg_defaults_to_trix
+    source = File.read(File.join(TEMPLATE_ROOT, "wysiwyg", "wysiwyg_component.rb.tt"))
+
+    assert_includes source, "adapter: :trix"
+  end
+
+  def test_wysiwyg_trix_renders_trix_editor_element
+    source = File.read(File.join(TEMPLATE_ROOT, "wysiwyg", "wysiwyg_component.rb.tt"))
+
+    assert_includes source, "trix-editor"
+    assert_includes source, "type: \"hidden\""
+  end
+
+  def test_wysiwyg_quill_wires_stimulus_controller
+    source = File.read(File.join(TEMPLATE_ROOT, "wysiwyg", "wysiwyg_component.rb.tt"))
+
+    assert_includes source, "controller: \"wysiwyg\""
+    assert_includes source, "wysiwyg_target: \"editor\""
+    assert_includes source, "wysiwyg_target: \"input\""
+  end
+
+  def test_wysiwyg_controller_imports_quill_dynamically
+    js = File.read(File.join(TEMPLATE_ROOT, "wysiwyg", "wysiwyg_controller.js"))
+
+    assert_includes js, "import(\"quill\")"
+    assert_includes js, "connect("
+    assert_includes js, "disconnect("
+  end
+
+  def test_wysiwyg_has_setup_note
+    components_rb = File.read(File.expand_path("../lib/generators/view_primitives/components.rb", __dir__))
+
+    assert_includes components_rb, '"wysiwyg"'
+    assert_includes components_rb, "actiontext"
+    assert_includes components_rb, "esm.sh/quill"
+  end
+
+  def test_map_area_renders_img_and_map_elements
+    source = File.read(File.join(TEMPLATE_ROOT, "map_area", "map_area_component.rb.tt"))
+
+    assert_includes source, "usemap:"
+    assert_includes source, "tag.img"
+    assert_includes source, "content_tag(:map"
+    assert_includes source, "tag.area"
+  end
+
+  def test_map_area_accepts_areas_array
+    source = File.read(File.join(TEMPLATE_ROOT, "map_area", "map_area_component.rb.tt"))
+
+    assert_includes source, "areas:"
+    assert_includes source, ":rect"
+    assert_includes source, ":circle"
+    assert_includes source, ":poly"
+  end
+
+  def test_map_area_auto_generates_map_name
+    source = File.read(File.join(TEMPLATE_ROOT, "map_area", "map_area_component.rb.tt"))
+
+    assert_includes source, "SecureRandom.hex"
+  end
+
+  def test_embed_supports_all_providers
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    %w[youtube vimeo spotify google_maps yandex_maps loom soundcloud x telegram facebook].each do |provider|
+      assert_includes source, ":#{provider}", "missing provider :#{provider}"
+    end
+  end
+
+  def test_embed_has_no_explicit_type_param
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "def initialize(url: nil, query: nil"
+    refute_includes source, "type: nil"
+    refute_includes source, "id: nil"
+  end
+
+  def test_embed_auto_detects_provider_from_url
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "detect_provider"
+    assert_includes source, "DOMAIN_MAP"
+  end
+
+  def test_embed_builds_youtube_url
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "youtube.com/embed"
+    assert_includes source, "extract_youtube_id"
+  end
+
+  def test_embed_builds_vimeo_url
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "player.vimeo.com/video"
+  end
+
+  def test_embed_builds_spotify_url
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "open.spotify.com/embed"
+    assert_includes source, "extract_spotify_path"
+  end
+
+  def test_embed_builds_google_maps_url
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "maps.google.com/maps"
+    assert_includes source, "CGI.escape"
+  end
+
+  def test_embed_builds_yandex_maps_url
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "map-widget/v1"
+    assert_includes source, "yandex_maps_url"
+  end
+
+  def test_embed_has_sandbox_per_provider
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "PROVIDERS"
+    assert_includes source, "sandbox:"
+  end
+
+  def test_embed_uses_aspect_ratio_for_video_providers
+    source = File.read(File.join(TEMPLATE_ROOT, "embed", "embed_component.rb.tt"))
+
+    assert_includes source, "aspect-ratio"
+    assert_includes source, '"16/9"'
   end
 end

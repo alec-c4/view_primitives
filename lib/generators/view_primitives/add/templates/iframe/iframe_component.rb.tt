@@ -42,7 +42,7 @@ module UI
         src: @src,
         title: @title,
         loading: @loading,
-        class: cn(BASE, @extra_class)
+        class: cn(BASE, (@aspect ? "h-full" : nil), @extra_class)
       }
       attrs[:sandbox] = sandbox_value if @sandbox != false
       attrs[:width]   = @width  if @width

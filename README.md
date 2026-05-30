@@ -160,13 +160,9 @@ ViewPrimitives adds the `ui` helper to views and mailers:
 | Image | Responsive `<img>` with `srcset` / `sizes` | [docs](docs/components/image.md) |
 | Audio | `<audio>` + `<source>` with optional transcript link | [docs](docs/components/audio.md) |
 | Iframe | Sandboxed embed wrapper with required `title` and lazy loading | [docs](docs/components/iframe.md) |
-
-### Coming soon
-
-| Component | Description |
-|-----------|-------------|
-| WYSIWYG | Rich text editor wrapper (Trix or Quill adapter) |
-| Map / Area | Image map with clickable regions |
+| WYSIWYG | Rich-text editor — Trix (default) or Quill adapter | [docs](docs/components/wysiwyg.md) |
+| Map / Area | Image map with clickable `<area>` regions | [docs](docs/components/map_area.md) |
+| Embed | Third-party embeds — YouTube, Vimeo, Spotify, Google Maps, Yandex Maps, Loom, SoundCloud, X, Telegram, Facebook | [docs](docs/components/embed.md) |
 
 See [ROADMAP.md](ROADMAP.md) for the full component list organised by phase.
 

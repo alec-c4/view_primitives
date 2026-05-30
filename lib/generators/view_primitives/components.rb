@@ -12,7 +12,7 @@ module ViewPrimitives
 
       # Post-install instructions for components that require external dependencies.
       SETUP_NOTES = {
-        "chart" => <<~TEXT
+        "chart" => <<~TEXT,
           Chart requires Chart.js. Add it to your importmap:
 
             # config/importmap.rb
@@ -23,6 +23,26 @@ module ViewPrimitives
             ui :chart, type: :bar,
               labels: ["Jan", "Feb", "Mar"],
               datasets: [{ label: "Revenue", data: [100, 200, 150] }]
+        TEXT
+        "wysiwyg" => <<~TEXT
+          WYSIWYG defaults to Trix (adapter: :trix). To use Trix, install ActionText:
+
+            bundle add actiontext
+            rails action_text:install
+
+          To use Quill (adapter: :quill), add it to your importmap:
+
+            # config/importmap.rb
+            pin "quill", to: "https://esm.sh/quill@2"
+
+          Also add Quill's stylesheet to your CSS entry point:
+
+            @import url("https://esm.sh/quill@2/dist/quill.snow.css");
+
+          Usage:
+
+            ui :wysiwyg, name: "body"
+            ui :wysiwyg, name: "body", adapter: :quill, placeholder: "Write something..."
         TEXT
       }.freeze
 
