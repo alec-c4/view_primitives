@@ -49,22 +49,24 @@ module ViewPrimitives
         end
       end
 
-      def template(source, *args, **options, &block)
-        destination = args.first || options[:to]
-        warn_overwrite(destination) if destination
-        super
-      end
+      no_tasks do
+        def template(source, *args, **options, &block)
+          destination = args.first || options[:to]
+          warn_overwrite(destination) if destination
+          super
+        end
 
-      def copy_file(source, *args, **options)
-        destination = args.first || options[:to]
-        warn_overwrite(destination) if destination
-        super
+        def copy_file(source, *args, **options)
+          destination = args.first || options[:to]
+          warn_overwrite(destination) if destination
+          super
+        end
       end
 
       private
 
       def copy_component(name)
-        dir = File.join(source_root, name)
+        dir = File.join(self.class.source_root, name)
         Dir.each_child(dir).sort.each { |file| copy_template_file(name, file) }
         copy_extra_stimulus(name)
       end

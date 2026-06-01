@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-06-01
+
+### Fixed
+
+- `AddGenerator#copy_component` called `source_root` as an instance method; changed to `self.class.source_root` (caught by Ruby 4.0 stricter method dispatch)
+- `template` and `copy_file` overrides in `AddGenerator` were treated as Thor generator actions and invoked with zero arguments; wrapped in `no_tasks` to exclude them from action dispatch
+- Test helper did not require `ViewPrimitives::Generators::Components`, causing two tests to error with `NameError: uninitialized constant`
+
 ## [0.1.0] - 2026-05-30
 
 ### Added

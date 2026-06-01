@@ -2,6 +2,7 @@
 
 $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 require "view_primitives"
+require_relative "../lib/generators/view_primitives/components"
 
 require "date"
 require "active_support/core_ext/object/blank"
