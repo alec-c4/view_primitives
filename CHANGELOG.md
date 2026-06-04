@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.3] - 2026-06-04
+
+### Fixed
+
+- `AddGenerator` template files for `form_field`, `input_otp`, and `qr_code` contained unescaped ERB tags (`<%= %>` / `<% %>`) inside Ruby comments; the stricter ERB parser in Ruby 4.0 raised `SyntaxError` when processing these `.tt` files, making those three components impossible to generate; fixed by escaping the comment-only tags as `<%%=` / `<%%`
+
 ## [0.1.2] - 2026-06-04
 
 ### Fixed

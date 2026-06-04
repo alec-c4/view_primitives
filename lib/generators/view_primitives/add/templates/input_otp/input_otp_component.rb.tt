@@ -6,7 +6,7 @@ module UI
     # Renders N individual single-character inputs that auto-advance on entry.
     #
     # Usage:
-    #   <%= ui :input_otp, length: 6, name: "otp" %>
+    #   <%%= ui :input_otp, length: 6, name: "otp" %>
 
     CELL_CLS = "h-12 w-10 rounded-md border border-input bg-transparent text-center text-lg font-medium " \
                "shadow-xs transition-[color,box-shadow] outline-none " \

@@ -4,9 +4,9 @@ module UI
   # Wraps a label + input + optional hint and error message into a consistent field layout.
   #
   # Usage:
-  #   <%= ui :form_field, label: "Email", error: @user.errors[:email].first do %>
-  #     <%= ui :input, type: "email", name: "user[email]", id: "user_email" %>
-  #   <% end %>
+  #   <%%= ui :form_field, label: "Email", error: @user.errors[:email].first do %>
+  #     <%%= ui :input, type: "email", name: "user[email]", id: "user_email" %>
+  #   <%% end %>
   class FormFieldComponent < ApplicationComponent
     def initialize(label: nil, hint: nil, error: nil, required: false, **html_attrs)
       @label = label
