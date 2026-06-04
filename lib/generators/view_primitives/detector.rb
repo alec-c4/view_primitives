@@ -38,6 +38,18 @@ module ViewPrimitives
           File.exist?(File.join(destination_root, dir))
         end
       end
+
+      # Returns the exact line (including newline) that inject_into_file should anchor after,
+      # or nil if no tailwindcss @import is present. Checks with and without semicolons so
+      # the after: anchor always matches what the file actually contains.
+      def tailwind_import_anchor(content)
+        [
+          "@import \"tailwindcss\";\n",
+          "@import \"tailwindcss\"\n",
+          "@import 'tailwindcss';\n",
+          "@import 'tailwindcss'\n"
+        ].find { |anchor| content.include?(anchor) }
+      end
     end
   end
 end

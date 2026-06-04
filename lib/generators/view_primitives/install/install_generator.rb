@@ -10,7 +10,7 @@ module ViewPrimitives
       source_root File.expand_path("templates", __dir__)
 
       def verify_ui_inflection
-        return if "ui/button".camelize == "UI::ButtonComponent"
+        return if "ui/button_component".camelize == "UI::ButtonComponent"
 
         say "\n  Warning: ActiveSupport inflection for `UI` is not configured.", :yellow
         say "  ViewPrimitives expects `ui/button` to resolve to `UI::ButtonComponent`.", :yellow
@@ -52,10 +52,9 @@ module ViewPrimitives
 
         import_line = "@import \"#{css_import_path}\";\n"
 
-        if entry_content.include?('@import "tailwindcss"')
-          inject_into_file entry, import_line, after: "@import \"tailwindcss\"\n"
-        elsif entry_content.include?("@import 'tailwindcss'")
-          inject_into_file entry, import_line, after: "@import 'tailwindcss'\n"
+        anchor = tailwind_import_anchor(entry_content)
+        if anchor
+          inject_into_file entry, import_line, after: anchor
         else
           append_to_file entry, "\n#{import_line}"
         end

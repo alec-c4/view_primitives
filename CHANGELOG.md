@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-06-04
+
+### Fixed
+
+- `InstallGenerator#verify_ui_inflection` checked `"ui/button".camelize` which can never equal `"UI::ButtonComponent"`, causing the warning to fire unconditionally even when inflections were correctly configured; fixed to check `"ui/button_component".camelize`
+- `InstallGenerator#inject_css_import` used `String#include?` to detect `@import "tailwindcss"` (matches with or without semicolon) but passed `after: "@import \"tailwindcss\"\n"` (no semicolon) to `inject_into_file`; the anchor mismatch left the entry point unchanged ("File unchanged!") on Tailwind CSS v4 projects that use `@import "tailwindcss";`; fixed by probing for all four variants (double/single quotes × with/without semicolon) and passing the exact matching line as the anchor
+
 ## [0.1.1] - 2026-06-01
 
 ### Fixed
