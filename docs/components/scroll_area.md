@@ -1,5 +1,7 @@
 # ScrollArea
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Scrollable container with a thin, themed scrollbar styled via CSS custom properties.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add scroll_area
 ```
 
 Creates `app/components/ui/scroll_area_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only scroll_area
+```
+
 
 ## Usage
 

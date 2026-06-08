@@ -1,6 +1,8 @@
 # List Group
 
-Bordered list of items with optional active state, links, and muted variant. Copies two files: `ListGroupComponent` (the `<ul>` wrapper) and `ListGroupItemComponent` (each `<li>` or `<a>`).
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
+Bordered list of items with optional active state, links, and muted variant. Internal dividers use `divide-y divide-border`. Copies two files: `ListGroupComponent` (the `<ul>` wrapper) and `ListGroupItemComponent` (each `<li>` or `<a>`).
 
 ## Installation
 

@@ -1,5 +1,7 @@
 # Separator
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Thin divider line for horizontal or vertical layout separation.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add separator
 ```
 
 Creates `app/components/ui/separator_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only separator
+```
+
 
 ## Usage
 

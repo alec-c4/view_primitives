@@ -1,5 +1,7 @@
 # Avatar
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Circular image or initials fallback for user representation.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add avatar
 ```
 
 Creates `app/components/ui/avatar_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only avatar
+```
+
 
 ## Usage
 

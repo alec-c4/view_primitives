@@ -1,5 +1,7 @@
 # Alert
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Informational banner for surfacing status messages, warnings, and errors. Accepts plain-text content via kwargs or rich HTML via slots.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add alert
 ```
 
 Creates `app/components/ui/alert_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only alert
+```
+
 
 ## Usage
 

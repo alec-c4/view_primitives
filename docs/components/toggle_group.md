@@ -1,5 +1,7 @@
 # ToggleGroup
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Wrapper that coordinates a set of Toggle buttons as a single or multi-select group.
 
 Requires `toggle_group_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add toggle_group
 ```
 
 Creates `app/components/ui/toggle_group_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only toggle_group
+```
+
 
 ## Usage
 

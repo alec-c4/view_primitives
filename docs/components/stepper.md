@@ -1,5 +1,7 @@
 # Stepper
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Multi-step progress indicator with horizontal or vertical orientation.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add stepper
 ```
 
 Creates `app/components/ui/stepper_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only stepper
+```
+
 
 ## Usage
 

@@ -1,5 +1,7 @@
 # Picture
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Renders a `<picture>` element with multiple `<source>` formats and a fallback `<img>`. Use to serve modern formats (AVIF, WebP) with a JPEG/PNG fallback.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add picture
 ```
 
 Creates `app/components/ui/picture_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only picture
+```
+
 
 ## Usage
 

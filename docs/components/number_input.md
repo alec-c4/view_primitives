@@ -1,5 +1,7 @@
 # NumberInput
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Numeric input with browser spin buttons hidden and consistent focus styling.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add number_input
 ```
 
 Creates `app/components/ui/number_input_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only number_input
+```
+
 
 ## Usage
 

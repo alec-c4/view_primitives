@@ -1,5 +1,7 @@
 # Collapsible
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Expandable section built on native `<details>`/`<summary>`. No JavaScript required.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add collapsible
 ```
 
 Creates `app/components/ui/collapsible_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only collapsible
+```
+
 
 ## Usage
 

@@ -1,5 +1,7 @@
 # Checkbox
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Styled checkbox input with optional inline label.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add checkbox
 ```
 
 Creates `app/components/ui/checkbox_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only checkbox
+```
+
 
 ## Usage
 

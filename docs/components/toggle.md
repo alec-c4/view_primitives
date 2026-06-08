@@ -1,5 +1,7 @@
 # Toggle
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Pressable button that tracks an on/off state via `aria-pressed` and a Stimulus controller.
 
 Requires `toggle_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add toggle
 ```
 
 Creates `app/components/ui/toggle_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only toggle
+```
+
 
 ## Usage
 

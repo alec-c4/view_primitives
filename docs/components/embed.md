@@ -1,5 +1,7 @@
 # Embed
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Embeds third-party content. Pass `url:` — the provider is detected automatically from the domain. No `type:` needed.
 
 ## Usage

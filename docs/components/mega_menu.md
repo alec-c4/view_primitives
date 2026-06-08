@@ -1,5 +1,7 @@
 # MegaMenu
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Full-width dropdown panel anchored to a trigger button, organised into titled columns.
 
 Requires `mega_menu_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add mega_menu
 ```
 
 Creates `app/components/ui/mega_menu_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only mega_menu
+```
+
 
 ## Usage
 

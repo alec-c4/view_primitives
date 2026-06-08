@@ -1,5 +1,7 @@
 # Video
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 HTML5 `<video>` element with multiple source formats, track (caption) support, and sensible defaults.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add video
 ```
 
 Creates `app/components/ui/video_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only video
+```
+
 
 ## Usage
 

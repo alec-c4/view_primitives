@@ -1,5 +1,7 @@
 # Badge
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Small inline label for status, counts, or categories.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add badge
 ```
 
 Creates `app/components/ui/badge_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only badge
+```
+
 
 ## Usage
 

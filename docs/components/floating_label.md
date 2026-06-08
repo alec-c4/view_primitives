@@ -1,5 +1,7 @@
 # FloatingLabel
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Input with a label that floats above the field when it is focused or has a value. Pure CSS via Tailwind `peer` utilities — no JavaScript required.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add floating_label
 ```
 
 Creates `app/components/ui/floating_label_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only floating_label
+```
+
 
 ## Usage
 

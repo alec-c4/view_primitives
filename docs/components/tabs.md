@@ -1,5 +1,7 @@
 # Tabs
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Tabbed panel that shows one content pane at a time.
 
 Requires `tabs_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add tabs
 ```
 
 Creates `app/components/ui/tabs_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only tabs
+```
+
 
 ## Usage
 

@@ -1,5 +1,7 @@
 # Skeleton
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Animated loading placeholder. Size is controlled entirely by classes passed by the caller.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add skeleton
 ```
 
 Creates `app/components/ui/skeleton_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only skeleton
+```
+
 
 ## Usage
 

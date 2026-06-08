@@ -1,6 +1,8 @@
 # Select
 
-Native `<select>` element with consistent border, focus, and disabled styles.
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
+Native `<select>` element with consistent border, focus, and disabled styles. Base styles come from `UI::Styles::SELECT` (`vp-select` in CSS).
 
 ## Installation
 
@@ -9,6 +11,13 @@ rails g view_primitives:add select
 ```
 
 Creates `app/components/ui/select_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only select
+```
+
 
 ## Usage
 

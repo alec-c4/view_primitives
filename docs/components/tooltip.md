@@ -1,5 +1,7 @@
 # Tooltip
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Small text label that appears near an element on hover. Pure CSS — no JavaScript required.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add tooltip
 ```
 
 Creates `app/components/ui/tooltip_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only tooltip
+```
+
 
 ## Usage
 

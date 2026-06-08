@@ -1,5 +1,7 @@
 # InputOtp
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 One-time-password digit input group. Renders N individual single-character inputs that auto-advance on entry and support paste.
 
 Requires `input_otp_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add input_otp
 ```
 
 Creates `app/components/ui/input_otp_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only input_otp
+```
+
 
 ## Usage
 

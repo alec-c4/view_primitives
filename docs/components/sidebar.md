@@ -1,5 +1,7 @@
 # Sidebar
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Collapsible application sidebar with branded header, grouped navigation items, and built-in icon support.
 
 Requires `sidebar_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add sidebar
 ```
 
 Creates `app/components/ui/sidebar_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only sidebar
+```
+
 
 ## Usage
 

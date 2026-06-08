@@ -1,5 +1,7 @@
 # Indicator
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Status dot or count badge overlaid on another element. Wraps any content and renders a small badge in one corner.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add indicator
 ```
 
 Creates `app/components/ui/indicator_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only indicator
+```
+
 
 ## Usage
 

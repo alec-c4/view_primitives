@@ -1,5 +1,7 @@
 # Audio
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 HTML5 `<audio>` element with multiple source formats and playback controls.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add audio
 ```
 
 Creates `app/components/ui/audio_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only audio
+```
+
 
 ## Usage
 

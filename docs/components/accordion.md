@@ -1,5 +1,7 @@
 # Accordion
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Collapsible content sections. Built on native `<details>`/`<summary>` — no JavaScript required. The chevron rotates on open via Tailwind's `group-open:` modifier.
 
 ## Installation
@@ -106,7 +108,15 @@ toggle(event) {
 
 ## How it works
 
-Each item renders a `<details>` element with `class="group"`. The chevron SVG uses `group-open:rotate-180` to animate when the browser sets the `open` attribute — no JavaScript required for basic behavior.
+Each item renders a `<details>` element with `border-b border-border`. The trigger is a `<summary>` with `font-medium`, `hover:underline`, and a Lucide-style chevron. The chevron uses `group-open:rotate-180` when the browser sets the `open` attribute — no JavaScript required for basic behavior.
+
+Item borders and trigger styling match [shadcn Accordion](https://ui.shadcn.com/docs/components/radix/accordion). Override per item with `class:` on the slot:
+
+```erb
+<% accordion.with_item(title: "Custom borders", class: "border-dashed") do %>
+  Content
+<% end %>
+```
 
 ## API
 

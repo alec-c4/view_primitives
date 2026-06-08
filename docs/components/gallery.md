@@ -1,5 +1,7 @@
 # Gallery
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Responsive image grid with an optional click-to-enlarge lightbox.
 
 Requires `gallery_controller.js` (copied automatically by the generator) when `lightbox: true`.
@@ -11,6 +13,13 @@ rails g view_primitives:add gallery
 ```
 
 Creates `app/components/ui/gallery_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only gallery
+```
+
 
 ## Usage
 

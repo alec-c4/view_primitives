@@ -1,5 +1,7 @@
 # Timepicker
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Trigger button that opens a clock popover with hour and minute spinners for selecting a time.
 
 Requires `timepicker_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add timepicker
 ```
 
 Creates `app/components/ui/timepicker_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only timepicker
+```
+
 
 ## Usage
 

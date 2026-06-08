@@ -1,5 +1,7 @@
 # RadioGroup
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Group of radio inputs rendered from an array of items.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add radio_group
 ```
 
 Creates `app/components/ui/radio_group_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only radio_group
+```
+
 
 ## Usage
 

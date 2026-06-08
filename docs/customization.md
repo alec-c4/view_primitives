@@ -8,12 +8,12 @@ There are three levels of customization, from lightest to deepest:
 
 ## Level 1 — Design tokens (colors, radius, spacing)
 
-All visual properties are driven by CSS variables defined in `app/assets/stylesheets/view_primitives.css` (exact path depends on your setup — see `rails g view_primitives:install`).
+Visual properties are driven by CSS variables in `view_primitives/themes/default.css`, imported from the entry file `app/assets/stylesheets/view_primitives.css` (exact path depends on your setup — see `rails g view_primitives:install`).
 
-The `:root` block sets the default light theme. Override any variable there to change it globally:
+The `:root` block in `default.css` sets the light theme. Override any variable there to change it globally:
 
 ```css
-/* app/assets/stylesheets/view_primitives.css */
+/* app/assets/stylesheets/view_primitives/themes/default.css */
 
 :root {
   /* Brand color — all primary buttons, links, active states */
@@ -75,7 +75,80 @@ The `.dark` class overrides the same tokens for dark mode. Add `class="dark"` to
 
 ---
 
-## Level 2 — Component classes
+## Level 2 — Shared primitives (`UI::Styles`)
+
+Repeated Tailwind patterns (focus rings, inputs, overlays, menu items) live in `view_primitives/utilities.css` as `@utility vp-*` classes. Ruby components reference them through `UI::Styles` in `app/components/ui/styles.rb`:
+
+```ruby
+UI::Styles::FOCUS_RING     # => "vp-focus-ring"
+UI::Styles::BORDER         # => "vp-border" (border-border token)
+UI::Styles::INPUT          # => "vp-input"
+UI::Styles::FIELD_PANEL    # => calendar / picker popover shell
+UI::Styles::PICKER_TRIGGER # => date/time picker button shell
+UI::Styles::MENU_SEPARATOR # => menu divider between item groups
+```
+
+Change a primitive once in `utilities.css` and every component that uses the constant updates. Refresh the file with:
+
+```bash
+rails g view_primitives:update --skip-components
+```
+
+### Optional color themes
+
+```bash
+rails g view_primitives:theme rose
+```
+
+Add `data-theme="rose"` on `<html>` to activate. Dark mode still uses the `.dark` class.
+
+### When to add a new `vp-*` primitive
+
+ViewPrimitives is **not** a Bootstrap-style class system. The `vp-*` layer is for **cross-cutting building blocks** only — not full components.
+
+Add a new `@utility vp-*` only when **all** of these are true:
+
+1. The same Tailwind block appears in **five or more** component files
+2. Those files should stay in sync when the pattern changes (focus ring, input shell, overlay)
+3. The class is referenced from Ruby via `UI::Styles`, not typed directly in app views
+
+Do **not** add `vp-button`, `vp-card`, or other component-level classes. Use ViewComponent constants and design tokens instead.
+
+Current primitives: `vp-focus-ring`, `vp-peer-focus-ring`, `vp-border`, `vp-input`, `vp-textarea`, `vp-select`, `vp-overlay`, `vp-popover-panel`, `vp-menu-item`. Menu separators use `UI::Styles::MENU_SEPARATOR` (`bg-border`, not a bare `<hr>`).
+
+### Border conventions
+
+Tailwind `border`, `border-b`, and `border-t` **without a color** resolve to `currentColor` and often render as heavy black lines. Always pair directional borders with a token:
+
+```erb
+<%# ✅ GOOD %>
+<div class="border-b border-border">
+
+<%# ❌ BAD — black or double-weight lines %>
+<div class="border-b">
+<div class="border rounded-lg">  <%# preview wrapper + component border-b = 2px bottom %>
+```
+
+When placing a component inside a bordered preview card, remove the overlapping edge on the component:
+
+```erb
+<div class="overflow-hidden rounded-lg border border-border">
+  <%= ui :navbar, class: "static border-b-0 shadow-none", brand: "MyApp", items: [...] %>
+</div>
+```
+
+| Class / constant | Use for |
+|------------------|---------|
+| `border border-input` / `UI::Styles::FIELD_PANEL` | Form fields, pickers, calendar shells |
+| `border-b border-border`, `border-t border-border` | Navbar, footer, accordion items, table rows |
+| `UI::Styles::BORDER` (`vp-border`) | Cards, tables, media wrappers, dialog panels |
+| `UI::Styles::MENU_SEPARATOR` | Dividers inside dropdown, menubar, context menu, command |
+| `divide-y divide-border` | List group and stacked list dividers |
+| `UI::Styles::PICKER_TRIGGER` | Date and time picker trigger buttons |
+
+---
+
+## Level 3 — Component classes
 
 Each component file lives in `app/components/ui/` and is plain Ruby. The Tailwind classes are defined as constants at the top of the file — edit them directly:
 
@@ -126,9 +199,9 @@ end
 
 ---
 
-## Level 3 — Per-instance overrides
+## Level 4 — Per-instance overrides
 
-Pass `class:` to any component to append Tailwind utilities to the generated classes. Your classes are added **after** the base classes, so they win:
+Pass `class:` to any component to append Tailwind utilities to the generated classes. Your classes are merged **after** the base classes via `cn()`:
 
 ```erb
 <%# Wider button %>
@@ -141,7 +214,13 @@ Pass `class:` to any component to append Tailwind utilities to the generated cla
 <%= ui :badge, "Draft", variant: :outline, class: "ml-2 opacity-60" %>
 ```
 
-This works because all components pass `@extra_class` last through the `cn()` helper, which joins and deduplicates class names.
+`cn()` joins class strings and, when the optional [`tailwind_merge`](https://rubygems.org/gems/tailwind_merge) gem is installed, resolves conflicting utilities (for example `px-2` + `px-4` → `px-4`). Without the gem, classes are joined with a space.
+
+Add to your Gemfile if you want smart merging:
+
+```ruby
+gem "tailwind_merge"
+```
 
 ---
 
@@ -176,10 +255,18 @@ No component files need to change — the design tokens propagate everywhere aut
 
 ## Keeping components up to date
 
-If a new version of ViewPrimitives ships improvements to a component, re-run the generator with `--force` to overwrite your local copy:
+After upgrading the gem, refresh everything you have already copied:
 
 ```bash
-rails g view_primitives:add button --force
+rails g view_primitives:update
+rails g view_primitives:update --only button dialog   # selected components
+rails g view_primitives:update --skip-css             # components only
 ```
 
-Any customizations you made to that file will be lost. The recommended workflow is to keep local changes minimal (prefer token overrides) or track them in git so you can re-apply them as a patch.
+To overwrite a single component:
+
+```bash
+rails g view_primitives:add button
+```
+
+Any customizations in overwritten files will be lost. Prefer token and `UI::Styles` overrides, or track local edits in git so you can re-apply them as a patch.

@@ -1,8 +1,10 @@
 # Command
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Command palette dialog with a search input and filterable item list. Opens over an overlay on trigger click.
 
-Requires `command_controller.js` (copied automatically by the generator).
+Requires `command_controller.js` (copied automatically by the generator). Focus is trapped inside the palette while open; Escape closes it.
 
 ## Installation
 
@@ -11,6 +13,13 @@ rails g view_primitives:add command
 ```
 
 Creates `app/components/ui/command_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only command
+```
+
 
 ## Usage
 
@@ -28,7 +37,7 @@ Creates `app/components/ui/command_component.rb`.
     <button class="<%= UI::CommandComponent::ITEM %>" type="button">Settings</button>
   </div>
 
-  <hr class="<%= UI::CommandComponent::SEPARATOR %>">
+  <div role="separator" class="<%= UI::CommandComponent::SEPARATOR %>"></div>
 
   <div class="<%= UI::CommandComponent::GROUP_WRAPPER %>">
     <p class="<%= UI::CommandComponent::GROUP %>">Actions</p>
@@ -49,7 +58,7 @@ The search input filters visible items client-side. Any item whose text content 
 | `GROUP` | Group heading `<p>` |
 | `ITEM` | Actionable `<button>` or `<a>` items |
 | `SHORTCUT` | Keyboard shortcut hint placed inside an item |
-| `SEPARATOR` | `<hr>` rule between groups |
+| `SEPARATOR` | `<div role="separator">` between groups — aliases `UI::Styles::MENU_SEPARATOR` |
 
 ## API
 

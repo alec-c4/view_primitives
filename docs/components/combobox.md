@@ -1,5 +1,7 @@
 # Combobox
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Searchable select with a text input that filters the option list as the user types.
 
 Requires `combobox_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add combobox
 ```
 
 Creates `app/components/ui/combobox_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only combobox
+```
+
 
 ## Usage
 

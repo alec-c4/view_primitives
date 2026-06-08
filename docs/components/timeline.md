@@ -1,5 +1,7 @@
 # Timeline
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Vertical list of dated events with coloured dot indicators.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add timeline
 ```
 
 Creates `app/components/ui/timeline_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only timeline
+```
+
 
 ## Usage
 

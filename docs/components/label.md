@@ -1,5 +1,7 @@
 # Label
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Accessible form label that pairs with an input via `for:`.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add label
 ```
 
 Creates `app/components/ui/label_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only label
+```
+
 
 ## Usage
 

@@ -1,5 +1,7 @@
 # Calendar
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Month-grid calendar with selectable days, today highlight, min/max bounds, and prev/next navigation.
 
 Requires `calendar_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add calendar
 ```
 
 Creates `app/components/ui/calendar_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only calendar
+```
+
 
 ## Usage
 

@@ -1,8 +1,10 @@
 # Dialog
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Accessible modal dialog with an overlay, title, description, body, and footer slot.
 
-Requires `dialog_controller.js` (copied automatically by the generator).
+Requires `dialog_controller.js` (copied automatically by the generator). Focus is trapped inside the panel while open; Tab cycles through focusable elements. Escape closes the dialog and restores focus to the trigger.
 
 ## Installation
 
@@ -11,6 +13,13 @@ rails g view_primitives:add dialog
 ```
 
 Creates `app/components/ui/dialog_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only dialog
+```
+
 
 ## Usage
 
@@ -45,7 +54,11 @@ Open programmatically by calling `dialog#open` from another Stimulus action:
 
 ## Close on Escape
 
-The dialog closes automatically when the user presses `Escape`.
+The dialog closes automatically when the user presses `Escape`. Focus returns to the element that was active before the dialog opened.
+
+## Focus trap
+
+While open, Tab and Shift+Tab cycle only through focusable elements inside the panel (`role="dialog"`). The overlay click and close button also call `dialog#close`.
 
 ## API
 

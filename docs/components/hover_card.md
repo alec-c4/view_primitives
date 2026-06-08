@@ -1,5 +1,7 @@
 # HoverCard
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Rich floating card that appears when the user hovers over a trigger element. Pure CSS via Tailwind `group-hover` — no JavaScript required.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add hover_card
 ```
 
 Creates `app/components/ui/hover_card_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only hover_card
+```
+
 
 ## Usage
 

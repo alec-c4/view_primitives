@@ -1,5 +1,7 @@
 # Range
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Styled range slider (`<input type="range">`) with a custom thumb and focus ring.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add range
 ```
 
 Creates `app/components/ui/range_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only range
+```
+
 
 ## Usage
 

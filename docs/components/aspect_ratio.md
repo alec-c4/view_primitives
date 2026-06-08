@@ -1,5 +1,7 @@
 # Aspect Ratio
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Constrains child content to a fixed aspect ratio using the CSS `aspect-ratio` property.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add aspect_ratio
 ```
 
 Creates `app/components/ui/aspect_ratio_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only aspect_ratio
+```
+
 
 ## Usage
 

@@ -1,5 +1,7 @@
 # Map / Area
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Renders an `<img usemap>` + `<map>` + `<area>` elements. Use it for image maps with clickable regions — floor plans, world maps, diagrams.
 
 ## Usage

@@ -1,5 +1,7 @@
 # Card
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Bordered container with composable header, title, description, content, and footer sub-components.
 
 ## Installation

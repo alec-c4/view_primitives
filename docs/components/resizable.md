@@ -1,5 +1,7 @@
 # Resizable
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Two-panel layout with a draggable handle that resizes the panels at runtime.
 
 Requires `resizable_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add resizable
 ```
 
 Creates `app/components/ui/resizable_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only resizable
+```
+
 
 ## Usage
 

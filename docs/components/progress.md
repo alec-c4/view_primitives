@@ -1,5 +1,7 @@
 # Progress
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Horizontal progress bar with accessible ARIA attributes.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add progress
 ```
 
 Creates `app/components/ui/progress_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only progress
+```
+
 
 ## Usage
 

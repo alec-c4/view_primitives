@@ -1,5 +1,7 @@
 # Popover
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Floating panel that opens on trigger click, positioned relative to the trigger element.
 
 Requires `popover_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add popover
 ```
 
 Creates `app/components/ui/popover_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only popover
+```
+
 
 ## Usage
 

@@ -1,5 +1,7 @@
 # Banner
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Styled announcement strip for notices, warnings, and status messages.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add banner
 ```
 
 Creates `app/components/ui/banner_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only banner
+```
+
 
 ## Usage
 

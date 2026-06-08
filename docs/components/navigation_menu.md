@@ -1,5 +1,7 @@
 # NavigationMenu
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Horizontal navigation bar with plain links and optional flyout dropdown panels.
 
 Requires `navigation_menu_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add navigation_menu
 ```
 
 Creates `app/components/ui/navigation_menu_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only navigation_menu
+```
+
 
 ## Usage
 

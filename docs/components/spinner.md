@@ -1,5 +1,7 @@
 # Spinner
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Animated loading indicator for in-progress states.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add spinner
 ```
 
 Creates `app/components/ui/spinner_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only spinner
+```
+
 
 ## Usage
 

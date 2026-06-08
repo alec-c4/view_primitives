@@ -1,5 +1,7 @@
 # Button Group
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Wraps multiple buttons into a visually joined row — shared border, collapsed inner radii.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add button_group
 ```
 
 Creates `app/components/ui/button_group_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only button_group
+```
+
 
 ## Usage
 

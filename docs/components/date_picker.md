@@ -1,5 +1,7 @@
 # DatePicker
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Trigger button that opens a Calendar popover for selecting a date. Submits the chosen date via a hidden input.
 
 Requires `date_picker_controller.js` and `calendar_controller.js` (both copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add date_picker
 ```
 
 Creates `app/components/ui/date_picker_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only date_picker
+```
+
 
 ## Usage
 
@@ -42,6 +51,8 @@ Creates `app/components/ui/date_picker_component.rb`.
 ## How it works
 
 The trigger button displays the selected date formatted as "Month D, YYYY". On click, a Calendar popover opens. When the user picks a day, the `calendar:change` event updates the trigger label and the hidden input value, then closes the popover.
+
+The dropdown reuses `CalendarComponent` styling (`border-input`, `shadow-xs`) — no extra popover chrome is added around the calendar grid.
 
 ## API
 

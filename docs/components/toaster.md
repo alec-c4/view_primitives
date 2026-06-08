@@ -1,5 +1,7 @@
 # Toaster
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Fixed-position toast stack for transient notifications. Place once in your application layout.
 
 Requires `toaster_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add toaster
 ```
 
 Creates `app/components/ui/toaster_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only toaster
+```
+
 
 ## Setup
 

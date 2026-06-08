@@ -1,6 +1,8 @@
 # Textarea
 
-Multi-line text input that grows to fit its content via CSS `field-sizing: content`.
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
+Multi-line text input that grows to fit its content via CSS `field-sizing: content`. Base styles come from `UI::Styles::TEXTAREA` (`vp-textarea` in CSS).
 
 ## Installation
 
@@ -9,6 +11,13 @@ rails g view_primitives:add textarea
 ```
 
 Creates `app/components/ui/textarea_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only textarea
+```
+
 
 ## Usage
 

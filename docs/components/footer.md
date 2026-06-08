@@ -1,6 +1,8 @@
 # Footer
 
-Site footer with optional link columns, block content area, and a copyright row.
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
+Site footer with optional link columns, block content area, and a copyright row. Top edge uses `border-t border-border`.
 
 ## Installation
 
@@ -9,6 +11,13 @@ rails g view_primitives:add footer
 ```
 
 Creates `app/components/ui/footer_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only footer
+```
+
 
 ## Usage
 

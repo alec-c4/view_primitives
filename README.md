@@ -28,11 +28,13 @@ Then run the install generator:
 
 ```bash
 rails g view_primitives:install
+rails g view_primitives:install --force   # refresh ApplicationComponent and CSS on upgrade
 ```
 
 This will:
-- Create `app/components/application_component.rb` with `ViewPrimitives::ClassHelper` included (skipped if you already have one — add `include ViewPrimitives::ClassHelper` manually)
-- Create `app/assets/stylesheets/view_primitives.css` with the design token definitions (`@theme inline` + oklch light/dark theme)
+- Create `app/components/application_component.rb` with `ViewPrimitives::ClassHelper`, `cn()`, and `extract_html_attrs` (skipped if you already have one — use `--force` to overwrite)
+- Create `app/components/ui/styles.rb` with shared Tailwind primitive class names (`UI::Styles::*`)
+- Create `app/assets/stylesheets/view_primitives.css` (entry file) plus `view_primitives/tokens.css`, `utilities.css`, and `themes/default.css`
 
 Then import it in your Tailwind CSS entry point:
 
@@ -52,6 +54,31 @@ Components live under `UI::` (files in `app/components/ui/`). The gem registers 
 
 That's it — no `tailwind.config.js` required. Tailwind 4 reads the `@theme inline` block directly from the CSS.
 
+### CSS layout
+
+```
+app/assets/stylesheets/
+  view_primitives.css          # entry — @import tokens, utilities, themes
+  view_primitives/
+    tokens.css                 # @theme inline design tokens
+    utilities.css              # vp-* shared primitives
+    themes/
+      default.css              # :root and .dark color variables
+      rose.css                 # optional — via view_primitives:theme
+```
+
+### Generators
+
+| Generator | Purpose |
+|-----------|---------|
+| `view_primitives:install` | Base setup — ApplicationComponent, styles.rb, CSS bundle |
+| `view_primitives:add` | Copy one or more components into the app |
+| `view_primitives:update` | Refresh installed components, CSS, and styles.rb from the gem |
+| `view_primitives:theme` | Install an optional color theme |
+| `view_primitives:list` | List available and installed components |
+
+See [docs/components/README.md](docs/components/README.md) for setup details, Stimulus notes, and `class:` overrides.
+
 ## Adding components
 
 ```bash
@@ -61,6 +88,32 @@ rails g view_primitives:add button alert accordion   # multiple at once
 ```
 
 Each component is copied into `app/components/ui/` as plain Ruby and ERB files you own and can modify freely. Re-running `add` overwrites existing files (a warning is printed). Unknown component names fail with a non-zero exit code.
+
+Component docs live in [docs/components/](docs/components/). Start with [component setup](docs/components/README.md) if you have not run `install` yet.
+
+### Updating installed components
+
+After upgrading the gem, refresh every component you have already copied:
+
+```bash
+rails g view_primitives:update
+rails g view_primitives:update --only button input   # selected components
+rails g view_primitives:update --skip-css            # components only
+```
+
+The update generator overwrites installed component files, the CSS bundle, and `styles.rb` from the latest gem templates. Back up local edits first.
+
+### Optional color themes
+
+```bash
+rails g view_primitives:theme rose
+```
+
+This copies the theme CSS and enables its `@import` in `view_primitives.css`. Apply it with `data-theme="rose"` on your layout root (`.dark` still works for dark mode).
+
+### Optional `tailwind_merge`
+
+`cn()` deduplicates class strings. For Tailwind-aware conflict resolution, add the `tailwind_merge` gem to your Gemfile — ViewPrimitives picks it up automatically when present.
 
 ## View helpers
 
@@ -174,6 +227,7 @@ See [ROADMAP.md](ROADMAP.md) for the full component list organised by phase.
 See **[docs/customization.md](docs/customization.md)** for the full guide covering:
 
 - Design tokens (OKLCH colors, radius) — change the whole palette in one file
+- Shared `UI::Styles` primitives and border conventions (`border-border`, `MENU_SEPARATOR`)
 - Editing component constants — add variants, change classes
 - Per-instance `class:` overrides — append utilities without touching the file
 - Full brand theming example

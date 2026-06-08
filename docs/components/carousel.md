@@ -1,5 +1,7 @@
 # Carousel
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Scrollable slide container with previous/next controls and optional dot indicators.
 
 Requires `carousel_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add carousel
 ```
 
 Creates `app/components/ui/carousel_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only carousel
+```
+
 
 ## Usage
 

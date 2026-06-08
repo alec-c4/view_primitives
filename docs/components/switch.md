@@ -1,5 +1,7 @@
 # Switch
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Toggle switch built from a styled checkbox. Thumb slides on check; no JavaScript required.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add switch
 ```
 
 Creates `app/components/ui/switch_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only switch
+```
+
 
 ## Usage
 

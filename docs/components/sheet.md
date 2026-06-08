@@ -1,8 +1,10 @@
 # Sheet
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Slide-in panel attached to one edge of the viewport. Use for secondary content, filters, or navigation drawers on desktop.
 
-Requires `sheet_controller.js` (copied automatically by the generator).
+Requires `dialog_controller.js` (copied automatically by the generator — shared with Dialog, Drawer, and AlertDialog). Focus is trapped inside the panel while open.
 
 ## Installation
 
@@ -11,6 +13,13 @@ rails g view_primitives:add sheet
 ```
 
 Creates `app/components/ui/sheet_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only sheet
+```
+
 
 ## Usage
 
@@ -44,7 +53,15 @@ Creates `app/components/ui/sheet_component.rb`.
 
 ## Close on overlay click or Escape
 
-Clicking the backdrop or pressing `Escape` closes the sheet.
+Clicking the backdrop, the × button, or pressing `Escape` closes the sheet. Stimulus actions use `dialog#open` and `dialog#close` on the shared `dialog_controller.js`.
+
+Footer buttons must also target `dialog#close`:
+
+```erb
+<% sheet.with_footer do %>
+  <%= ui :button, "Close", variant: :outline, data: { action: "click->dialog#close" } %>
+<% end %>
+```
 
 ## API
 

@@ -1,8 +1,10 @@
 # AlertDialog
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Confirmation dialog that blocks interaction with the rest of the page. Use for destructive or irreversible actions.
 
-Requires `dialog_controller.js` (copied automatically by the generator).
+Requires `dialog_controller.js` (copied automatically by the generator — shared with Dialog, Sheet, and Drawer). Focus is trapped inside `role="alertdialog"` while open.
 
 ## Installation
 
@@ -11,6 +13,13 @@ rails g view_primitives:add alert_dialog
 ```
 
 Creates `app/components/ui/alert_dialog_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only alert_dialog
+```
+
 
 ## Usage
 
@@ -31,7 +40,7 @@ Creates `app/components/ui/alert_dialog_component.rb`.
 
 ## Differences from Dialog
 
-AlertDialog uses `role="alertdialog"` and a darker overlay (`bg-black/80`). It also has no close button — the user must choose an action via the footer.
+AlertDialog uses `role="alertdialog"` and a darker overlay (`bg-black/80`). It also has no close button — the user must choose an action via the footer. Escape closes the dialog; focus is trapped until then.
 
 ## API
 

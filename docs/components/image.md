@@ -1,5 +1,7 @@
 # Image
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Responsive `<img>` with lazy loading, srcset/sizes support, and layout-shift prevention.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add image
 ```
 
 Creates `app/components/ui/image_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only image
+```
+
 
 ## Usage
 

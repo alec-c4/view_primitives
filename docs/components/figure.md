@@ -1,5 +1,7 @@
 # Figure
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Semantic `<figure>` wrapper with an optional `<figcaption>`. Use to pair an image, code block, or diagram with a caption.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add figure
 ```
 
 Creates `app/components/ui/figure_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only figure
+```
+
 
 ## Usage
 

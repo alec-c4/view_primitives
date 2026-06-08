@@ -1,5 +1,7 @@
 # SearchInput
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Text input with a built-in search icon on the left. Renders `<input type="search">`.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add search_input
 ```
 
 Creates `app/components/ui/search_input_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only search_input
+```
+
 
 ## Usage
 

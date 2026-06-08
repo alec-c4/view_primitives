@@ -1,5 +1,7 @@
 # FormField
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Wrapper that composes a label, any input component, an optional hint, and an error message into a consistent vertical layout.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add form_field
 ```
 
 Creates `app/components/ui/form_field_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only form_field
+```
+
 
 ## Usage
 

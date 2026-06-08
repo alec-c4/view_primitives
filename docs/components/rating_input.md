@@ -1,5 +1,7 @@
 # Rating Input
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Interactive star rating — hover to preview, click to select. Submits the chosen value via a `<form>` hidden input or directly via AJAX.
 
 ## Installation

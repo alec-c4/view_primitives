@@ -1,5 +1,7 @@
 # SpeedDial
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Floating action button (FAB) that expands into a stack of sub-action buttons on click.
 
 Requires `speed_dial_controller.js` (copied automatically by the generator).
@@ -11,6 +13,13 @@ rails g view_primitives:add speed_dial
 ```
 
 Creates `app/components/ui/speed_dial_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only speed_dial
+```
+
 
 ## Usage
 

@@ -2,7 +2,9 @@
 
 Sticky top navigation bar with brand link, desktop nav links, an action area, and a mobile hamburger menu.
 
-Requires `navbar_controller.js` (copied automatically by the generator).
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
+Requires `navbar_controller.js` (copied automatically by the generator). On viewports below `md`, a hamburger button toggles a collapsible panel with the same nav links; choosing a link closes the panel.
 
 ## Installation
 
@@ -11,6 +13,12 @@ rails g view_primitives:add navbar
 ```
 
 Creates `app/components/ui/navbar_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only navbar
+```
 
 ## Usage
 
@@ -25,6 +33,10 @@ Creates `app/components/ui/navbar_component.rb`.
        ] %>
 ```
 
+## Mobile menu
+
+When `items` is non-empty, a hamburger button appears on small screens (`md:hidden`). It toggles a panel below the header with the same links and the block action area. Links call `navbar#close` on click. The toggle sets `aria-expanded` and `aria-controls` for accessibility.
+
 ## Action area
 
 Pass a block to add content (e.g. sign-in button) to the right side of the navbar. It is hidden on mobile.
@@ -35,6 +47,16 @@ Pass a block to add content (e.g. sign-in button) to the right side of the navba
        items: [{ label: "Home", href: root_path }] do %>
   <%= ui :button, "Sign in", href: new_session_path, size: :sm %>
 <% end %>
+```
+
+## Contained preview
+
+The navbar renders `border-b border-border` on the `<nav>` element. When embedding it inside a bordered demo card, remove the overlapping bottom border to avoid a double line:
+
+```erb
+<div class="overflow-hidden rounded-lg border border-border">
+  <%= ui :navbar, class: "static border-b-0 shadow-none", brand: "MyApp", items: [...] %>
+</div>
 ```
 
 ## Brand only (no nav links)

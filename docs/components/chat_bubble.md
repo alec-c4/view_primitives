@@ -1,5 +1,7 @@
 # ChatBubble
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Styled message bubble for chat or comment interfaces. Supports sent and received orientations, timestamps, and avatars.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add chat_bubble
 ```
 
 Creates `app/components/ui/chat_bubble_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only chat_bubble
+```
+
 
 ## Usage
 

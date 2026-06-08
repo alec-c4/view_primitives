@@ -1,5 +1,7 @@
 # FileInput
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Styled `<input type="file">` with support for MIME-type filtering and multiple file selection.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add file_input
 ```
 
 Creates `app/components/ui/file_input_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only file_input
+```
+
 
 ## Usage
 

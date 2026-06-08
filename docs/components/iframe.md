@@ -1,5 +1,7 @@
 # Iframe
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Accessible `<iframe>` with sandboxing, lazy loading, and optional aspect-ratio wrapper.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add iframe
 ```
 
 Creates `app/components/ui/iframe_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only iframe
+```
+
 
 ## Usage
 

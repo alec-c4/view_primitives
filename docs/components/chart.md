@@ -1,5 +1,7 @@
 # Chart
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Canvas-based chart powered by Chart.js. Renders bar, line, pie, doughnut, radar, and polar area charts.
 
 Requires `chart_controller.js` (copied automatically by the generator) and the Chart.js library in your importmap.

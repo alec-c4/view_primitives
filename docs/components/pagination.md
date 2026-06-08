@@ -1,5 +1,7 @@
 # Pagination
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Page navigation with previous/next controls, page number links, and ellipsis for long ranges.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add pagination
 ```
 
 Creates `app/components/ui/pagination_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only pagination
+```
+
 
 ## Usage
 

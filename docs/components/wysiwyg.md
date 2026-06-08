@@ -1,5 +1,7 @@
 # WYSIWYG
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Rich-text editor wrapper. Defaults to **Trix** (bundled with Rails via ActionText). Switch to **Quill** by passing `adapter: :quill`.
 
 ## Setup

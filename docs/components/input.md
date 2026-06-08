@@ -1,6 +1,8 @@
 # Input
 
-Single-line text input with consistent focus, invalid, and disabled states.
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
+Single-line text input with consistent focus, invalid, and disabled states. Base styles come from `UI::Styles::INPUT` (`vp-input` in CSS).
 
 ## Installation
 
@@ -9,6 +11,13 @@ rails g view_primitives:add input
 ```
 
 Creates `app/components/ui/input_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only input
+```
+
 
 ## Usage
 

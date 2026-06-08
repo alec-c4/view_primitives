@@ -1,5 +1,7 @@
 # Button
 
+**Prerequisites:** run [component setup](README.md) (`view_primitives:install`) once per app.
+
 Clickable element with variant and size support. Renders as a `<button>` by default and can be switched to any HTML tag via the `href:` shorthand or `tag:` option.
 
 ## Installation
@@ -9,6 +11,13 @@ rails g view_primitives:add button
 ```
 
 Creates `app/components/ui/button_component.rb`.
+
+Refresh after a gem upgrade:
+
+```bash
+rails g view_primitives:update --only button
+```
+
 
 ## Usage
 
