@@ -2,7 +2,7 @@
 
 module UI
   class VideoComponent < ApplicationComponent
-    BASE = "max-w-full"
+    BASE = "h-auto w-full max-w-full rounded-md"
 
     # Add <source> elements via v.with_source(src:, type:)
     renders_many :sources, "UI::VideoComponent::SourceComponent"

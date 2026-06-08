@@ -1,10 +1,12 @@
 <%= tag.div(
-  class: cn("w-full", @extra_class),
-  data: { controller: "tabs", tabs_index_value: @default_index },
+  class: cn("group/tabs flex w-full flex-col gap-2", @extra_class),
+  data: { slot: "tabs", controller: "tabs", tabs_index_value: @default_index },
   **@html_attrs
 ) do %>
   <div role="tablist"
-       class="inline-flex h-9 items-center justify-center rounded-lg bg-muted p-1 text-muted-foreground">
+       data-slot="tabs-list"
+       data-variant="default"
+       class="group/tabs-list inline-flex h-9 w-fit items-center justify-center rounded-lg bg-muted p-[3px] text-muted-foreground">
     <% @items_data.each_with_index do |item, i| %>
       <button type="button"
               role="tab"
@@ -13,7 +15,8 @@
               data-tabs-target="trigger"
               data-state="<%= i == @default_index ? 'active' : 'inactive' %>"
               aria-selected="<%= i == @default_index %>"
-              class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow">
+              data-slot="tabs-trigger"
+              class="relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground vp-focus-ring focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm data-[state=active]:bg-background data-[state=active]:text-foreground dark:text-muted-foreground dark:hover:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 dark:data-[state=active]:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
         <%= item[:title] %>
       </button>
     <% end %>
@@ -25,7 +28,8 @@
               data-tabs-target="trigger"
               data-state="<%= (@items_data.size + i) == @default_index ? 'active' : 'inactive' %>"
               aria-selected="<%= (@items_data.size + i) == @default_index %>"
-              class="inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1 text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow">
+              data-slot="tabs-trigger"
+              class="relative inline-flex h-[calc(100%-1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap text-foreground/60 transition-all hover:text-foreground vp-focus-ring focus-visible:outline-1 focus-visible:outline-ring disabled:pointer-events-none disabled:opacity-50 group-data-[variant=default]/tabs-list:data-[state=active]:shadow-sm data-[state=active]:bg-background data-[state=active]:text-foreground dark:text-muted-foreground dark:hover:text-foreground dark:data-[state=active]:border-input dark:data-[state=active]:bg-input/30 dark:data-[state=active]:text-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4">
         <%= tab.title %>
       </button>
     <% end %>
@@ -33,16 +37,18 @@
 
   <% @items_data.each_with_index do |item, i| %>
     <div role="tabpanel"
+         data-slot="tabs-content"
          data-tabs-target="panel"
-         class="mt-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+         class="flex-1 outline-none"
          <%= i != @default_index ? "hidden" : "" %>>
       <%= item[:content] %>
     </div>
   <% end %>
   <% tabs.each_with_index do |tab, i| %>
     <div role="tabpanel"
+         data-slot="tabs-content"
          data-tabs-target="panel"
-         class="mt-2 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring"
+         class="flex-1 outline-none"
          <%= (@items_data.size + i) != @default_index ? "hidden" : "" %>>
       <%= tab.call %>
     </div>

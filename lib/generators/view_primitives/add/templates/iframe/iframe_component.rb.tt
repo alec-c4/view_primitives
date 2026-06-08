@@ -27,8 +27,10 @@ module UI
 
     def call
       if @aspect
-        content_tag(:div, style: "aspect-ratio: #{@aspect}", class: "w-full overflow-hidden") do
-          iframe_tag
+        content_tag(:div,
+          style: "aspect-ratio: #{@aspect}",
+          class: cn("w-full overflow-hidden rounded-md #{UI::Styles::BORDER} shadow-xs", @extra_class)) do
+          iframe_tag(wrapped: true)
         end
       else
         iframe_tag
@@ -37,12 +39,12 @@ module UI
 
     private
 
-    def iframe_tag
+    def iframe_tag(wrapped: false)
       attrs = {
         src: @src,
         title: @title,
         loading: @loading,
-        class: cn(BASE, (@aspect ? "h-full" : nil), @extra_class)
+        class: cn(BASE, (wrapped ? "h-full" : @extra_class))
       }
       attrs[:sandbox] = sandbox_value if @sandbox != false
       attrs[:width]   = @width  if @width

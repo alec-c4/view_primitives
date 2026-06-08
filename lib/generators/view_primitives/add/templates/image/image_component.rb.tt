@@ -2,7 +2,7 @@
 
 module UI
   class ImageComponent < ApplicationComponent
-    BASE = "max-w-full"
+    BASE = "h-auto w-full max-w-full rounded-md"
 
     LOADING_MODES = %i[lazy eager auto].freeze
 

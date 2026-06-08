@@ -2,12 +2,12 @@
 
 module UI
   class SpinnerComponent < ApplicationComponent
-    BASE = "inline-block animate-spin rounded-full border-2 border-current border-t-transparent"
+    LOADER_PATH = "M21 12a9 9 0 1 1-6.219-8.56"
 
     SIZES = {
       sm: "size-4",
-      default: "size-6",
-      lg: "size-10"
+      default: "size-4",
+      lg: "size-6"
     }.freeze
 
     def initialize(size: :default, **html_attrs)
@@ -17,10 +17,19 @@ module UI
     end
 
     def call
-      content_tag(:span,
-        content_tag(:span, "Loading...", class: "sr-only"),
-        class: cn(BASE, SIZES.fetch(@size, SIZES[:default]), @extra_class),
+      content_tag(:svg,
+        content_tag(:path, nil,
+          d: LOADER_PATH,
+          "stroke-linecap": "round",
+          "stroke-linejoin": "round"),
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        "stroke-width": "2",
+        class: cn("animate-spin text-muted-foreground", SIZES.fetch(@size, SIZES[:default]), @extra_class),
         role: "status",
+        "aria-label": "Loading",
         **@html_attrs)
     end
   end

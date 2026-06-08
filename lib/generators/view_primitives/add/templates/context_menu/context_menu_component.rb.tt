@@ -4,14 +4,15 @@ module UI
   class ContextMenuComponent < ApplicationComponent
     renders_one :menu
 
-    PANEL     = "fixed z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 " \
-               "text-popover-foreground shadow-md"
-    ITEM      = "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm " \
-                "px-2 py-1.5 text-sm outline-none " \
-                "hover:bg-accent hover:text-accent-foreground " \
-                "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 " \
-                "[&_svg:not([class*='text-'])]:text-muted-foreground"
-    SEPARATOR = "-mx-1 my-1 h-px bg-border"
+    PANEL = "#{UI::Styles::POPOVER_PANEL} fixed min-w-[8rem] overflow-x-hidden overflow-y-auto p-1"
+
+    ITEM = "#{UI::Styles::MENU_ITEM} w-full hover:bg-accent hover:text-accent-foreground " \
+           "data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 " \
+           "dark:data-[variant=destructive]:focus:bg-destructive/20 " \
+           "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 " \
+           "[&_svg:not([class*='text-'])]:text-muted-foreground"
+
+    SEPARATOR = UI::Styles::MENU_SEPARATOR
     LABEL_CLS = "px-2 py-1.5 text-sm font-medium text-foreground"
 
     def initialize(**html_attrs)

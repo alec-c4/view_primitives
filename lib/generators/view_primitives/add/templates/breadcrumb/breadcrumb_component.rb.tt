@@ -2,8 +2,8 @@
 
 module UI
   class BreadcrumbComponent < ApplicationComponent
-    LINK  = "text-muted-foreground hover:text-foreground transition-colors"
-    CURRENT = "text-foreground font-medium"
+    LINK    = "text-muted-foreground transition-colors hover:text-foreground"
+    CURRENT = "font-normal text-foreground"
 
     # items: [{ label:, href: }, ..., { label: }]  — last item is the current page (no href)
     def initialize(items: [], separator: "/", **html_attrs)

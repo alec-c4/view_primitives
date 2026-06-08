@@ -2,7 +2,7 @@
 
 module UI
   class CardComponent < ApplicationComponent
-    BASE = "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+    BASE = "flex flex-col gap-6 rounded-xl #{UI::Styles::BORDER} bg-card py-6 text-card-foreground shadow-sm"
 
     def initialize(**html_attrs)
       @extra_class = html_attrs.delete(:class)

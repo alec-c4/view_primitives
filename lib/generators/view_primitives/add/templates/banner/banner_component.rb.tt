@@ -2,14 +2,14 @@
 
 module UI
   class BannerComponent < ApplicationComponent
-    BASE = "flex items-center gap-3 rounded-lg border p-4 text-sm"
+    BASE = "relative flex w-full items-center gap-3 rounded-lg #{UI::Styles::BORDER} px-4 py-3 text-sm"
 
     VARIANTS = {
-      default:     "bg-background text-foreground",
-      info:        "border-blue-200 bg-blue-50 text-blue-900",
-      warning:     "border-yellow-200 bg-yellow-50 text-yellow-900",
-      destructive: "border-destructive/40 bg-destructive/10 text-destructive",
-      success:     "border-green-200 bg-green-50 text-green-900"
+      default:     "bg-card text-card-foreground",
+      info:        "border-border bg-muted/50 text-foreground",
+      warning:     "border-border bg-chart-4/10 text-foreground",
+      destructive: "border-destructive/40 bg-card text-destructive",
+      success:     "border-border bg-chart-2/10 text-foreground"
     }.freeze
 
     def initialize(message = nil, variant: :default, **html_attrs)

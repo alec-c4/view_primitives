@@ -2,9 +2,10 @@
 
 module UI
   class PaginationComponent < ApplicationComponent
-    ITEM   = "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium " \
-             "transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring " \
-             "h-9 w-9 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground"
+    ITEM   = "inline-flex h-9 w-9 items-center justify-center whitespace-nowrap rounded-md border border-input " \
+             "bg-background text-sm font-medium shadow-xs transition-colors outline-none " \
+             "hover:bg-accent hover:text-accent-foreground " \
+             "#{UI::Styles::FOCUS_RING}"
     ACTIVE = "bg-primary text-primary-foreground shadow hover:bg-primary/90 border-transparent"
     MUTED  = "cursor-not-allowed opacity-50 pointer-events-none"
 

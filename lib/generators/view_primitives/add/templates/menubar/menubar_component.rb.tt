@@ -4,13 +4,13 @@ module UI
   class MenubarComponent < ApplicationComponent
     renders_many :menus, "UI::MenubarMenuComponent"
 
-    BAR  = "flex h-9 items-center gap-1 rounded-md border bg-background p-1 shadow-xs"
-    ITEM = "relative flex cursor-default select-none items-center gap-2 rounded-sm " \
-           "px-2 py-1.5 text-sm outline-none " \
-           "hover:bg-accent hover:text-accent-foreground " \
+    BAR  = "flex h-9 items-center gap-1 rounded-md #{UI::Styles::BORDER} bg-background p-1 shadow-xs"
+    ITEM = "#{UI::Styles::MENU_ITEM} w-full whitespace-nowrap hover:bg-accent hover:text-accent-foreground " \
+           "data-[variant=destructive]:text-destructive data-[variant=destructive]:focus:bg-destructive/10 " \
+           "dark:data-[variant=destructive]:focus:bg-destructive/20 " \
            "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 " \
            "[&_svg:not([class*='text-'])]:text-muted-foreground"
-    SEPARATOR = "-mx-1 my-1 h-px bg-border"
+    SEPARATOR = UI::Styles::MENU_SEPARATOR
     LABEL_CLS = "px-2 py-1.5 text-sm font-medium"
 
     def initialize(**html_attrs)

@@ -2,7 +2,8 @@
 
 module UI
   class BottomNavComponent < ApplicationComponent
-    BASE = "fixed bottom-0 left-0 z-50 w-full border-t bg-background"
+    BASE = "fixed bottom-0 left-0 z-50 w-full border-t border-border bg-background/95 shadow-xs " \
+           "backdrop-blur supports-[backdrop-filter]:bg-background/80"
 
     # items: [{ label:, href:, active: (optional), icon: (optional HTML string) }]
     def initialize(items: [], **html_attrs)
@@ -12,8 +13,11 @@ module UI
     end
 
     def call
-      content_tag(:nav, class: cn(BASE, @extra_class), **@html_attrs) do
-        content_tag(:div, class: "mx-auto flex h-16 max-w-lg items-center justify-around") do
+      content_tag(:nav,
+        class: cn(BASE, @extra_class),
+        "aria-label": "Bottom navigation",
+        **@html_attrs) do
+        content_tag(:div, class: "mx-auto flex h-14 max-w-lg items-center justify-around") do
           safe_join(@items.map { |item| nav_item(item) })
         end
       end
@@ -26,7 +30,10 @@ module UI
       content_tag(:a,
         href: item[:href],
         class: cn(
-          "flex flex-col items-center justify-center gap-1 px-4 py-2 text-xs font-medium transition-colors",
+          "flex flex-col items-center justify-center gap-1 px-3 py-2 text-xs font-medium " \
+          "transition-colors outline-none",
+          UI::Styles::FOCUS_RING,
+          "rounded-md",
           active ? "text-primary" : "text-muted-foreground hover:text-foreground"
         ),
         "aria-current": (active ? "page" : nil)) do

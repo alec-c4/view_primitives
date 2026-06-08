@@ -5,10 +5,13 @@ module UI
     renders_one :trigger
     renders_one :footer
 
-    OVERLAY = "fixed inset-0 z-50 bg-black/50"
-    PANEL   = "fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] " \
+    OVERLAY = UI::Styles::OVERLAY
+    PANEL   = "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] " \
               "translate-x-[-50%] translate-y-[-50%] gap-4 " \
-              "rounded-lg border bg-background p-6 shadow-lg outline-none sm:max-w-lg"
+              "rounded-lg #{UI::Styles::BORDER} bg-background p-6 shadow-lg duration-200 outline-none sm:max-w-lg"
+    CLOSE_BTN = "absolute top-4 right-4 z-10 rounded-xs opacity-70 ring-offset-background transition-opacity " \
+                "hover:opacity-100 focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:outline-hidden " \
+                "disabled:pointer-events-none"
 
     def initialize(title: nil, description: nil, **html_attrs)
       @title       = title
@@ -40,8 +43,8 @@ module UI
           data: { action: "keydown.escape@window->dialog#close" }) {
           concat close_button
           concat header_area
-          concat content_tag(:div, content, class: "py-1 text-sm text-foreground")
-          concat content_tag(:div, footer, class: "mt-6 flex justify-end gap-2") if footer
+          concat content_tag(:div, content) unless content.blank?
+          concat content_tag(:div, footer, class: "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end") if footer
         }
       end
     end
@@ -49,9 +52,9 @@ module UI
     def header_area
       return "" if @title.nil? && @description.nil?
 
-      content_tag(:div, class: "mb-4 pr-6") do
-        concat content_tag(:h2, @title, class: "text-lg font-semibold leading-none tracking-tight") if @title
-        concat content_tag(:p, @description, class: "mt-2 text-sm text-muted-foreground") if @description
+      content_tag(:div, class: "flex flex-col gap-2 text-center sm:text-left") do
+        concat content_tag(:h2, @title, class: "text-lg leading-none font-semibold") if @title
+        concat content_tag(:p, @description, class: "text-sm text-muted-foreground") if @description
       end
     end
 
@@ -59,13 +62,13 @@ module UI
       content_tag(:button,
         close_svg,
         type: "button",
-        class: "absolute right-4 top-4 rounded-sm p-1 opacity-70 hover:opacity-100 transition-opacity",
+        class: CLOSE_BTN,
         data: { action: "click->dialog#close" },
         "aria-label": "Close")
     end
 
     def close_svg
-      raw('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>')
+      raw('<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>')
     end
   end
 end

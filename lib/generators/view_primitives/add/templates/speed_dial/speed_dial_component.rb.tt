@@ -10,18 +10,17 @@ module UI
     #     dial.with_action(label: "Upload",        icon: :upload, data: { action: "..." })
     #   end
 
-    FAB_CLS = "relative z-50 inline-flex size-14 items-center justify-center rounded-full " \
-              "bg-primary text-primary-foreground shadow-lg transition-transform " \
-              "hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-[3px] " \
-              "focus-visible:ring-ring/50 active:scale-95"
+    FAB_CLS = "relative z-50 inline-flex size-12 items-center justify-center rounded-full " \
+              "bg-primary text-primary-foreground shadow-xs transition-all outline-none " \
+              "#{UI::Styles::FOCUS_RING} active:scale-95"
 
-    PANEL_CLS = "absolute bottom-16 right-0 flex flex-col-reverse items-end gap-2"
+    PANEL_CLS = "absolute bottom-14 right-0 flex flex-col-reverse items-end gap-2"
 
-    ACTION_CLS = "flex items-center gap-2 rounded-full bg-background px-4 py-2 text-sm font-medium " \
-                 "shadow-md border border-border transition-all " \
+    ACTION_CLS = "flex items-center gap-2 rounded-full border border-input bg-background px-4 py-2 text-sm font-medium " \
+                 "whitespace-nowrap shadow-xs transition-all outline-none " \
                  "hover:bg-accent hover:text-accent-foreground " \
-                 "focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none " \
-                 "whitespace-nowrap"
+                 "#{UI::Styles::FOCUS_RING} " \
+                 "dark:border-input dark:bg-input/30 dark:hover:bg-input/50"
 
     PLUS_PATH  = "M12 5v14M5 12h14"
 

@@ -5,10 +5,10 @@ module UI
     renders_one :trigger
     renders_one :footer
 
-    OVERLAY = "fixed inset-0 z-50 bg-black/80"
-    PANEL   = "fixed left-[50%] top-[50%] z-50 w-full max-w-lg " \
-              "translate-x-[-50%] translate-y-[-50%] " \
-              "rounded-lg border bg-background p-6 shadow-lg"
+    OVERLAY = UI::Styles::OVERLAY
+    PANEL   = "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] " \
+              "translate-x-[-50%] translate-y-[-50%] gap-4 " \
+              "rounded-lg #{UI::Styles::BORDER} bg-background p-6 shadow-lg duration-200 sm:max-w-lg"
 
     def initialize(title: nil, description: nil, **html_attrs)
       @title       = title
@@ -37,8 +37,8 @@ module UI
           "aria-modal": "true",
           "aria-label": @title) {
           concat header_area
-          concat content_tag(:div, content, class: "py-1 text-sm text-muted-foreground") unless content.blank?
-          concat content_tag(:div, footer, class: "mt-6 flex justify-end gap-2") if footer
+          concat content_tag(:div, content, class: "text-sm text-muted-foreground") unless content.blank?
+          concat content_tag(:div, footer, class: "flex flex-col-reverse gap-2 sm:flex-row sm:justify-end") if footer
         }
       end
     end
@@ -46,9 +46,9 @@ module UI
     def header_area
       return "" if @title.nil? && @description.nil?
 
-      content_tag(:div, class: "mb-4") do
-        concat content_tag(:h2, @title, class: "text-lg font-semibold leading-none tracking-tight") if @title
-        concat content_tag(:p, @description, class: "mt-2 text-sm text-muted-foreground") if @description
+      content_tag(:div, class: "flex flex-col gap-2 text-center sm:text-left") do
+        concat content_tag(:h2, @title, class: "text-lg leading-none font-semibold") if @title
+        concat content_tag(:p, @description, class: "text-sm text-muted-foreground") if @description
       end
     end
   end

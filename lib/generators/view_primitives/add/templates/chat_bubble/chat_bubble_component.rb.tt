@@ -5,9 +5,9 @@ module UI
     # sent: true  → right-aligned, primary-colored bubble
     # sent: false → left-aligned, muted bubble (default)
 
-    BUBBLE_BASE = "max-w-[80%] rounded-2xl px-4 py-2 text-sm leading-relaxed"
-    BUBBLE_SENT = "bg-primary text-primary-foreground rounded-br-none"
-    BUBBLE_RECV = "bg-muted text-foreground rounded-bl-none"
+    BUBBLE_BASE = "max-w-[80%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed shadow-xs"
+    BUBBLE_SENT = "rounded-br-md bg-primary text-primary-foreground"
+    BUBBLE_RECV = "rounded-bl-md #{UI::Styles::BORDER} bg-muted text-foreground"
 
     TIMESTAMP_BASE = "mt-1 text-xs text-muted-foreground"
 
@@ -37,7 +37,7 @@ module UI
       content_tag(:img, nil,
         src: @avatar,
         alt: "",
-        class: "size-7 rounded-full object-cover shrink-0",
+        class: "size-8 shrink-0 rounded-full object-cover ring-2 ring-background",
         "aria-hidden": "true")
     end
 

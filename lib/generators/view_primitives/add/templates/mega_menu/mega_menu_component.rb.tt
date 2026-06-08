@@ -5,25 +5,25 @@ module UI
     # Full-width dropdown panel anchored to a trigger button.
     # Columns are rendered via with_column blocks.
 
-    TRIGGER_CLS = "inline-flex h-9 items-center justify-center gap-1.5 rounded-md bg-background " \
+    TRIGGER_CLS = "inline-flex h-9 w-max items-center justify-center gap-1.5 rounded-md bg-background " \
                   "px-4 py-2 text-sm font-medium transition-[color,box-shadow] outline-none " \
                   "hover:bg-accent hover:text-accent-foreground " \
-                  "focus-visible:ring-[3px] focus-visible:ring-ring/50 " \
-                  "data-[state=open]:bg-accent/50 data-[state=open]:text-accent-foreground"
+                  "#{UI::Styles::FOCUS_RING} " \
+                  "data-[state=open]:bg-accent/50 data-[state=open]:text-accent-foreground " \
+                  "data-[state=open]:hover:bg-accent"
 
-    PANEL_CLS = "absolute left-0 top-full z-50 mt-1.5 w-full overflow-hidden rounded-md border " \
-                "bg-popover text-popover-foreground shadow-lg"
+    PANEL_CLS = "#{UI::Styles::POPOVER_PANEL} left-0 top-full mt-2 w-full overflow-hidden"
 
     INNER_CLS = "container mx-auto grid gap-6 p-6"
 
     COLUMN_HEADING = "mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground"
 
-    ITEM_CLS = "group flex items-start gap-3 rounded-sm p-2 text-sm transition-colors outline-none " \
+    ITEM_CLS = "group flex items-start gap-3 rounded-md p-2 text-sm transition-all outline-none " \
                "hover:bg-accent hover:text-accent-foreground " \
-               "focus-visible:ring-[3px] focus-visible:ring-ring/50"
+               "#{UI::Styles::FOCUS_RING}"
 
     ITEM_TITLE = "font-medium leading-none"
-    ITEM_DESC  = "mt-1 text-xs text-muted-foreground group-hover:text-accent-foreground/70"
+    ITEM_DESC  = "mt-1 text-xs leading-normal text-muted-foreground"
 
     CHEVRON_PATH = "m6 9 6 6 6-6"
 
@@ -87,7 +87,7 @@ module UI
         fill: "none",
         stroke: "currentColor",
         "stroke-width": "2",
-        class: "size-3 transition-transform duration-200 data-[state=open]:rotate-180",
+        class: "size-4 shrink-0 transition-transform duration-200 group-data-[state=open]:rotate-180",
         "aria-hidden": "true",
         data: { mega_menu_target: "chevron" })
     end

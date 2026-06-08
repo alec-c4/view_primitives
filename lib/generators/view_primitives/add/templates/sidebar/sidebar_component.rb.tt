@@ -13,31 +13,37 @@ module UI
     #   end
 
     RAIL_CLS = "group peer fixed inset-y-0 left-0 z-30 flex h-full flex-col " \
-               "border-r border-border bg-background transition-[width] duration-300 " \
+               "border-r border-sidebar-border bg-sidebar text-sidebar-foreground " \
+               "transition-[width] duration-300 " \
                "data-[collapsed=true]:w-16 data-[collapsed=false]:w-64"
 
-    HEADER_CLS = "flex h-14 items-center justify-between border-b border-border px-4"
+    HEADER_CLS = "flex h-14 shrink-0 items-center justify-between border-b border-sidebar-border px-4 " \
+                 "group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:px-2"
 
-    TOGGLE_CLS = "inline-flex size-8 items-center justify-center rounded-md " \
-                 "text-muted-foreground hover:bg-accent hover:text-accent-foreground " \
-                 "focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none transition"
+    TOGGLE_CLS = "inline-flex size-7 shrink-0 items-center justify-center rounded-md " \
+                 "text-sidebar-foreground ring-sidebar-ring outline-hidden " \
+                 "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground " \
+                 "focus-visible:ring-2 transition"
 
-    NAV_CLS = "flex-1 overflow-y-auto px-2 py-3"
+    NAV_CLS = "flex flex-1 flex-col gap-1 overflow-y-auto px-2 py-3"
 
-    GROUP_LABEL = "mb-1 px-3 text-xs font-medium uppercase tracking-wide text-muted-foreground " \
-                  "transition-opacity group-data-[collapsed=true]:opacity-0 group-data-[collapsed=true]:h-0 " \
-                  "group-data-[collapsed=true]:overflow-hidden group-data-[collapsed=true]:mb-0"
+    GROUP_WRAP = "mb-4 last:mb-0 group-data-[collapsed=true]:mb-0"
 
-    ITEM_CLS = "flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors " \
-               "overflow-hidden " \
-               "group-data-[collapsed=true]:justify-center group-data-[collapsed=true]:gap-0 " \
-               "hover:bg-accent hover:text-accent-foreground " \
-               "aria-[current]:bg-accent aria-[current]:text-foreground aria-[current]:font-semibold " \
-               "focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none"
+    GROUP_LABEL = "mb-1 flex h-8 shrink-0 items-center rounded-md px-2 text-xs font-medium " \
+                  "text-sidebar-foreground/70 group-data-[collapsed=true]:hidden"
 
-    ITEM_LABEL = "transition-[opacity,width] group-data-[collapsed=true]:w-0 " \
-                 "group-data-[collapsed=true]:opacity-0 group-data-[collapsed=true]:overflow-hidden " \
-                 "whitespace-nowrap"
+    ITEM_CLS = "flex w-full items-center gap-2 overflow-hidden rounded-md p-2 " \
+               "text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] " \
+               "group-data-[collapsed=true]:size-8 group-data-[collapsed=true]:justify-center " \
+               "group-data-[collapsed=true]:gap-0 group-data-[collapsed=true]:p-2 " \
+               "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground " \
+               "focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground " \
+               "aria-[current]:bg-sidebar-accent aria-[current]:font-medium " \
+               "aria-[current]:text-sidebar-accent-foreground [&>span:last-child]:truncate " \
+               "[&_svg]:size-4 [&_svg]:shrink-0"
+
+    ITEM_LABEL = "whitespace-nowrap transition-[opacity,width] " \
+                 "group-data-[collapsed=true]:hidden"
 
     renders_many :groups, "UI::SidebarComponent::GroupComponent"
     renders_many :items,  "UI::SidebarComponent::ItemComponent"
@@ -82,7 +88,7 @@ module UI
     def nav_body
       content_tag(:nav, class: NAV_CLS) do
         concat safe_join(groups) if groups.any?
-        concat content_tag(:div, safe_join(items), class: "space-y-0.5") if items.any?
+        concat content_tag(:div, safe_join(items), class: "flex flex-col gap-0.5") if items.any?
         concat content if content?
       end
     end
@@ -105,9 +111,9 @@ module UI
       end
 
       def call
-        content_tag(:div, class: "mb-4", **@html_attrs) do
+        content_tag(:div, class: SidebarComponent::GROUP_WRAP, **@html_attrs) do
           concat content_tag(:p, @label, class: SidebarComponent::GROUP_LABEL) if @label
-          concat content_tag(:div, safe_join(items), class: "space-y-0.5")
+          concat content_tag(:div, safe_join(items), class: "flex flex-col gap-0.5")
           concat content if content?
         end
       end

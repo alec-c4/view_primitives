@@ -8,6 +8,8 @@ module UI
   #     <%%= ui :input, type: "email", name: "user[email]", id: "user_email" %>
   #   <%% end %>
   class FormFieldComponent < ApplicationComponent
+    WRAPPER = "group/field flex w-full flex-col gap-3"
+
     def initialize(label: nil, hint: nil, error: nil, required: false, **html_attrs)
       @label = label
       @hint = hint
@@ -18,9 +20,13 @@ module UI
     end
 
     def call
-      content_tag(:div, class: cn("space-y-1.5", @extra_class), **@html_attrs) do
+      content_tag(:div,
+        class: cn(WRAPPER, (@error.present? ? "data-[invalid=true]" : nil), @extra_class),
+        "data-slot": "field",
+        "data-invalid": @error.present?.to_s,
+        **@html_attrs) do
         concat field_label if @label
-        concat content
+        concat content_tag(:div, content, class: "flex flex-col gap-1.5 leading-snug", "data-slot": "field-content")
         concat hint_tag if @hint && @error.blank?
         concat error_tag if @error.present?
       end
@@ -31,7 +37,9 @@ module UI
     def field_label
       content_tag(:label,
         label_text,
-        class: "text-sm font-medium leading-none")
+        class: "flex items-center gap-2 text-sm leading-none font-medium select-none " \
+               "group-data-[disabled=true]/field:opacity-50",
+        "data-slot": "field-label")
     end
 
     def label_text
@@ -41,11 +49,16 @@ module UI
     end
 
     def hint_tag
-      content_tag(:p, @hint, class: "text-xs text-muted-foreground")
+      content_tag(:p, @hint,
+        class: "text-sm leading-normal font-normal text-muted-foreground",
+        "data-slot": "field-description")
     end
 
     def error_tag
-      content_tag(:p, @error, class: "text-xs text-destructive", role: "alert")
+      content_tag(:p, @error,
+        class: "text-sm font-normal text-destructive",
+        role: "alert",
+        "data-slot": "field-error")
     end
   end
 end

@@ -25,7 +25,7 @@ module UI
       top_center: "fixed top-4 left-1/2 -translate-x-1/2"
     }.freeze
 
-    CONTAINER_CLS = "z-50 flex flex-col gap-2 w-80 pointer-events-none"
+    CONTAINER_CLS = "toaster group z-50 flex w-80 flex-col gap-3 pointer-events-none"
 
     renders_many :toasts, "UI::ToasterComponent::ToastComponent"
 
@@ -53,14 +53,14 @@ module UI
       VARIANTS = {
         default: {border: "border-border", icon: nil, icon_color: "text-foreground"},
         success: {
-          border: "border-green-500/40",
+          border: "border-chart-2/40",
           icon: "M9 12l2 2 4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
-          icon_color: "text-green-500"
+          icon_color: "text-chart-2"
         },
         warning: {
-          border: "border-amber-500/40",
+          border: "border-chart-4/40",
           icon: "M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z",
-          icon_color: "text-amber-500"
+          icon_color: "text-chart-4"
         },
         destructive: {
           border: "border-destructive/40",
@@ -68,20 +68,20 @@ module UI
           icon_color: "text-destructive"
         },
         info: {
-          border: "border-blue-500/40",
+          border: "border-border",
           icon: "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
-          icon_color: "text-blue-500"
+          icon_color: "text-muted-foreground"
         }
       }.freeze
 
-      TOAST_CLS = "pointer-events-auto flex items-start gap-3 rounded-lg border " \
-                  "bg-background px-4 py-3 shadow-lg text-foreground " \
+      TOAST_CLS = "pointer-events-auto flex items-start gap-3 rounded-md #{UI::Styles::BORDER} " \
+                  "bg-popover px-4 py-3 text-popover-foreground shadow-md outline-hidden " \
                   "transition-all duration-300 translate-y-2 opacity-0 " \
                   "data-[open=true]:translate-y-0 data-[open=true]:opacity-100"
 
       CLOSE_CLS = "ml-auto -mr-1 -mt-0.5 shrink-0 inline-flex size-6 items-center justify-center " \
                   "rounded-md text-muted-foreground hover:text-foreground hover:bg-accent " \
-                  "focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none transition"
+                  "#{UI::Styles::FOCUS_RING} outline-hidden transition"
 
       # message:  toast body (required)
       # title:    optional bold heading

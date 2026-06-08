@@ -2,7 +2,7 @@
 
 module UI
   class SkeletonComponent < ApplicationComponent
-    BASE = "bg-accent animate-pulse rounded-md"
+    BASE = "animate-pulse rounded-md bg-accent"
 
     def initialize(**html_attrs)
       @extra_class = html_attrs.delete(:class)

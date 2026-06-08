@@ -2,9 +2,11 @@
 
 module UI
   class SeparatorComponent < ApplicationComponent
+    BASE = "shrink-0 bg-border"
+
     ORIENTATIONS = {
-      horizontal: "bg-border h-px w-full shrink-0",
-      vertical: "bg-border h-full w-px shrink-0"
+      horizontal: "h-px w-full",
+      vertical: "h-full w-px"
     }.freeze
 
     def initialize(orientation: :horizontal, decorative: true, **html_attrs)
@@ -18,7 +20,8 @@ module UI
       content_tag(:div, nil,
         role: (@decorative ? "none" : "separator"),
         "aria-orientation": @orientation.to_s,
-        class: cn(ORIENTATIONS[@orientation], @extra_class),
+        "data-orientation": @orientation.to_s,
+        class: cn(BASE, ORIENTATIONS[@orientation], @extra_class),
         **@html_attrs)
     end
   end

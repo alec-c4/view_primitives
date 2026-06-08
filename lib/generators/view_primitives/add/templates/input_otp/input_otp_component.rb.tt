@@ -8,19 +8,17 @@ module UI
     # Usage:
     #   <%%= ui :input_otp, length: 6, name: "otp" %>
 
-    CELL_CLS = "h-12 w-10 rounded-md border border-input bg-transparent text-center text-lg font-medium " \
-               "shadow-xs transition-[color,box-shadow] outline-none " \
+    CELL_CLS = "relative flex h-9 w-9 items-center justify-center rounded-md border border-input " \
+               "bg-transparent text-center text-sm shadow-xs transition-all outline-none " \
                "caret-transparent selection:bg-primary selection:text-primary-foreground " \
-               "focus:border-ring focus:ring-[3px] focus:ring-ring/50 " \
+               "#{UI::Styles::FOCUS_RING} " \
                "aria-invalid:border-destructive aria-invalid:ring-destructive/20 " \
-               "disabled:pointer-events-none disabled:opacity-50"
+               "dark:bg-input/30 dark:aria-invalid:ring-destructive/40 " \
+               "disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
 
-    WRAPPER_CLS = "flex items-center gap-2"
-    SEPARATOR_CLS = "text-muted-foreground text-lg font-medium"
+    WRAPPER_CLS = "flex items-center gap-2 has-[:disabled]:opacity-50"
+    SEPARATOR_CLS = "text-muted-foreground"
 
-    # length:    number of OTP digits (default: 6)
-    # name:      form field name (individual cells get name[0], name[1], …)
-    # separator: position (Integer) or Hash { position => char }, e.g. 3 or { 3 => "-" }
     def initialize(length: 6, name: "otp", separator: nil, **html_attrs)
       @length    = length.to_i
       @name      = name
@@ -35,17 +33,30 @@ module UI
     def call
       content_tag(:div,
         class: cn(WRAPPER_CLS, @extra_class),
+        "data-slot": "input-otp",
         data: { controller: "input-otp" },
         **@html_attrs) do
         @length.times do |i|
           sep = @separator&.fetch(i, nil)
-          concat content_tag(:span, sep, class: SEPARATOR_CLS) if sep
+          concat content_tag(:div, sep == "-" ? separator_icon : sep, class: SEPARATOR_CLS, role: "separator") if sep
           concat digit_input(i)
         end
       end
     end
 
     private
+
+    def separator_icon
+      content_tag(:svg,
+        content_tag(:path, nil, d: "M5 12h14", "stroke-linecap": "round", "stroke-linejoin": "round"),
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        "stroke-width": "2",
+        class: "size-4",
+        "aria-hidden": "true")
+    end
 
     def digit_input(index)
       content_tag(:input, nil,
@@ -55,6 +66,7 @@ module UI
         autocomplete: index.zero? ? "one-time-code" : "off",
         name: "#{@name}[#{index}]",
         class: CELL_CLS,
+        "data-slot": "input-otp-slot",
         "aria-label": "Digit #{index + 1}",
         data: {
           input_otp_target: "cell",

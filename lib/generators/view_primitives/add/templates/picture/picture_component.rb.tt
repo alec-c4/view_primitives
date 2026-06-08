@@ -54,7 +54,8 @@ module UI
     private
 
     def fallback_img
-      attrs = { src: @src, alt: @alt, loading: @loading, class: cn("max-w-full", @extra_class) }
+      attrs = { src: @src, alt: @alt, loading: @loading,
+                class: cn("h-auto w-full max-w-full rounded-md", @extra_class) }
       attrs[:width]  = @width  if @width
       attrs[:height] = @height if @height
       tag.img(**attrs)

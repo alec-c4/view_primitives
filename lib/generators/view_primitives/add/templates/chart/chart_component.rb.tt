@@ -22,22 +22,26 @@ module UI
     #   datasets: array of dataset hashes; snake_case keys are camelized for Chart.js
     #             (e.g. background_color: → backgroundColor:)
     #   options:  hash merged into Chart.js `options` (e.g. { responsive: false })
+    #   colors:   optional array overriding default --chart-1…5 palette for datasets
 
     TYPES = %w[bar line pie doughnut radar polarArea].freeze
 
-    WRAPPER_CLS = "relative"
+    WRAPPER_CLS = "flex aspect-video w-full justify-center text-xs"
 
-    def initialize(type: :bar, labels: [], datasets: [], options: {}, **html_attrs)
+    def initialize(type: :bar, labels: [], datasets: [], options: {}, colors: nil, **html_attrs)
       @type = TYPES.include?(type.to_s) ? type.to_s : "bar"
       @labels = labels
       @datasets = datasets
       @chart_options = options
+      @colors = colors
       @extra_class = html_attrs.delete(:class)
       @html_attrs = html_attrs
     end
 
     def call
-      content_tag(:div, class: cn(WRAPPER_CLS, @extra_class)) do
+      content_tag(:div,
+        class: cn(WRAPPER_CLS, @extra_class),
+        data: { slot: "chart" }) do
         tag.canvas(
           data: {
             controller: "chart",
@@ -53,7 +57,9 @@ module UI
 
     def config_json
       ds = @datasets.map { |d| camelize_keys(d).compact }
-      {labels: @labels, datasets: ds, options: @chart_options}.to_json
+      payload = {labels: @labels, datasets: ds, options: @chart_options}
+      payload[:colors] = @colors if @colors
+      payload.to_json
     end
 
     def camelize_keys(hash)

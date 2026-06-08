@@ -2,7 +2,7 @@
 
 module UI
   class FigureComponent < ApplicationComponent
-    CAPTION = "mt-2 text-sm text-muted-foreground"
+    CAPTION = "mt-4 text-sm text-muted-foreground"
 
     # caption:       text shown in <figcaption> (optional; omit to render none)
     # caption_class: override the figcaption classes

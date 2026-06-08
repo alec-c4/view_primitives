@@ -11,7 +11,7 @@ module UI
     def call
       content_tag(:div, content,
         style: "aspect-ratio: #{@ratio}",
-        class: cn("overflow-hidden", @extra_class),
+        class: cn("overflow-hidden rounded-md", @extra_class),
         **@html_attrs)
     end
   end

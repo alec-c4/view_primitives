@@ -45,8 +45,9 @@ module UI
         star_svg(filled),
         type: "button",
         class: cn(
-          "transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm",
-          filled ? "text-yellow-400" : "text-muted-foreground"
+          "rounded-sm transition-colors outline-none",
+          UI::Styles::FOCUS_RING,
+          filled ? "text-primary" : "text-muted-foreground"
         ),
         data: {
           rating_target: "star",
@@ -59,7 +60,7 @@ module UI
     def star_svg(filled)
       content_tag(:svg,
         content_tag(:path, nil, d: STAR_PATH, "stroke-linecap": "round", "stroke-linejoin": "round"),
-        class: "size-6 pointer-events-none",
+        class: "size-5 pointer-events-none",
         xmlns: "http://www.w3.org/2000/svg",
         viewBox: "0 0 24 24",
         fill: filled ? "currentColor" : "none",

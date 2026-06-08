@@ -30,7 +30,10 @@ module UI
 
     ADAPTERS = %w[trix quill].freeze
 
-    WRAPPER_CLS = "rounded-md border border-input bg-background shadow-xs"
+    WRAPPER_CLS = "rounded-md border border-input bg-transparent shadow-xs dark:bg-input/30"
+    TRIX_CLS    = "trix-content min-h-[200px] px-3 py-2 text-sm outline-none " \
+                  "selection:bg-primary selection:text-primary-foreground " \
+                  "#{UI::Styles::FOCUS_RING}"
 
     def initialize(name:, adapter: :trix, value: nil, placeholder: nil,
                    toolbar: true, height: 200, **html_attrs)
@@ -46,7 +49,10 @@ module UI
     end
 
     def call
-      content_tag(:div, class: cn(WRAPPER_CLS, @extra_class)) do
+      content_tag(:div,
+        class: cn(WRAPPER_CLS, @extra_class),
+        data: { slot: "wysiwyg" },
+        **@html_attrs) do
         @adapter == "quill" ? quill_markup : trix_markup
       end
     end
@@ -59,7 +65,7 @@ module UI
         tag.send(:"trix-editor",
           input: @input_id,
           placeholder: @placeholder,
-          class: "trix-content min-h-[200px] px-3 py-2 text-sm focus:outline-none")
+          class: TRIX_CLS)
       ])
     end
 

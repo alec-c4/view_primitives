@@ -12,7 +12,7 @@ module UI
     #        <%%= RQRCode::QRCode.new("https://example.com").as_svg(viewbox: true).html_safe %>
     #      <%% end %>
 
-    WRAPPER_CLS = "inline-flex items-center justify-center overflow-hidden rounded-lg bg-white p-3"
+    WRAPPER_CLS = "inline-flex items-center justify-center overflow-hidden rounded-md #{UI::Styles::BORDER} bg-card p-4 shadow-xs"
 
     # src:  image URL for a pre-rendered QR (renders an <img>)
     # alt:  accessible label for the <img> (default: "QR code")

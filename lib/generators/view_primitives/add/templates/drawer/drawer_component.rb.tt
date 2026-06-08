@@ -5,8 +5,9 @@ module UI
     renders_one :trigger
     renders_one :footer
 
-    OVERLAY = "fixed inset-0 z-50 bg-black/50"
-    PANEL   = "fixed inset-x-0 bottom-0 z-50 rounded-t-xl border-t bg-background shadow-xl overflow-y-auto"
+    OVERLAY = UI::Styles::OVERLAY
+    PANEL   = "fixed inset-x-0 bottom-0 z-50 flex h-auto max-h-[80vh] flex-col " \
+              "rounded-t-lg border-t border-border bg-background shadow-lg overflow-y-auto"
 
     def initialize(title: nil, description: nil, **html_attrs)
       @title       = title
@@ -16,8 +17,8 @@ module UI
     end
 
     def call
-      content_tag(:div, data: { controller: "drawer" }, **@html_attrs) do
-        concat content_tag(:span, trigger, data: { action: "click->drawer#open" }, class: "contents") if trigger
+      content_tag(:div, data: { controller: "dialog" }, **@html_attrs) do
+        concat content_tag(:span, trigger, data: { action: "click->dialog#open" }, class: "contents") if trigger
         concat panel
       end
     end
@@ -25,17 +26,17 @@ module UI
     private
 
     def panel
-      content_tag(:div, data: { drawer_target: "panel" }, hidden: true) do
+      content_tag(:div, data: { dialog_target: "panel" }, hidden: true) do
         concat content_tag(:div, nil,
           class: OVERLAY,
-          data: { action: "click->drawer#close" },
+          data: { action: "click->dialog#close" },
           "aria-hidden": "true")
         concat content_tag(:div,
           class: cn(PANEL, @extra_class),
           role: "dialog",
           "aria-modal": "true",
           "aria-label": @title,
-          data: { action: "keydown.escape@window->drawer#close" }) {
+          data: { action: "keydown.escape@window->dialog#close" }) {
           concat drag_handle
           concat header_area
           concat content_tag(:div, content, class: "px-4 pb-6 text-sm")

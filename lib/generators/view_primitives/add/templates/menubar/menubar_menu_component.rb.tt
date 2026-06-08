@@ -2,12 +2,11 @@
 
 module UI
   class MenubarMenuComponent < ApplicationComponent
-    TRIGGER = "flex cursor-default select-none items-center rounded-sm px-2 py-1 text-sm font-medium " \
-              "outline-none transition-colors " \
-              "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+    TRIGGER = "flex items-center rounded-sm px-2 py-1 text-sm font-medium outline-hidden select-none " \
+              "focus:bg-accent focus:text-accent-foreground " \
+              "data-[state=open]:bg-accent data-[state=open]:text-accent-foreground"
 
-    PANEL = "absolute left-0 top-full z-50 mt-1 min-w-[12rem] overflow-hidden rounded-md border " \
-            "bg-popover p-1 text-popover-foreground shadow-md"
+    PANEL = "#{UI::Styles::POPOVER_PANEL} left-0 top-full z-50 mt-1 w-max min-w-[12rem] overflow-hidden p-1"
 
     def initialize(label:, **html_attrs)
       @label       = label

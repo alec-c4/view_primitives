@@ -2,26 +2,45 @@
 
 module UI
   class SelectComponent < ApplicationComponent
-    BASE = "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm " \
-           "focus:outline-none focus:ring-1 focus:ring-ring " \
-           "disabled:cursor-not-allowed disabled:opacity-50"
+    WRAPPER = "group/native-select relative w-fit has-[select:disabled]:opacity-50"
+
+    BASE = UI::Styles::SELECT
 
     # options: array of strings, or [value, label] pairs, or { value: label } hash
-    def initialize(options: [], selected: nil, include_blank: false, **html_attrs)
+    def initialize(options: [], selected: nil, include_blank: false, size: :default, **html_attrs)
       @options = options
       @selected = selected
       @include_blank = include_blank
+      @size = size.to_sym
       @extra_class = html_attrs.delete(:class)
       @html_attrs = html_attrs
     end
 
     def call
-      content_tag(:select, class: cn(BASE, @extra_class), **@html_attrs) do
-        safe_join(option_tags)
+      content_tag(:div, class: WRAPPER) do
+        concat content_tag(:select,
+          safe_join(option_tags),
+          class: cn(BASE, @extra_class),
+          "data-size": (@size == :sm ? "sm" : "default"),
+          **@html_attrs)
+        concat chevron_icon
       end
     end
 
     private
+
+    def chevron_icon
+      svg = content_tag(:svg,
+        content_tag(:path, nil, d: "m6 9 6 6 6-6", fill: "none", stroke: "currentColor",
+          "stroke-linecap": "round", "stroke-linejoin": "round", "stroke-width": "2"),
+        xmlns: "http://www.w3.org/2000/svg",
+        viewBox: "0 0 24 24",
+        fill: "none",
+        class: "size-4",
+        "aria-hidden": "true")
+      content_tag(:span, svg,
+        class: "pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-muted-foreground opacity-50 select-none")
+    end
 
     def option_tags
       tags = []

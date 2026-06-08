@@ -21,7 +21,8 @@ module UI
 
     def call
       content_tag(:ol,
-        class: cn("relative border-l border-border ml-3", @extra_class),
+        class: cn("relative ml-3 border-l border-border/60", @extra_class),
+        data: { slot: "timeline" },
         **@html_attrs) do
         safe_join(items)
       end
@@ -31,15 +32,15 @@ module UI
       # variant: :default | :success | :warning | :destructive | :muted
       VARIANTS = {
         default: "bg-primary",
-        success: "bg-green-500",
-        warning: "bg-amber-500",
+        success: "bg-chart-2",
+        warning: "bg-chart-4",
         destructive: "bg-destructive",
         muted: "bg-muted-foreground"
       }.freeze
 
-      DOT_CLS = "absolute -left-1.5 mt-1.5 size-3 rounded-full ring-4 ring-background shrink-0"
-      DATE_CLS = "mb-0.5 text-xs font-normal text-muted-foreground"
-      TITLE_CLS = "text-sm font-medium text-foreground leading-snug"
+      DOT_CLS = "absolute -left-[7px] mt-1.5 size-3 shrink-0 rounded-full border-2 border-background"
+      DATE_CLS = "mb-1 text-xs text-muted-foreground"
+      TITLE_CLS = "text-sm font-medium leading-snug text-foreground"
       DESC_CLS = "mt-1 text-sm text-muted-foreground"
 
       # date:        optional date/time string shown above the title
@@ -57,7 +58,8 @@ module UI
 
       def call
         content_tag(:li,
-          class: cn("mb-8 ml-4 last:mb-0", @extra_class),
+          class: cn("mb-10 ml-6 last:mb-0", @extra_class),
+          data: { slot: "timeline-item" },
           **@html_attrs) do
           concat dot
           concat content_tag(:time, @date, class: DATE_CLS) if @date

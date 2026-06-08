@@ -2,13 +2,14 @@
 
 module UI
   class IndicatorComponent < ApplicationComponent
-    DOT_BASE = "absolute flex items-center justify-center rounded-full text-[10px] font-medium leading-none"
+    DOT_BASE = "absolute flex items-center justify-center rounded-full text-[10px] font-medium leading-none " \
+               "ring-2 ring-background"
 
     VARIANTS = {
       default:     "bg-primary text-primary-foreground",
-      destructive: "bg-destructive text-white",
-      success:     "bg-green-500 text-white",
-      warning:     "bg-yellow-500 text-foreground"
+      destructive: "bg-destructive text-white dark:bg-destructive/60",
+      success:     "bg-chart-2 text-white",
+      warning:     "bg-chart-4 text-foreground"
     }.freeze
 
     POSITIONS = {

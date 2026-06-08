@@ -2,7 +2,7 @@
 
 module UI
   class ListGroupComponent < ApplicationComponent
-    BASE = "divide-y divide-border overflow-hidden rounded-lg border"
+    BASE = "flex flex-col divide-y divide-border overflow-hidden rounded-md #{UI::Styles::BORDER}"
 
     def initialize(**html_attrs)
       @extra_class = html_attrs.delete(:class)
@@ -10,7 +10,11 @@ module UI
     end
 
     def call
-      content_tag(:ul, content, class: cn(BASE, @extra_class), **@html_attrs)
+      content_tag(:ul, content,
+        class: cn(BASE, @extra_class),
+        role: "list",
+        data: { slot: "item-group" },
+        **@html_attrs)
     end
   end
 end

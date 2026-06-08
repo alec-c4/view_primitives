@@ -2,7 +2,7 @@
 
 module UI
   class CardFooterComponent < ApplicationComponent
-    BASE = "flex items-center px-6"
+    BASE = "flex items-center px-6 [.border-t]:pt-6"
 
     def initialize(**html_attrs)
       @extra_class = html_attrs.delete(:class)

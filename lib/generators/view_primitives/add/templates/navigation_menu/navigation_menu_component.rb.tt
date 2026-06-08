@@ -2,32 +2,28 @@
 
 module UI
   class NavigationMenuComponent < ApplicationComponent
-    ROOT = "relative flex max-w-max flex-1 items-center justify-center"
-    LIST = "flex flex-1 list-none items-center justify-center gap-1"
+    ROOT = "group/navigation-menu relative flex max-w-max flex-1 items-center justify-center"
+    LIST = "group flex flex-1 list-none items-center justify-center gap-1"
 
-    # Trigger button style (item with flyout content)
     TRIGGER = "group inline-flex h-9 w-max items-center justify-center rounded-md bg-background " \
               "px-4 py-2 text-sm font-medium transition-[color,box-shadow] outline-none " \
-              "hover:bg-accent hover:text-accent-foreground " \
-              "focus-visible:ring-[3px] focus-visible:ring-ring/50 " \
+              "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground " \
+              "#{UI::Styles::FOCUS_RING} " \
               "disabled:pointer-events-none disabled:opacity-50 " \
-              "data-[state=open]:bg-accent/50 data-[state=open]:text-accent-foreground"
+              "data-[state=open]:bg-accent/50 data-[state=open]:text-accent-foreground " \
+              "data-[state=open]:hover:bg-accent data-[state=open]:focus:bg-accent"
 
-    # Plain link style (item without flyout)
     LINK_CLS = "inline-flex h-9 w-max items-center justify-center rounded-md bg-background " \
                "px-4 py-2 text-sm font-medium transition-[color,box-shadow] outline-none " \
-               "hover:bg-accent hover:text-accent-foreground " \
-               "focus-visible:ring-[3px] focus-visible:ring-ring/50 " \
+               "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground " \
+               "#{UI::Styles::FOCUS_RING} " \
                "aria-[current]:bg-accent/50 aria-[current]:text-accent-foreground"
 
-    # Flyout panel
-    CONTENT = "absolute top-full left-0 z-50 mt-1.5 min-w-48 overflow-hidden rounded-md border " \
-              "bg-popover p-1 text-popover-foreground shadow"
+    CONTENT = "#{UI::Styles::POPOVER_PANEL} top-full left-0 mt-1.5 min-w-48 overflow-hidden p-2 shadow"
 
-    # Styled link inside a flyout panel
-    PANEL_LINK = "flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none " \
-                 "hover:bg-accent hover:text-accent-foreground " \
-                 "focus-visible:ring-[3px] focus-visible:ring-ring/50 " \
+    PANEL_LINK = "flex flex-col gap-1 rounded-md p-2 text-sm transition-all outline-none " \
+                 "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground " \
+                 "#{UI::Styles::FOCUS_RING} " \
                  "aria-[current]:bg-accent/50 aria-[current]:text-accent-foreground"
 
     CHEVRON_PATH = "m6 9 6 6 6-6"

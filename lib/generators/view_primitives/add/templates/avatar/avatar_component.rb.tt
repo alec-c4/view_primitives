@@ -2,10 +2,11 @@
 
 module UI
   class AvatarComponent < ApplicationComponent
-    SIZES = { sm: "size-6", default: "size-8", lg: "size-12" }.freeze
-    BASE = "relative flex shrink-0 overflow-hidden rounded-full select-none"
+    BASE = "group/avatar relative flex size-8 shrink-0 overflow-hidden rounded-full select-none " \
+           "data-[size=sm]:size-6 data-[size=lg]:size-12"
     IMAGE = "aspect-square size-full object-cover"
-    FALLBACK = "flex size-full items-center justify-center rounded-full bg-muted text-sm text-muted-foreground"
+    FALLBACK = "flex size-full items-center justify-center rounded-full bg-muted text-sm text-muted-foreground " \
+               "group-data-[size=sm]/avatar:text-xs"
 
     def initialize(src: nil, alt: "", fallback: nil, size: :default, **html_attrs)
       @src = src
@@ -17,7 +18,10 @@ module UI
     end
 
     def call
-      content_tag(:div, class: cn(BASE, SIZES[@size], @extra_class), **@html_attrs) do
+      content_tag(:div,
+        class: cn(BASE, @extra_class),
+        "data-size": (@size == :default ? nil : @size.to_s),
+        **@html_attrs) do
         if @src
           content_tag(:img, nil, src: @src, alt: @alt, class: IMAGE)
         else

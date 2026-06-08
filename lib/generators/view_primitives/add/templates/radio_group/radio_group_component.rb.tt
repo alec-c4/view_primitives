@@ -12,7 +12,7 @@ module UI
 
     def call
       content_tag(:div,
-        class: cn("grid gap-2", @extra_class),
+        class: cn("grid gap-3", @extra_class),
         role: "radiogroup",
         **@html_attrs) do
         if @items.any?
@@ -35,9 +35,12 @@ module UI
 
     def radio_input(item, id)
       attrs = { type: "radio", name: @name, value: item[:value], id: id,
-                class: "h-4 w-4 border border-primary text-primary accent-primary " \
-                       "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring " \
-                       "disabled:cursor-not-allowed disabled:opacity-50" }
+                class: "aspect-square size-4 shrink-0 rounded-full border border-input text-primary shadow-xs " \
+                       "transition-[color,box-shadow] outline-none accent-primary " \
+                       "#{UI::Styles::FOCUS_RING} " \
+                       "disabled:cursor-not-allowed disabled:opacity-50 " \
+                       "aria-invalid:border-destructive aria-invalid:ring-destructive/20 " \
+                       "dark:bg-input/30 dark:aria-invalid:ring-destructive/40" }
       attrs[:checked] = true if item[:checked]
       content_tag(:input, nil, **attrs)
     end
@@ -45,7 +48,7 @@ module UI
     def radio_label(item, id)
       content_tag(:label, item[:label],
         for: id,
-        class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70")
+        class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50")
     end
   end
 end

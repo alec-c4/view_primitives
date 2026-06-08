@@ -2,13 +2,10 @@
 
 module UI
   class ComboboxComponent < ApplicationComponent
-    INPUT  = "flex h-9 w-full rounded-md border bg-transparent px-3 py-2 text-sm shadow-xs " \
-             "placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-ring"
-    PANEL  = "absolute z-50 top-full left-0 mt-1 w-full overflow-hidden rounded-md border " \
-             "bg-popover text-popover-foreground shadow-md"
+    INPUT  = UI::Styles::INPUT
+    PANEL  = "#{UI::Styles::POPOVER_PANEL} top-full left-0 mt-1 w-full overflow-hidden"
     LIST   = "max-h-[200px] overflow-y-auto p-1"
-    OPTION = "relative flex w-full cursor-pointer select-none items-center rounded-sm " \
-             "px-2 py-1.5 text-sm outline-none hover:bg-accent hover:text-accent-foreground"
+    OPTION = "#{UI::Styles::MENU_ITEM} w-full cursor-pointer hover:bg-accent hover:text-accent-foreground"
     EMPTY  = "py-4 text-center text-sm text-muted-foreground"
 
     def initialize(name:, options: [], value: nil, placeholder: "Select...", **html_attrs)

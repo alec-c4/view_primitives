@@ -4,8 +4,7 @@ module UI
   class PopoverComponent < ApplicationComponent
     renders_one :trigger
 
-    PANEL_BASE = "absolute z-50 w-72 rounded-md border bg-popover p-4 " \
-                 "text-sm text-popover-foreground shadow-md outline-none"
+    PANEL_BASE = "#{UI::Styles::POPOVER_PANEL} w-72 p-4"
 
     ALIGN = {
       start:  "left-0",

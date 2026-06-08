@@ -9,21 +9,23 @@ module UI
     # name:       form field name for the hidden input (if used in a form)
     # min/max:    Date bounds for disabled days
 
-    CONTAINER  = "w-fit rounded-lg border border-border bg-popover p-4 text-sm shadow"
-    HEADER_CLS = "mb-3 flex items-center justify-between"
-    MONTH_CLS  = "font-medium text-foreground"
-    NAV_BTN    = "inline-flex size-7 items-center justify-center rounded-md " \
-                 "text-muted-foreground hover:bg-accent hover:text-accent-foreground " \
-                 "focus-visible:ring-[3px] focus-visible:ring-ring/50 outline-none transition"
-    GRID_CLS   = "grid grid-cols-7 gap-px"
-    DOW_CLS    = "py-1.5 text-center text-xs text-muted-foreground font-medium"
-    DAY_BASE   = "h-9 w-9 rounded-md text-center text-sm transition-colors outline-none " \
-                 "focus-visible:ring-[3px] focus-visible:ring-ring/50"
-    DAY_NORMAL = "hover:bg-accent hover:text-accent-foreground"
-    DAY_TODAY  = "font-semibold text-foreground ring-1 ring-border"
-    DAY_SEL    = "bg-primary text-primary-foreground hover:bg-primary/90"
-    DAY_MUTED  = "text-muted-foreground/50"
-    DAY_DISABLED = "pointer-events-none opacity-30"
+    CONTAINER  = "group/calendar w-fit #{UI::Styles::FIELD_PANEL} p-3 text-sm"
+    HEADER_CLS = "relative mb-2 flex items-center justify-between"
+    MONTH_CLS  = "flex h-8 w-full items-center justify-center text-sm font-medium select-none"
+    NAV_BTN    = "inline-flex size-8 shrink-0 items-center justify-center rounded-md p-0 " \
+                 "font-normal text-muted-foreground hover:bg-accent hover:text-accent-foreground " \
+                 "#{UI::Styles::FOCUS_RING} " \
+                 "disabled:pointer-events-none disabled:opacity-50 transition"
+    GRID_CLS   = "grid w-full grid-cols-7"
+    DOW_CLS    = "flex-1 rounded-md py-0 text-center text-[0.8rem] font-normal text-muted-foreground select-none"
+    DAY_BASE   = "inline-flex aspect-square size-8 items-center justify-center rounded-md p-0 " \
+                 "text-sm font-normal transition-colors outline-none " \
+                 "#{UI::Styles::FOCUS_RING}"
+    DAY_NORMAL = "hover:bg-accent hover:text-accent-foreground dark:hover:text-accent-foreground"
+    DAY_TODAY  = "rounded-md bg-accent text-accent-foreground"
+    DAY_SEL    = "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
+    DAY_MUTED  = "text-muted-foreground opacity-50"
+    DAY_DISABLED = "pointer-events-none opacity-50"
 
     DAYS_OF_WEEK = %w[Su Mo Tu We Th Fr Sa].freeze
     CHEVRON_L    = "m15 18-6-6 6-6"
@@ -42,7 +44,7 @@ module UI
     def call
       content_tag(:div,
         class: cn(CONTAINER, @extra_class),
-        data: { controller: "calendar", calendar_month_value: @month.iso8601 },
+        data: { slot: "calendar", controller: "calendar", calendar_month_value: @month.iso8601 },
         **@html_attrs) do
         concat hidden_input if @name && @selected
         concat header_row

@@ -2,8 +2,7 @@
 
 module UI
   class ScrollAreaComponent < ApplicationComponent
-    # Custom-styled scrollbar container using CSS pseudo-elements.
-    # Works without a plugin in Tailwind v4 via arbitrary property syntax.
+    ROOT = "relative"
 
     ORIENTATIONS = {
       vertical:   "overflow-y-auto",
@@ -11,17 +10,16 @@ module UI
       both:       "overflow-auto"
     }.freeze
 
-    # Thin, themed scrollbar applied to the viewport
+    VIEWPORT = "size-full rounded-[inherit] transition-[color,box-shadow] outline-none " \
+               "#{UI::Styles::FOCUS_RING} focus-visible:outline-1"
+
     SCROLLBAR_CLS = "[scrollbar-width:thin] " \
                     "[scrollbar-color:var(--color-border)_transparent] " \
-                    "[&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar]:h-1.5 " \
+                    "[&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar]:h-2.5 " \
                     "[&::-webkit-scrollbar-track]:bg-transparent " \
                     "[&::-webkit-scrollbar-thumb]:rounded-full " \
                     "[&::-webkit-scrollbar-thumb]:bg-border"
 
-    # orientation: :vertical (default) | :horizontal | :both
-    # max_h:       Tailwind max-height class, e.g. "max-h-72" (vertical / both)
-    # max_w:       Tailwind max-width class, e.g. "max-w-sm" (horizontal / both)
     def initialize(orientation: :vertical, max_h: "max-h-72", max_w: nil, **html_attrs)
       @orientation = orientation.to_sym
       @max_h = max_h
@@ -32,10 +30,11 @@ module UI
 
     def call
       overflow = ORIENTATIONS.fetch(@orientation, ORIENTATIONS[:vertical])
-      content_tag(:div,
-        content,
-        class: cn(overflow, SCROLLBAR_CLS, @max_h, @max_w, @extra_class),
-        **@html_attrs)
+      content_tag(:div, class: cn(ROOT, @extra_class), **@html_attrs) do
+        content_tag(:div,
+          content,
+          class: cn(overflow, VIEWPORT, SCROLLBAR_CLS, @max_h, @max_w))
+      end
     end
   end
 end

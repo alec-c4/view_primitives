@@ -23,7 +23,8 @@ module UI
     #   target:  link target, e.g. "_blank"
     #   rel:     link rel attribute
 
-    WRAPPER_CLS = "relative inline-block"
+    WRAPPER_CLS = "relative inline-block overflow-hidden rounded-md #{UI::Styles::BORDER} shadow-xs"
+    IMG_CLS     = "block h-auto w-full max-w-full rounded-md"
 
     def initialize(src:, alt:, areas: [], width: nil, height: nil,
                    loading: :lazy, map_name: nil, **html_attrs)
@@ -47,7 +48,7 @@ module UI
     private
 
     def img_tag
-      attrs = { src: @src, alt: @alt, usemap: "##{@map_name}", loading: @loading }
+      attrs = { src: @src, alt: @alt, usemap: "##{@map_name}", loading: @loading, class: IMG_CLS }
       attrs[:width]  = @width  if @width
       attrs[:height] = @height if @height
       tag.img(**attrs)

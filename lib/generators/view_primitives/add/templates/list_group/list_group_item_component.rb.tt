@@ -2,12 +2,13 @@
 
 module UI
   class ListGroupItemComponent < ApplicationComponent
-    BASE = "flex items-center justify-between px-4 py-3 text-sm"
+    BASE = "flex items-center justify-between gap-4 px-4 py-3 text-sm transition-colors duration-100 " \
+           "outline-none #{UI::Styles::FOCUS_RING}"
 
     VARIANTS = {
-      default: "text-foreground hover:bg-muted",
-      active:  "bg-primary text-primary-foreground",
-      muted:   "text-muted-foreground hover:bg-muted"
+      default: "text-foreground hover:bg-accent/50",
+      active:  "bg-accent font-medium text-accent-foreground",
+      muted:   "text-muted-foreground hover:bg-accent/50"
     }.freeze
 
     def initialize(label = nil, href: nil, active: false, variant: :default, **html_attrs)
@@ -24,6 +25,7 @@ module UI
       content_tag(tag_name,
         content.presence || @label,
         class: cn(BASE, VARIANTS.fetch(@variant, VARIANTS[:default]), @extra_class),
+        data: { slot: "item" },
         **extra,
         **@html_attrs)
     end

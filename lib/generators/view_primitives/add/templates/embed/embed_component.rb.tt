@@ -48,8 +48,8 @@ module UI
       /yandex\.(ru|com)\/maps/i                         => :yandex_maps
     }.freeze
 
-    WRAPPER_CLS      = "overflow-hidden rounded-md"
-    DARK_WRAPPER_CLS = "overflow-hidden rounded-md bg-black"
+    WRAPPER_CLS      = "overflow-hidden rounded-md #{UI::Styles::BORDER} bg-card shadow-xs"
+    DARK_WRAPPER_CLS = "overflow-hidden rounded-md #{UI::Styles::BORDER} bg-black shadow-xs"
 
     def self.detect_provider(url)
       DOMAIN_MAP.each { |pattern, provider| return provider if url.to_s.match?(pattern) }

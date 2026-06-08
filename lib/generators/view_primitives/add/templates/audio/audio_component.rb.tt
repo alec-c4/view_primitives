@@ -22,7 +22,7 @@ module UI
     end
 
     def call
-      attrs = { preload: @preload, class: @extra_class }
+      attrs = { preload: @preload, class: cn("w-full rounded-md", @extra_class) }
       attrs[:controls] = true if @controls
       attrs[:autoplay] = true if @autoplay
       attrs[:muted]    = true if @muted

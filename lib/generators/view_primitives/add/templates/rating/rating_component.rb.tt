@@ -30,7 +30,7 @@ module UI
     def star(filled)
       content_tag(:svg,
         content_tag(:path, nil, d: STAR_PATH, "stroke-linecap": "round", "stroke-linejoin": "round"),
-        class: filled ? "size-5 text-yellow-400" : "size-5 text-muted-foreground",
+        class: filled ? "size-4 fill-primary text-primary" : "size-4 fill-muted text-muted",
         xmlns: "http://www.w3.org/2000/svg",
         viewBox: "0 0 24 24",
         fill: filled ? "currentColor" : "none",

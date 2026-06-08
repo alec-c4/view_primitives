@@ -2,9 +2,8 @@
 
 module UI
   class RangeComponent < ApplicationComponent
-    BASE = "w-full cursor-pointer appearance-none rounded-full bg-input outline-none " \
-           "h-2 accent-primary " \
-           "focus-visible:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 " \
+    BASE = "h-2 w-full cursor-pointer appearance-none rounded-full bg-muted outline-none accent-primary " \
+           "#{UI::Styles::FOCUS_RING} " \
            "disabled:pointer-events-none disabled:opacity-50 " \
            "[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none " \
            "[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary " \
