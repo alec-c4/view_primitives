@@ -7,76 +7,43 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- `UI::Styles::MENU_SEPARATOR` — shared menu divider class for dropdown, menubar, context menu, and command
-- `UI::Styles::BORDER`, `FIELD_PANEL`, and `PICKER_TRIGGER` documented in [customization.md](docs/customization.md)
-- Device mockup shell/bezel/screen structure for iPhone and iPad frames
-
-### Changed
-
-- **DataTable** — table cell padding, header styling, and `<caption>` align with [shadcn Table](https://ui.shadcn.com/docs/components/radix/table)
-- **Accordion** — trigger weight, chevron SVG, and item borders match [shadcn Accordion](https://ui.shadcn.com/docs/components/radix/accordion)
-- **DeviceMockup** — iPhone (Dynamic Island, side buttons, home indicator) and iPad (landscape `3/2`, front camera) visual refresh
-- **Navbar**, **BottomNav**, **Footer**, **Drawer**, **Sheet** — edge borders use `border-border` token
-- **ListGroup** — internal dividers use `divide-border`
-- Menu components — separators use `<div role="separator">` with `UI::Styles::MENU_SEPARATOR` instead of bare `<hr>`
-
-### Fixed
-
-- Drawer and sheet Stimulus actions referenced missing controllers; now use `dialog#open` / `dialog#close`
-- Bare Tailwind `border`, `border-b`, and `border-t` without a color token rendered black or double-weight lines
-- Device mockup screen overflow when using `size-full` inside padded aspect-ratio containers
-- Dynamic Island and side buttons clipped or invisible on phone mockup
-- DataTable caption rendered outside `<table>` with extra borders
-- Accordion `<summary>` default browser styling produced bold triggers and dark dividers
-
-## [0.2.1] - 2026-06-08
-
-### Added
-
-- [docs/components/README.md](docs/components/README.md) — shared setup guide for all component pages
-- `rails g view_primitives:install --force` — refresh `ApplicationComponent` and CSS from gem templates
-- Component docs: prerequisites, update commands, and corrected Stimulus controller names
-
-### Changed
-
-- README: CSS layout, generators table, `tailwind_merge`, link to component setup guide
-- Sheet and drawer docs document shared `dialog_controller.js` and focus trap behaviour
-
-### Fixed
-
-- Sheet and drawer components referenced `sheet#` / `drawer#` Stimulus actions while using `data-controller="dialog"`; actions and targets now use `dialog`
-- Install generator skipped `ApplicationComponent` even with `--force`, leaving apps without `extract_html_attrs`
-
 ## [0.2.0] - 2026-06-08
 
 ### Added
 
-- `rails g view_primitives:update` — refresh installed components, CSS bundle, and `UI::Styles` from gem templates
-- `rails g view_primitives:theme <name>` — install optional color themes (e.g. `rose`)
-- CSS layer split: entry `view_primitives.css`, `tokens.css`, `utilities.css` (`vp-*` primitives), `themes/default.css`
-- `UI::Styles` module in `app/components/ui/styles.rb` with shared primitive class names
-- `ApplicationComponent#extract_html_attrs` for consistent `class:` forwarding
-- `vp-peer-focus-ring` primitive for switch track styling
-- Focus trap in `dialog`, `alert_dialog`, `sheet`, and `drawer` Stimulus controllers (supports `role=dialog` and `role=alertdialog`)
-- Focus trap in `command` Stimulus controller
-- Mobile navigation panel in `NavbarComponent` with working hamburger toggle
-- Optional `tailwind_merge` support in `cn()` when the gem is installed
-- Auto-discovery of component templates in the test suite
+- `rails g view_primitives:update` — refresh installed components, CSS bundle, and `UI::Styles` from gem templates; supports `--only`, `--skip-components`, `--skip-css`, `--skip-styles`, `--force`
+- `rails g view_primitives:theme <name>` — install an optional color theme (e.g. `rose`) and enable its `@import` in `view_primitives.css`
+- `UI::Styles` module (`app/components/ui/styles.rb`) — shared primitive class names: `FOCUS_RING`, `BORDER`, `OVERLAY`, `INPUT`, `MENU_SEPARATOR`, `FIELD_PANEL`, `PICKER_TRIGGER`, etc.
+- CSS bundle split into `tokens.css`, `utilities.css` (`vp-*` primitives), and `themes/` — run `rails g view_primitives:update --skip-components` to pull in the new structure
+- `--force` flag on both `add` and `update` generators — skips the per-file overwrite confirmation prompt
+- Focus trap in `dialog`, `alert_dialog`, `sheet`, `drawer`, and `command` Stimulus controllers
+- Mobile nav panel in `NavbarComponent` with working hamburger toggle
+- Optional `tailwind_merge` support in `cn()` when the gem is present in the project
+- [docs/components/README.md](docs/components/README.md) — shared prerequisites guide
 
 ### Changed
 
-- Sheet and drawer reuse `dialog_controller.js` instead of duplicate Stimulus controllers
-- ~45 components migrated to `UI::Styles` / `vp-*` primitives for focus rings, inputs, overlays, and menu items
-- `ComponentCopier` shared module used by `add` and `update` generators
-- README and `docs/customization.md` document update/theme workflow and CSS structure
+- ~45 component templates migrated to `UI::Styles` constants and `vp-*` utilities for consistent theming
+- `add` generator prompts for confirmation before overwriting an existing file (previously overwrote silently); use `--force` to restore previous behaviour
+- `update` generator default changed to prompt before overwriting; use `--force` to overwrite unconditionally
+- Sheet and drawer share `dialog_controller.js` instead of maintaining separate Stimulus controllers
+- **DataTable**, **Accordion**, **DeviceMockup**, **Navbar**, **BottomNav**, **Footer**, **Drawer**, **Sheet**, **ListGroup**, and menu components visually realigned with the shadcn/ui reference
 
 ### Fixed
 
-- Navbar hamburger had a Stimulus controller but no mobile menu markup
-- `ComponentCopier` used absolute paths and `copy_file` for `.rb.tt` templates; `update` now processes ERB correctly
-- `UI::Styles` lived in `ui_styles.rb`, which Zeitwerk maps to `UI::UiStyles`; file is now `app/components/ui/styles.rb`
+- `add` and `update` generators recorded a failed component copy as success when the template directory was missing
+- `add` generator printed a misleading "Copied" summary line for components with a missing template directory
+- Setup notes (e.g. Chart.js importmap instructions) were never printed when the component list also contained an unknown name, because `abort` fired before `report_setup_notes` ran
+- `ComponentCopier#with_source_root` used `source_paths.shift` in `ensure` — replaced with `source_paths.delete(path)` to always remove the correct entry
+- `Components.supported` included non-directory entries from `Dir.children`; now filters to directories only
+- `copy_js_controller` did not guard against an empty stimulus name (edge case: file named `_controller.js`)
+- **Avatar** `lg` size accidentally reduced from `size-12` to `size-10` in the data-attribute refactor; restored to 48 px
+- **Avatar** emitted `data-size="default"` on every default-size avatar; attribute is now omitted for `:default`
+- **AlertDialog** content div lost `text-sm text-muted-foreground`; restored
+- **Breadcrumb** inactive links lost `text-muted-foreground`; restored
+- Sheet and drawer Stimulus actions used `sheet#` / `drawer#` targets while the controller was `dialog`; corrected to `dialog#open` / `dialog#close`
+- `install --force` skipped `ApplicationComponent` regeneration; fixed
+- Bare `border` / `border-b` / `border-t` classes without a color token rendered as black lines on some themes; replaced with `border-border`
 
 ## [0.1.3] - 2026-06-04
 
@@ -173,6 +140,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `view_primitives:add` exits with status 1 on unknown components; prints copy summary
 - Requires `view_component >= 4.0` and Rails `>= 7.1`
 
-[0.2.1]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.1
 [0.2.0]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.0
 [0.1.0]: https://github.com/alec-c4/view_primitives/releases/tag/v0.1.0
