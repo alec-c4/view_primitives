@@ -9,6 +9,9 @@ module ViewPrimitives
 
       source_root File.expand_path("templates", __dir__)
 
+      class_option :force, type: :boolean, default: false,
+        desc: "Overwrite existing ApplicationComponent and CSS files"
+
       def verify_ui_inflection
         return if "ui/button_component".camelize == "UI::ButtonComponent"
 
@@ -19,16 +22,23 @@ module ViewPrimitives
 
       def create_application_component
         target = "app/components/application_component.rb"
+        exists = File.exist?(File.join(destination_root, target))
 
-        if File.exist?(File.join(destination_root, target))
-          say "  ApplicationComponent already exists. Add `include ViewPrimitives::ClassHelper` manually.", :yellow
+        if exists && !options[:force]
+          say "  ApplicationComponent already exists. Add `include ViewPrimitives::ClassHelper` and " \
+              "`extract_html_attrs` manually, or re-run with --force.", :yellow
         else
           template "application_component.rb.tt", target
         end
       end
 
-      def create_css_variables
+      def create_ui_styles
+        template "styles.rb.tt", "app/components/ui/styles.rb"
+      end
+
+      def create_css_bundle
         copy_file "view_primitives.css", css_dest_path
+        directory "view_primitives", "#{css_dest_dir}/view_primitives"
       end
 
       def inject_css_import

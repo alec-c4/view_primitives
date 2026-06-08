@@ -1,0 +1,64 @@
+/* Shared component primitives — referenced from UI::Styles in Ruby components. */
+
+@utility vp-focus-ring {
+  @apply outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50;
+}
+
+@utility vp-input {
+  @apply h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs;
+  @apply transition-[color,box-shadow] outline-none;
+  @apply selection:bg-primary selection:text-primary-foreground;
+  @apply file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground;
+  @apply placeholder:text-muted-foreground;
+  @apply vp-focus-ring;
+  @apply aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40;
+  @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
+  @apply md:text-sm dark:bg-input/30;
+}
+
+@utility vp-textarea {
+  @apply field-sizing-content min-h-16 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-2 text-base shadow-xs;
+  @apply transition-[color,box-shadow] outline-none;
+  @apply selection:bg-primary selection:text-primary-foreground;
+  @apply placeholder:text-muted-foreground;
+  @apply vp-focus-ring;
+  @apply aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40;
+  @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
+  @apply md:text-sm dark:bg-input/30;
+}
+
+@utility vp-overlay {
+  @apply fixed inset-0 z-50 bg-black/50;
+}
+
+@utility vp-border {
+  @apply border border-border;
+}
+
+@utility vp-popover-panel {
+  @apply absolute z-50 rounded-md border border-border bg-popover text-popover-foreground shadow-xs outline-hidden;
+}
+
+@utility vp-select {
+  @apply h-9 w-full min-w-0 appearance-none rounded-md border border-input bg-transparent px-3 py-2 pr-9 text-sm shadow-xs;
+  @apply transition-[color,box-shadow] outline-none;
+  @apply selection:bg-primary selection:text-primary-foreground;
+  @apply placeholder:text-muted-foreground;
+  @apply vp-focus-ring;
+  @apply aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40;
+  @apply disabled:pointer-events-none disabled:cursor-not-allowed;
+  @apply data-[size=sm]:h-8 data-[size=sm]:py-1;
+  @apply dark:bg-input/30 dark:hover:bg-input/50;
+}
+
+@utility vp-peer-focus-ring {
+  @apply peer-focus-visible:border-ring peer-focus-visible:ring-[3px] peer-focus-visible:ring-ring/50;
+}
+
+@utility vp-menu-item {
+  @apply relative flex cursor-default items-center gap-2 whitespace-nowrap rounded-sm px-2 py-1.5 text-sm outline-hidden select-none;
+  @apply transition-colors;
+  @apply focus:bg-accent focus:text-accent-foreground;
+  @apply data-[disabled]:pointer-events-none data-[disabled]:opacity-50;
+  @apply [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;
+}
