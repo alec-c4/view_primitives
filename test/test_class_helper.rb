@@ -2,6 +2,12 @@
 
 require "test_helper"
 
+begin
+  require "tailwind_merge"
+rescue LoadError
+  # optional — cn merge test skips when gem is absent
+end
+
 class ClassHelperConsumer
   include ViewPrimitives::ClassHelper
 
@@ -37,5 +43,13 @@ class TestClassHelper < Minitest::Test
 
   def test_handles_single_class
     assert_equal "foo", @subject.call_cn("foo")
+  end
+
+  def test_merges_conflicting_tailwind_utilities_when_gem_loaded
+    skip "tailwind_merge gem not installed" unless defined?(::TailwindMerge::Merger)
+
+    result = @subject.call_cn("px-2 py-1", "px-4")
+
+    assert_equal "py-1 px-4", result
   end
 end

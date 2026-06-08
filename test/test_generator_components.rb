@@ -82,6 +82,12 @@ class TestGeneratorComponents < Minitest::Test
 
     assert_operator files.size, :>=, 2,
       "accordion should have accordion_component and accordion_item_component templates"
+
+    source = File.read(File.join(TEMPLATE_ROOT, "accordion", "accordion_item_component.rb.tt"))
+
+    assert_includes source, "border-b border-border"
+    assert_includes source, "[&::-webkit-details-marker]:hidden"
+    assert_includes source, '"stroke-width": "2"'
   end
 
   def test_card_copies_six_rb_tt_files
@@ -96,6 +102,10 @@ class TestGeneratorComponents < Minitest::Test
 
     assert_operator files.size, :>=, 2,
       "list_group should have list_group_component and list_group_item_component templates"
+
+    source = File.read(File.join(TEMPLATE_ROOT, "list_group", "list_group_component.rb.tt"))
+
+    assert_includes source, "divide-border"
   end
 
   def test_rating_input_has_js_controller
@@ -131,9 +141,71 @@ class TestGeneratorComponents < Minitest::Test
       "dialog should include dialog_controller.js"
   end
 
-  def test_sheet_has_js_controller
-    assert_path_exists File.join(TEMPLATE_ROOT, "sheet", "sheet_controller.js"),
-      "sheet should include sheet_controller.js"
+  def test_dialog_controller_traps_focus
+    source = File.read(File.join(TEMPLATE_ROOT, "dialog", "dialog_controller.js"))
+
+    assert_includes source, "#trapFocus"
+    assert_includes source, "[role=dialog], [role=alertdialog]"
+    assert_includes source, "_previouslyFocused"
+  end
+
+  def test_command_controller_traps_focus
+    source = File.read(File.join(TEMPLATE_ROOT, "command", "command_controller.js"))
+
+    assert_includes source, "#trapFocus"
+    assert_includes source, "_previouslyFocused"
+  end
+
+  def test_navbar_renders_mobile_menu_target
+    source = File.read(File.join(TEMPLATE_ROOT, "navbar", "navbar_component.rb.tt"))
+
+    assert_includes source, 'navbar_target: "menu"'
+    assert_includes source, "mobile_menu"
+    assert_includes source, "border-b border-border"
+  end
+
+  def test_navbar_controller_toggles_menu_target
+    source = File.read(File.join(TEMPLATE_ROOT, "navbar", "navbar_controller.js"))
+
+    assert_includes source, "menuTarget"
+    assert_includes source, "aria-expanded"
+  end
+
+  def test_sheet_reuses_dialog_stimulus_controller
+    config = ViewPrimitives::Generators::Components::EXTRA_STIMULUS["sheet"]
+
+    assert_equal "dialog/dialog_controller.js", config[:source]
+    assert_equal "dialog", config[:name]
+  end
+
+  def test_drawer_reuses_dialog_stimulus_controller
+    config = ViewPrimitives::Generators::Components::EXTRA_STIMULUS["drawer"]
+
+    assert_equal "dialog/dialog_controller.js", config[:source]
+    assert_equal "dialog", config[:name]
+  end
+
+  def test_sheet_template_wires_dialog_stimulus_actions
+    source = File.read(File.join(TEMPLATE_ROOT, "sheet", "sheet_component.rb.tt"))
+
+    assert_includes source, 'controller: "dialog"'
+    assert_includes source, "click->dialog#open"
+    assert_includes source, "click->dialog#close"
+    assert_includes source, 'dialog_target: "panel"'
+    assert_includes source, "z-10"
+    refute_match(/sheet#/, source)
+    refute_match(/sheet_target/, source)
+  end
+
+  def test_drawer_template_wires_dialog_stimulus_actions
+    source = File.read(File.join(TEMPLATE_ROOT, "drawer", "drawer_component.rb.tt"))
+
+    assert_includes source, 'controller: "dialog"'
+    assert_includes source, "click->dialog#open"
+    assert_includes source, "click->dialog#close"
+    assert_includes source, 'dialog_target: "panel"'
+    refute_match(/drawer#/, source)
+    refute_match(/drawer_target/, source)
   end
 
   def test_popover_has_js_controller
@@ -144,6 +216,10 @@ class TestGeneratorComponents < Minitest::Test
   def test_dropdown_menu_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "dropdown_menu", "dropdown_controller.js"),
       "dropdown_menu should include dropdown_controller.js"
+
+    source = File.read(File.join(TEMPLATE_ROOT, "dropdown_menu", "dropdown_menu_component.rb.tt"))
+
+    assert_includes source, "UI::Styles::MENU_SEPARATOR"
   end
 
   def test_context_menu_has_js_controller
@@ -161,11 +237,25 @@ class TestGeneratorComponents < Minitest::Test
   def test_menubar_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "menubar", "menubar_controller.js"),
       "menubar should include menubar_controller.js"
+
+    source = File.read(File.join(TEMPLATE_ROOT, "menubar", "menubar_component.rb.tt"))
+
+    assert_includes source, "UI::Styles::MENU_SEPARATOR"
+    assert_includes source, "whitespace-nowrap"
+
+    menu_source = File.read(File.join(TEMPLATE_ROOT, "menubar", "menubar_menu_component.rb.tt"))
+
+    assert_includes menu_source, "w-max min-w-[12rem]"
   end
 
   def test_command_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "command", "command_controller.js"),
       "command should include command_controller.js"
+
+    source = File.read(File.join(TEMPLATE_ROOT, "command", "command_component.rb.tt"))
+
+    assert_includes source, "border-b border-border"
+    assert_includes source, "UI::Styles::MENU_SEPARATOR"
   end
 
   def test_combobox_has_js_controller
@@ -291,6 +381,16 @@ class TestGeneratorComponents < Minitest::Test
 
     assert_includes source, "phone"
     assert_includes source, "browser"
+    assert_includes source, "tablet"
+    assert_includes source, "aspect-[393/852]"
+    assert_includes source, "aspect-[3/2]"
+    assert_includes source, "DYNAMIC_ISLAND"
+    assert_includes source, "HOME_INDICATOR"
+    assert_includes source, "PHONE_SHELL"
+    assert_includes source, "TABLET_SHELL"
+    assert_includes source, "SCREEN_CONTENT"
+    assert_includes source, "w-full max-w-[280px]"
+    assert_includes source, "#FF5F57"
   end
 
   def test_qr_code_supports_src_and_block
@@ -361,6 +461,8 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes source, "GroupComponent"
     assert_includes source, "ItemComponent"
     assert_includes source, "collapsed"
+    assert_includes source, "group-data-[collapsed=true]:hidden"
+    refute_includes source, "-mt-8"
   end
 
   def test_sidebar_controller_has_toggle
@@ -374,6 +476,9 @@ class TestGeneratorComponents < Minitest::Test
 
     assert_includes source, "PanelComponent"
     assert_includes source, "renders_many :panels"
+    assert_includes source, "HANDLE_VERTICAL"
+    assert_includes source, "HANDLE_GRIP_VERTICAL"
+    assert_includes source, "min-h-0"
   end
 
   def test_resizable_controller_handles_drag
@@ -404,6 +509,8 @@ class TestGeneratorComponents < Minitest::Test
 
     assert_includes source, "CalendarComponent"
     assert_includes source, "date-picker"
+    assert_includes source, "UI::Styles::PICKER_TRIGGER"
+    refute_includes source, "POPOVER_PANEL"
   end
 
   def test_date_picker_controller_opens_closes
@@ -412,6 +519,29 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes js, "open()"
     assert_includes js, "close()"
     assert_includes js, "dateSelected"
+  end
+
+  def test_timepicker_uses_picker_trigger_and_field_panel
+    source = File.read(File.join(TEMPLATE_ROOT, "timepicker", "timepicker_component.rb.tt"))
+
+    assert_includes source, "UI::Styles::PICKER_TRIGGER"
+    assert_includes source, "UI::Styles::FIELD_PANEL"
+    refute_includes source, "POPOVER_PANEL"
+  end
+
+  def test_utilities_define_vp_border
+    css = File.read(File.expand_path("../lib/generators/view_primitives/install/templates/view_primitives/utilities.css", __dir__))
+
+    assert_includes css, "@utility vp-border"
+    assert_includes css, "border-border"
+  end
+
+  def test_styles_module_exports_border_and_picker_constants
+    source = File.read(File.expand_path("../lib/generators/view_primitives/install/templates/styles.rb.tt", __dir__))
+
+    assert_includes source, "BORDER = \"vp-border\""
+    assert_includes source, "FIELD_PANEL"
+    assert_includes source, "PICKER_TRIGGER"
   end
 
   def test_timepicker_supports_h12_and_h24
@@ -434,6 +564,12 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes source, "columns:"
     assert_includes source, "rows:"
     assert_includes source, "data-table"
+    assert_includes source, "caption-bottom"
+    assert_includes source, "content_tag(:caption"
+    assert_includes source, "[&_tr]:border-b"
+    assert_includes source, "p-2 align-middle"
+    refute_includes source, "caption_bar"
+    refute_includes source, "bg-muted/40"
   end
 
   def test_data_table_controller_supports_sort_and_filter

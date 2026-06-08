@@ -18,7 +18,9 @@ module ViewPrimitives
           say format("%-18s %s", component, status), color
         end
 
-        say "\nInstall: rails g view_primitives:add <name>\n", :cyan
+        say "\nInstall:  rails g view_primitives:add <name>", :cyan
+        say "Update:   rails g view_primitives:update", :cyan
+        say "Themes:   rails g view_primitives:theme rose\n", :cyan
       end
     end
   end

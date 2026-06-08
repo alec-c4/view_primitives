@@ -5,7 +5,10 @@ module ViewPrimitives
     private
 
     def cn(*classes)
-      classes.flatten.compact.reject(&:empty?).join(" ")
+      merged = classes.flatten.compact.reject(&:empty?).join(" ")
+      return merged unless defined?(::TailwindMerge::Merger)
+
+      ::TailwindMerge::Merger.new.merge(merged)
     end
   end
 end

@@ -7,7 +7,7 @@ module ViewPrimitives
     end
 
     generators do
-      %w[install add list].each do |gen|
+      %w[install add list update theme].each do |gen|
         require "generators/view_primitives/#{gen}/#{gen}_generator"
       end
     end

@@ -11,3 +11,4 @@ gem "standard", require: false
 gem "rubocop-minitest", require: false
 gem "rubocop-performance", require: false
 gem "lefthook", require: false
+gem "tailwind_merge", require: false

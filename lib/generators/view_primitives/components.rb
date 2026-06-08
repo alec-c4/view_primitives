@@ -7,8 +7,12 @@ module ViewPrimitives
 
       # Stimulus controllers not colocated with the component template directory.
       EXTRA_STIMULUS = {
-        "alert_dialog" => {source: "dialog/dialog_controller.js", name: "dialog"}
+        "alert_dialog" => {source: "dialog/dialog_controller.js", name: "dialog"},
+        "sheet" => {source: "dialog/dialog_controller.js", name: "dialog"},
+        "drawer" => {source: "dialog/dialog_controller.js", name: "dialog"}
       }.freeze
+
+      OPTIONAL_THEMES = %w[rose].freeze
 
       # Post-install instructions for components that require external dependencies.
       SETUP_NOTES = {
@@ -47,7 +51,9 @@ module ViewPrimitives
       }.freeze
 
       def self.supported
-        @supported ||= Dir.children(TEMPLATE_ROOT).sort.freeze
+        @supported ||= Dir.children(TEMPLATE_ROOT)
+          .select { |e| File.directory?(File.join(TEMPLATE_ROOT, e)) }
+          .sort.freeze
       end
 
       def self.primary_path(component)
@@ -56,6 +62,14 @@ module ViewPrimitives
 
       def self.installed?(component, root)
         File.exist?(File.join(root, primary_path(component)))
+      end
+
+      def self.installed(root)
+        supported.select { |name| installed?(name, root) }
+      end
+
+      def self.optional_theme_imports
+        OPTIONAL_THEMES
       end
     end
   end

@@ -17,7 +17,35 @@ module ViewComponent
   end
 end
 
-class ApplicationComponent < ViewComponent::Base; end
+class ApplicationComponent < ViewComponent::Base
+  private
+
+  def extract_html_attrs(**html_attrs)
+    @extra_class = html_attrs.delete(:class)
+    @html_attrs = html_attrs
+  end
+end
+
+module UI
+  module Styles
+    FOCUS_RING = "vp-focus-ring"
+    PEER_FOCUS_RING = "vp-peer-focus-ring"
+    BORDER = "vp-border"
+    INPUT = "vp-input"
+    TEXTAREA = "vp-textarea"
+    OVERLAY = "vp-overlay"
+    POPOVER_PANEL = "vp-popover-panel"
+    MENU_ITEM = "vp-menu-item"
+    MENU_SEPARATOR = "block -mx-1 my-1 h-px shrink-0 border-0 bg-border"
+    SELECT = "vp-select"
+    FIELD_PANEL = "rounded-md border border-input bg-background shadow-xs"
+    PICKER_TRIGGER = "inline-flex h-9 shrink-0 cursor-pointer items-center justify-start gap-2 " \
+                     "rounded-md border border-input bg-background px-4 py-2 text-left text-sm font-normal shadow-xs " \
+                     "transition-all outline-none hover:bg-accent hover:text-accent-foreground " \
+                     "#{FOCUS_RING} dark:bg-input/30 dark:hover:bg-input/50 " \
+                     "aria-expanded:border-ring has-[>svg]:px-3"
+  end
+end
 
 TEMPLATE_ROOT = File.expand_path(
   "../lib/generators/view_primitives/add/templates", __dir__
@@ -27,105 +55,10 @@ def load_tt(*parts)
   eval File.read(File.join(TEMPLATE_ROOT, *parts)), TOPLEVEL_BINDING, File.join(*parts) # rubocop:disable Security/Eval
 end
 
-# Load Phase 1
-load_tt "button/button_component.rb.tt"
-load_tt "alert/alert_component.rb.tt"
-load_tt "accordion/accordion_component.rb.tt"
-load_tt "accordion/accordion_item_component.rb.tt"
-
-# Load Phase 2 — original
-load_tt "badge/badge_component.rb.tt"
-load_tt "avatar/avatar_component.rb.tt"
-load_tt "card/card_component.rb.tt"
-load_tt "card/card_header_component.rb.tt"
-load_tt "card/card_title_component.rb.tt"
-load_tt "card/card_description_component.rb.tt"
-load_tt "card/card_content_component.rb.tt"
-load_tt "card/card_footer_component.rb.tt"
-load_tt "separator/separator_component.rb.tt"
-load_tt "label/label_component.rb.tt"
-load_tt "skeleton/skeleton_component.rb.tt"
-load_tt "progress/progress_component.rb.tt"
-load_tt "aspect_ratio/aspect_ratio_component.rb.tt"
-
-# Load Phase 3
-load_tt "input/input_component.rb.tt"
-load_tt "textarea/textarea_component.rb.tt"
-load_tt "checkbox/checkbox_component.rb.tt"
-load_tt "radio_group/radio_group_component.rb.tt"
-load_tt "select/select_component.rb.tt"
-load_tt "switch/switch_component.rb.tt"
-load_tt "toggle/toggle_component.rb.tt"
-load_tt "toggle_group/toggle_group_component.rb.tt"
-load_tt "form_field/form_field_component.rb.tt"
-load_tt "file_input/file_input_component.rb.tt"
-load_tt "search_input/search_input_component.rb.tt"
-load_tt "number_input/number_input_component.rb.tt"
-load_tt "range/range_component.rb.tt"
-load_tt "floating_label/floating_label_component.rb.tt"
-
-# Load Phase 6
-load_tt "dropdown_menu/dropdown_menu_component.rb.tt"
-load_tt "context_menu/context_menu_component.rb.tt"
-load_tt "menubar/menubar_component.rb.tt"
-load_tt "menubar/menubar_menu_component.rb.tt"
-load_tt "command/command_component.rb.tt"
-load_tt "combobox/combobox_component.rb.tt"
-
-# Load Phase 5
-load_tt "dialog/dialog_component.rb.tt"
-load_tt "alert_dialog/alert_dialog_component.rb.tt"
-load_tt "sheet/sheet_component.rb.tt"
-load_tt "drawer/drawer_component.rb.tt"
-load_tt "popover/popover_component.rb.tt"
-load_tt "tooltip/tooltip_component.rb.tt"
-load_tt "hover_card/hover_card_component.rb.tt"
-
-# Load Phase 4
-load_tt "breadcrumb/breadcrumb_component.rb.tt"
-load_tt "pagination/pagination_component.rb.tt"
-load_tt "stepper/stepper_component.rb.tt"
-load_tt "bottom_nav/bottom_nav_component.rb.tt"
-load_tt "footer/footer_component.rb.tt"
-load_tt "tabs/tabs_component.rb.tt"
-load_tt "tabs/tabs_item_component.rb.tt"
-load_tt "navbar/navbar_component.rb.tt"
-load_tt "navigation_menu/navigation_menu_component.rb.tt"
-load_tt "mega_menu/mega_menu_component.rb.tt"
-load_tt "collapsible/collapsible_component.rb.tt"
-load_tt "scroll_area/scroll_area_component.rb.tt"
-load_tt "chat_bubble/chat_bubble_component.rb.tt"
-load_tt "device_mockup/device_mockup_component.rb.tt"
-load_tt "qr_code/qr_code_component.rb.tt"
-load_tt "speed_dial/speed_dial_component.rb.tt"
-load_tt "gallery/gallery_component.rb.tt"
-load_tt "carousel/carousel_component.rb.tt"
-load_tt "input_otp/input_otp_component.rb.tt"
-load_tt "sidebar/sidebar_component.rb.tt"
-load_tt "resizable/resizable_component.rb.tt"
-load_tt "calendar/calendar_component.rb.tt"
-load_tt "date_picker/date_picker_component.rb.tt"
-load_tt "timepicker/timepicker_component.rb.tt"
-load_tt "data_table/data_table_component.rb.tt"
-
-# Load Phase 2 — new
-load_tt "rating_input/rating_input_component.rb.tt"
-load_tt "spinner/spinner_component.rb.tt"
-load_tt "kbd/kbd_component.rb.tt"
-load_tt "rating/rating_component.rb.tt"
-load_tt "indicator/indicator_component.rb.tt"
-load_tt "list_group/list_group_component.rb.tt"
-load_tt "list_group/list_group_item_component.rb.tt"
-load_tt "banner/banner_component.rb.tt"
-load_tt "button_group/button_group_component.rb.tt"
-
-# Load Phase 9
-load_tt "image/image_component.rb.tt"
-load_tt "figure/figure_component.rb.tt"
-load_tt "picture/picture_component.rb.tt"
-load_tt "video/video_component.rb.tt"
-load_tt "audio/audio_component.rb.tt"
-load_tt "iframe/iframe_component.rb.tt"
+Dir.glob(File.join(TEMPLATE_ROOT, "**", "*_component.rb.tt")).sort.each do |path|
+  relative = Pathname.new(path).relative_path_from(Pathname.new(TEMPLATE_ROOT)).to_s
+  load_tt(*relative.split("/"))
+end
 
 # ---------------------------------------------------------------------------
 
