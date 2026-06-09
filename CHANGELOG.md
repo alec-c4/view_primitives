@@ -7,14 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Added
-
-- **TagsInput** — multi-select input that renders selected values as removable chips; submits as `name[]`; supports pre-selected `values:`, keyboard navigation (Enter to select, Backspace to remove last chip, Escape to close), and filterable dropdown
-
 ## [0.2.0] - 2026-06-08
 
 ### Added
 
+- **TagsInput** — multi-select input that renders selected values as removable chips; submits as `name[]`; supports pre-selected `values:`, keyboard navigation (Enter to select, Backspace to remove last chip, Escape to close), and filterable dropdown
 - `rails g view_primitives:update` — refresh installed components, CSS bundle, and `UI::Styles` from gem templates; supports `--only`, `--skip-components`, `--skip-css`, `--skip-styles`, `--force`
 - `rails g view_primitives:theme <name>` — install an optional color theme (e.g. `rose`) and enable its `@import` in `view_primitives.css`
 - `UI::Styles` module (`app/components/ui/styles.rb`) — shared primitive class names: `FOCUS_RING`, `BORDER`, `OVERLAY`, `INPUT`, `MENU_SEPARATOR`, `FIELD_PANEL`, `PICKER_TRIGGER`, etc.
