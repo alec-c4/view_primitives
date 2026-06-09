@@ -12,7 +12,7 @@ class TestGeneratorComponents < Minitest::Test
     file_input search_input number_input range floating_label].freeze
   PHASE4 = %w[breadcrumb pagination stepper bottom_nav footer tabs navbar navigation_menu mega_menu].freeze
   PHASE5 = %w[dialog alert_dialog sheet drawer popover tooltip hover_card].freeze
-  PHASE6 = %w[dropdown_menu context_menu menubar command combobox].freeze
+  PHASE6 = %w[dropdown_menu context_menu menubar command combobox tags_input].freeze
   PHASE7 = %w[
     collapsible scroll_area chat_bubble device_mockup qr_code
     speed_dial gallery carousel input_otp sidebar resizable calendar
@@ -261,6 +261,23 @@ class TestGeneratorComponents < Minitest::Test
   def test_combobox_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "combobox", "combobox_controller.js"),
       "combobox should include combobox_controller.js"
+  end
+
+  def test_tags_input_has_js_controller
+    assert_path_exists File.join(TEMPLATE_ROOT, "tags_input", "tags_input_controller.js"),
+      "tags_input should include tags_input_controller.js"
+  end
+
+  def test_tags_input_submits_as_array
+    source = File.read(File.join(TEMPLATE_ROOT, "tags_input", "tags_input_component.rb.tt"))
+
+    assert_includes source, "\"\#{@name}[]\"", "tags_input hidden inputs must use name[]"
+  end
+
+  def test_tags_input_has_chip_template
+    source = File.read(File.join(TEMPLATE_ROOT, "tags_input", "tags_input_component.rb.tt"))
+
+    assert_includes source, "chipTemplate", "tags_input must include a chip <template> for JS cloning"
   end
 
   # --- Phase 9 — Media & semantic HTML ------------------------------------

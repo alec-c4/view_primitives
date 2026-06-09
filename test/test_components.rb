@@ -1544,6 +1544,45 @@ class TestComboboxComponent < Minitest::Test
   end
 end
 
+class TestTagsInputComponent < Minitest::Test
+  def test_name_stored
+    c = UI::TagsInputComponent.new(name: "colors")
+
+    assert_equal "colors", c.instance_variable_get(:@name)
+  end
+
+  def test_default_placeholder
+    c = UI::TagsInputComponent.new(name: "x")
+
+    assert_equal "Select...", c.instance_variable_get(:@placeholder)
+  end
+
+  def test_custom_placeholder
+    c = UI::TagsInputComponent.new(name: "x", placeholder: "Add tags...")
+
+    assert_equal "Add tags...", c.instance_variable_get(:@placeholder)
+  end
+
+  def test_values_coerced_to_strings
+    c = UI::TagsInputComponent.new(name: "x", values: [1, 2])
+
+    assert_equal %w[1 2], c.instance_variable_get(:@values)
+  end
+
+  def test_empty_values_default
+    c = UI::TagsInputComponent.new(name: "x")
+
+    assert_equal [], c.instance_variable_get(:@values)
+  end
+
+  def test_options_stored
+    opts = [{value: "red", label: "Red"}]
+    c = UI::TagsInputComponent.new(name: "x", options: opts)
+
+    assert_equal opts, c.instance_variable_get(:@options)
+  end
+end
+
 # ---------------------------------------------------------------------------
 # Phase 9 — Media & semantic HTML
 # ---------------------------------------------------------------------------

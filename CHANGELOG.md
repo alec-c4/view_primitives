@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **TagsInput** — multi-select input that renders selected values as removable chips; submits as `name[]`; supports pre-selected `values:`, keyboard navigation (Enter to select, Backspace to remove last chip, Escape to close), and filterable dropdown
+
 ## [0.2.0] - 2026-06-08
 
 ### Added
