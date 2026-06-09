@@ -4,12 +4,11 @@ module UI
   class TagsInputComponent < ApplicationComponent
     TRIGGER = "flex flex-wrap items-center gap-1.5 min-h-9 w-full rounded-md border border-input " \
               "bg-transparent px-3 py-1.5 text-sm shadow-xs cursor-text " \
-              "focus-within:outline-none focus-within:ring-1 focus-within:ring-ring"
+              "focus-within:outline-none focus-within:border-ring focus-within:ring-[3px] focus-within:ring-ring/50"
     CHIP = "inline-flex items-center gap-1 rounded-md bg-secondary " \
                   "text-secondary-foreground px-2 py-0.5 text-xs font-medium"
     CHIP_LABEL = "tags-input-chip-label"
-    REMOVE = "ml-0.5 rounded-xs opacity-60 transition-opacity hover:opacity-100 " \
-                  "focus:outline-none focus:ring-1 focus:ring-ring"
+    REMOVE = "ml-0.5 rounded-xs opacity-60 transition-opacity hover:opacity-100 #{UI::Styles::FOCUS_RING}"
     FILTER = "min-w-[80px] flex-1 bg-transparent text-sm outline-none " \
                   "placeholder:text-muted-foreground"
     PANEL = "#{UI::Styles::POPOVER_PANEL} top-full left-0 mt-1 w-full overflow-hidden"

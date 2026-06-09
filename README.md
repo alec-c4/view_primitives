@@ -192,6 +192,7 @@ ViewPrimitives adds the `ui` helper to views and mailers:
 | Menubar | Horizontal application-style menu bar | [docs](docs/components/menubar.md) |
 | Command | Modal command palette with live search filtering | [docs](docs/components/command.md) |
 | Combobox | Autocomplete select with live search | [docs](docs/components/combobox.md) |
+| Tags Input | Multi-select input that renders selected values as removable chips | [docs](docs/components/tags_input.md) |
 | Calendar | Date picker calendar grid | [docs](docs/components/calendar.md) |
 | Date Picker | Input that opens a Calendar popover | [docs](docs/components/date_picker.md) |
 | Timepicker | Input for selecting a time value | [docs](docs/components/timepicker.md) |
