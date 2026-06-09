@@ -9,6 +9,7 @@ gem "standard", require: false
 gem "rubocop-minitest", require: false
 gem "rubocop-performance", require: false
 gem "lefthook", require: false
+gem "tailwind_merge", require: false
 gem "rails", "~> 7.1.0"
 
 gemspec path: "../"
