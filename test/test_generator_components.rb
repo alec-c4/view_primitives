@@ -271,7 +271,8 @@ class TestGeneratorComponents < Minitest::Test
   def test_tags_input_submits_as_array
     source = File.read(File.join(TEMPLATE_ROOT, "tags_input", "tags_input_component.rb.tt"))
 
-    assert_includes source, "\"\#{@name}[]\"", "tags_input hidden inputs must use name[]"
+    assert_includes source, "hidden_input_name", "tags_input hidden inputs must use array notation"
+    assert_includes source, "name.end_with?(\"[]\")", "tags_input must not double-append []"
   end
 
   def test_tags_input_has_chip_template
