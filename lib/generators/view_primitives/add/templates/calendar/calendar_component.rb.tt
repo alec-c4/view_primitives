@@ -46,7 +46,7 @@ module UI
         class: cn(CONTAINER, @extra_class),
         data: { slot: "calendar", controller: "calendar", calendar_month_value: @month.iso8601 },
         **@html_attrs) do
-        concat hidden_input if @name && @selected
+        concat hidden_input if @name
         concat header_row
         concat day_of_week_row
         concat day_grid

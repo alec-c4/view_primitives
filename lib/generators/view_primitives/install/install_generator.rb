@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 require_relative "../detector"
+require_relative "../component_copier"
 
 module ViewPrimitives
   module Generators
     class InstallGenerator < Rails::Generators::Base
       include Detector
+      include ComponentCopier
 
       source_root File.expand_path("templates", __dir__)
 
       class_option :force, type: :boolean, default: false,
-        desc: "Overwrite existing ApplicationComponent and CSS files"
+        desc: "Overwrite existing ApplicationComponent, UI styles, and CSS files"
 
       def verify_ui_inflection
         return if "ui/button_component".camelize == "UI::ButtonComponent"
