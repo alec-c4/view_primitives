@@ -4,6 +4,7 @@ require "test_helper"
 require "fileutils"
 require "stringio"
 require "rails/generators"
+require "generators/view_primitives/install/install_generator"
 require "generators/view_primitives/update/update_generator"
 require "generators/view_primitives/theme/theme_generator"
 
@@ -63,6 +64,19 @@ class TestGeneratorsIntegration < Minitest::Test
     assert_includes css, '@import "./view_primitives/themes/rose.css";'
   end
 
+  def test_install_preserves_existing_styles_and_css_when_overwrite_declined
+    scaffold_app
+    FileUtils.mkdir_p(File.join(@root, "app/assets/stylesheets/view_primitives"))
+    File.write(File.join(@root, "app/assets/stylesheets/view_primitives/utilities.css"), "/* custom utilities */")
+
+    run_install_generator(force: false, overwrite: false)
+
+    assert_equal "# old styles", File.read(File.join(@root, "app/components/ui/styles.rb"))
+    assert_equal "/* old */", File.read(File.join(@root, "app/assets/stylesheets/view_primitives.css"))
+    assert_equal "/* custom utilities */",
+      File.read(File.join(@root, "app/assets/stylesheets/view_primitives/utilities.css"))
+  end
+
   def test_theme_generator_copies_rose_and_enables_import
     FileUtils.mkdir_p(File.join(@root, "app/assets/stylesheets"))
     FileUtils.mkdir_p(File.join(@root, "app/assets/tailwind"))
@@ -103,6 +117,16 @@ class TestGeneratorsIntegration < Minitest::Test
       generator.update_components unless options[:skip_components]
       generator.update_css_bundle unless options[:skip_css]
       generator.update_ui_styles unless options[:skip_styles]
+    end
+  end
+
+  def run_install_generator(force:, overwrite:)
+    generator = ViewPrimitives::Generators::InstallGenerator.new([], force: force)
+    configure_generator(generator)
+    generator.define_singleton_method(:yes?) { |*| overwrite }
+    capture_stdout do
+      generator.create_ui_styles
+      generator.create_css_bundle
     end
   end
 

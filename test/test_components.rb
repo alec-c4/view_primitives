@@ -1581,6 +1581,27 @@ class TestTagsInputComponent < Minitest::Test
 
     assert_equal opts, c.instance_variable_get(:@options)
   end
+
+  def test_hidden_input_name_does_not_double_append_array_suffix
+    plain = UI::TagsInputComponent.new(name: "colors")
+    array = UI::TagsInputComponent.new(name: "colors[]")
+
+    assert_equal "colors[]", plain.send(:hidden_input_name)
+    assert_equal "colors[]", array.send(:hidden_input_name)
+  end
+
+  def test_selected_options_preserve_values_missing_from_current_options
+    c = UI::TagsInputComponent.new(
+      name: "tag_ids",
+      values: %w[42 99],
+      options: [{value: "42", label: "Ruby"}]
+    )
+
+    assert_equal [
+      {value: "42", label: "Ruby"},
+      {value: "99", label: "99"}
+    ], c.send(:selected_options)
+  end
 end
 
 # ---------------------------------------------------------------------------
@@ -2177,6 +2198,25 @@ class TestCalendarComponent < Minitest::Test
     c = UI::CalendarComponent.new
 
     assert_nil c.instance_variable_get(:@name)
+  end
+
+  def test_call_renders_hidden_input_when_name_has_no_selected_value
+    c = UI::CalendarComponent.new(name: "booking[date]")
+    captured = []
+
+    c.define_singleton_method(:content_tag) do |_tag, *_args, **_attrs, &block|
+      block&.call
+      ""
+    end
+    c.define_singleton_method(:concat) { |value| captured << value }
+    c.define_singleton_method(:hidden_input) { "hidden-input" }
+    c.define_singleton_method(:header_row) { "header" }
+    c.define_singleton_method(:day_of_week_row) { "days" }
+    c.define_singleton_method(:day_grid) { "grid" }
+
+    c.call
+
+    assert_includes captured, "hidden-input"
   end
 end
 
