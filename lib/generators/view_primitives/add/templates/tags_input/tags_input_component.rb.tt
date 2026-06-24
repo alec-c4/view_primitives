@@ -56,7 +56,7 @@ module UI
         class: CHIP,
         data: {"tags-input-target": "chip", "tags-input-value": opt[:value]}) do
         concat content_tag(:span, opt[:label], class: CHIP_LABEL)
-        concat tag.input(type: "hidden", name: "#{@name}[]", value: opt[:value])
+        concat tag.input(type: "hidden", name: hidden_input_name, value: opt[:value])
         concat remove_button(opt[:value])
       end
     end
@@ -130,7 +130,13 @@ module UI
     end
 
     def selected_options
-      normalized_options.select { |o| @values.include?(o[:value]) }
+      options_by_value = normalized_options.to_h { |o| [o[:value], o] }
+      @values.map { |value| options_by_value.fetch(value, {value: value, label: value}) }
+    end
+
+    def hidden_input_name
+      name = @name.to_s
+      name.end_with?("[]") ? name : "#{name}[]"
     end
   end
 end
