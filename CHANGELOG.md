@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-07-15
+
+### Changed
+
+- CI: Ruby 3.2 removed from the test matrix; the gem is now tested against Ruby 3.3, 3.4, and 4.0
+- Development and runtime dependency updates (concurrent-ruby 1.3.7, nokogiri 1.19.4, net-imap 0.6.4.1)
+
 ## [0.2.0] - 2026-06-08
 
 ### Added
@@ -141,5 +148,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `view_primitives:add` exits with status 1 on unknown components; prints copy summary
 - Requires `view_component >= 4.0` and Rails `>= 7.1`
 
+[0.2.1]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.1
 [0.2.0]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.0
 [0.1.0]: https://github.com/alec-c4/view_primitives/releases/tag/v0.1.0
