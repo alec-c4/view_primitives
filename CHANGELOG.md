@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-07-15
+
+### Fixed
+
+- `install` generator respects overwrite prompts for `UI::Styles` and the CSS bundle (same behaviour as `add` and `update`)
+- **Calendar** renders a hidden input when `name` is set but no date is selected — fixes form data loss on clear or initial render
+- **TagsInput** no longer double-appends `[]` when `name` already ends with `[]`
+- **TagsInput** preserves pre-selected values that are missing from the current `options` list (edit forms with stale tags)
+
 ## [0.2.1] - 2026-07-15
 
 ### Changed
@@ -148,6 +157,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `view_primitives:add` exits with status 1 on unknown components; prints copy summary
 - Requires `view_component >= 4.0` and Rails `>= 7.1`
 
+[0.2.2]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.2
 [0.2.1]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.1
 [0.2.0]: https://github.com/alec-c4/view_primitives/releases/tag/v0.2.0
 [0.1.0]: https://github.com/alec-c4/view_primitives/releases/tag/v0.1.0
