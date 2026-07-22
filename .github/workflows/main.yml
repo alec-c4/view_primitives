@@ -51,7 +51,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "4.0.5"
+          ruby-version: "4.0.6"
           bundler-cache: true
       - name: Install appraisal bundle
         run: bundle exec appraisal ${{ matrix.appraisal }} bundle install
