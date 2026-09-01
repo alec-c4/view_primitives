@@ -51,7 +51,7 @@ module UI
           class: cn(DIALOG, @extra_class),
           role: "dialog",
           "aria-modal": "true",
-          data: { action: "keydown.escape@window->command#close" }) {
+          data: { action: "keydown.esc@window->command#close" }) {
           concat content_tag(:div, class: COMMAND) {
             concat search_bar
             concat content_tag(:div, class: LIST, data: { command_target: "list" }) {

@@ -40,7 +40,7 @@ module UI
       attrs = { class: grid_cls }
       if @lightbox
         attrs[:data] = { controller: "gallery",
-                         action: "click@document->gallery#closeOnClickOutside keydown.escape@document->gallery#close" }
+                         action: "click@document->gallery#closeOnClickOutside keydown.esc@document->gallery#close" }
       end
       attrs.merge!(@html_attrs)
 

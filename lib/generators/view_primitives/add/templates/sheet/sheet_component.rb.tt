@@ -48,7 +48,7 @@ module UI
           role: "dialog",
           "aria-modal": "true",
           "aria-label": @title,
-          data: { action: "keydown.escape@window->dialog#close" }) {
+          data: { action: "keydown.esc@window->dialog#close" }) {
           concat close_button
           concat header_area
           concat content_tag(:div, content, class: "flex-1") unless content.blank?
