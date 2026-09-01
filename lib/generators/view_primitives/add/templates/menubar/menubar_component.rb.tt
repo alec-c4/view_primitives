@@ -23,7 +23,7 @@ module UI
         class: cn(BAR, @extra_class),
         data: {
           controller: "menubar",
-          action: "click@document->menubar#closeOnClickOutside keydown.escape@document->menubar#closeAll"
+          action: "click@document->menubar#closeOnClickOutside keydown.esc@document->menubar#closeAll"
         },
         **@html_attrs) do
         menus.each { |m| concat m }
