@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- **Chart** resolves `var(--chart-1)`-style CSS custom properties to their computed value before handing colors to Chart.js — Canvas 2D's `fillStyle` cannot resolve CSS variables on its own, so every segment rendered black
+- **Chart** uses one color per data point (not per dataset) for `pie`/`doughnut`/`polarArea`, matching Chart.js's expected `backgroundColor` shape for single-dataset charts
+- **Dialog**, **Sheet**, **Drawer**, **Command**, **Menubar**, **Gallery** close on <kbd>Esc</kbd> again — the Stimulus key filter was `keydown.escape`, but Stimulus only recognizes the `esc` alias, so the action silently failed to bind (and threw in the console) on every one of these components
+
 ## [0.2.2] - 2026-07-15
 
 ### Fixed
