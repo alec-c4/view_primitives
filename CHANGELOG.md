@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.3] - 2026-09-02
+
 ### Fixed
 
 - **Chart** resolves `var(--chart-1)`-style CSS custom properties to their computed value before handing colors to Chart.js — Canvas 2D's `fillStyle` cannot resolve CSS variables on its own, so every segment rendered black
 - **Chart** uses one color per data point (not per dataset) for `pie`/`doughnut`/`polarArea`, matching Chart.js's expected `backgroundColor` shape for single-dataset charts
 - **Dialog**, **Sheet**, **Drawer**, **Command**, **Menubar**, **Gallery** close on <kbd>Esc</kbd> again — the Stimulus key filter was `keydown.escape`, but Stimulus only recognizes the `esc` alias, so the action silently failed to bind (and threw in the console) on every one of these components
+- `install`/`add`/`update` generators no longer emit `method redefined` warnings under `ruby -w` — `ComponentCopier` defined its `template`/`copy_file` overrides via `define_method` in the `included` hook, which re-ran and redefined the methods when Rails loaded a generator under a second load path
 
 ## [0.2.2] - 2026-07-15
 
