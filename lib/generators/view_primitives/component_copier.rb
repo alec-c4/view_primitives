@@ -5,22 +5,23 @@ require_relative "components"
 module ViewPrimitives
   module Generators
     module ComponentCopier
-      def self.included(base)
-        base.no_tasks do
-          define_method(:template) do |source, *args, **options, &blk|
-            destination = args.first || options[:to]
-            return unless destination.nil? || confirm_overwrite(destination)
+      # Wrap Thor::Actions' file helpers so they prompt before clobbering an
+      # existing file. Defined as ordinary module methods (not via
+      # `define_method` inside `included`) so that re-including the module stays
+      # a silent no-op — Rails can load a generator under two different
+      # $LOADED_FEATURES keys, which reopens the class and runs `include` again.
+      def template(source, *args, **options, &blk)
+        destination = args.first || options[:to]
+        return unless destination.nil? || confirm_overwrite(destination)
 
-            super(source, *args, **options, &blk)
-          end
+        super
+      end
 
-          define_method(:copy_file) do |source, *args, **options|
-            destination = args.first || options[:to]
-            return unless destination.nil? || confirm_overwrite(destination)
+      def copy_file(source, *args, **options, &blk)
+        destination = args.first || options[:to]
+        return unless destination.nil? || confirm_overwrite(destination)
 
-            super(source, *args, **options)
-          end
-        end
+        super
       end
 
       private
