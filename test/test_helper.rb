@@ -5,6 +5,7 @@ require "view_primitives"
 require_relative "../lib/generators/view_primitives/components"
 
 require "date"
+require "active_support"
 require "active_support/core_ext/object/blank"
 require "active_support/core_ext/date/calculations"
 require "active_support/inflector"
