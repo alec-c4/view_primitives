@@ -20,14 +20,24 @@ module UI
           @label,
           type: "button",
           class: TRIGGER,
-          data: { action: "click->menubar#toggle mouseenter->menubar#openOnHover" })
+          "aria-haspopup": "menu",
+          "aria-expanded": "false",
+          "aria-controls": panel_id,
+          data: { menubar_target: "trigger", action: "click->menubar#toggle mouseenter->menubar#openOnHover" })
         concat content_tag(:div,
+          id: panel_id,
           data: { menubar_target: "panel" },
           hidden: true,
           class: cn(PANEL, @extra_class)) {
           concat content
         }
       end
+    end
+
+    private
+
+    def panel_id
+      @panel_id ||= "menubar-panel-#{object_id}"
     end
   end
 end

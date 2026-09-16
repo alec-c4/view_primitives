@@ -222,6 +222,24 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes source, "UI::Styles::MENU_SEPARATOR"
   end
 
+  def test_dropdown_menu_trigger_has_aria_attributes
+    source = File.read(File.join(TEMPLATE_ROOT, "dropdown_menu", "dropdown_menu_component.rb.tt"))
+
+    assert_includes source, 'dropdown_target: "trigger"'
+    assert_includes source, '"aria-haspopup": "menu"'
+    assert_includes source, '"aria-expanded": "false"'
+    assert_includes source, '"aria-controls": panel_id'
+    assert_includes source, "id: panel_id"
+  end
+
+  def test_dropdown_controller_syncs_aria_expanded
+    js = File.read(File.join(TEMPLATE_ROOT, "dropdown_menu", "dropdown_controller.js"))
+
+    assert_includes js, "triggerTarget"
+    assert_includes js, "aria-expanded"
+    assert_includes js, "close()"
+  end
+
   def test_context_menu_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "context_menu", "context_menu_controller.js"),
       "context_menu should include context_menu_controller.js"
@@ -246,6 +264,23 @@ class TestGeneratorComponents < Minitest::Test
     menu_source = File.read(File.join(TEMPLATE_ROOT, "menubar", "menubar_menu_component.rb.tt"))
 
     assert_includes menu_source, "w-max min-w-[12rem]"
+  end
+
+  def test_menubar_menu_trigger_has_aria_attributes
+    source = File.read(File.join(TEMPLATE_ROOT, "menubar", "menubar_menu_component.rb.tt"))
+
+    assert_includes source, 'menubar_target: "trigger"'
+    assert_includes source, '"aria-haspopup": "menu"'
+    assert_includes source, '"aria-expanded": "false"'
+    assert_includes source, '"aria-controls": panel_id'
+    assert_includes source, "id: panel_id"
+  end
+
+  def test_menubar_controller_syncs_aria_expanded
+    js = File.read(File.join(TEMPLATE_ROOT, "menubar", "menubar_controller.js"))
+
+    assert_includes js, "triggerTargets"
+    assert_includes js, "aria-expanded"
   end
 
   def test_command_has_js_controller
@@ -487,6 +522,22 @@ class TestGeneratorComponents < Minitest::Test
     js = File.read(File.join(TEMPLATE_ROOT, "sidebar", "sidebar_controller.js"))
 
     assert_includes js, "toggle()"
+  end
+
+  def test_sidebar_toggle_has_aria_attributes
+    source = File.read(File.join(TEMPLATE_ROOT, "sidebar", "sidebar_component.rb.tt"))
+
+    assert_includes source, 'sidebar_target: "toggle"'
+    assert_includes source, '"aria-expanded":'
+    assert_includes source, '"aria-controls": nav_id'
+    assert_includes source, "id: nav_id"
+  end
+
+  def test_sidebar_controller_syncs_aria_expanded
+    js = File.read(File.join(TEMPLATE_ROOT, "sidebar", "sidebar_controller.js"))
+
+    assert_includes js, "toggleTarget"
+    assert_includes js, "aria-expanded"
   end
 
   def test_resizable_has_panel_component

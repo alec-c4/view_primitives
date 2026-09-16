@@ -82,15 +82,21 @@ module UI
       content_tag(:button, type: "button",
         class: TOGGLE_CLS,
         "aria-label": "Toggle sidebar",
-        data: { action: "click->sidebar#toggle" }) { chevron_icon }
+        "aria-expanded": (!@collapsed).to_s,
+        "aria-controls": nav_id,
+        data: { action: "click->sidebar#toggle", sidebar_target: "toggle" }) { chevron_icon }
     end
 
     def nav_body
-      content_tag(:nav, class: NAV_CLS) do
+      content_tag(:nav, id: nav_id, class: NAV_CLS) do
         concat safe_join(groups) if groups.any?
         concat content_tag(:div, safe_join(items), class: "flex flex-col gap-0.5") if items.any?
         concat content if content?
       end
+    end
+
+    def nav_id
+      @nav_id ||= "sidebar-nav-#{object_id}"
     end
 
     def chevron_icon

@@ -33,20 +33,34 @@ module UI
           action: "click@document->dropdown#closeOnClickOutside"
         },
         **@html_attrs) do
-        concat content_tag(:span, trigger, data: { action: "click->dropdown#toggle" }, class: "contents") if trigger
+        concat trigger_wrapper if trigger
         concat panel
       end
     end
 
     private
 
+    def trigger_wrapper
+      content_tag(:span, trigger,
+        class: "contents",
+        data: { dropdown_target: "trigger", action: "click->dropdown#toggle" },
+        "aria-haspopup": "menu",
+        "aria-expanded": "false",
+        "aria-controls": panel_id)
+    end
+
     def panel
       content_tag(:div,
+        id: panel_id,
         data: { dropdown_target: "panel" },
         hidden: true,
         class: cn(PANEL, ALIGN.fetch(@align, ALIGN[:start]), @extra_class)) do
         concat content
       end
+    end
+
+    def panel_id
+      @panel_id ||= "dropdown-panel-#{object_id}"
     end
   end
 end
