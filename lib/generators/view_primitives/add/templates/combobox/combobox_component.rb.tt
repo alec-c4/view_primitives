@@ -5,7 +5,8 @@ module UI
     INPUT  = UI::Styles::INPUT
     PANEL  = "#{UI::Styles::POPOVER_PANEL} top-full left-0 mt-1 w-full overflow-hidden"
     LIST   = "max-h-[200px] overflow-y-auto p-1"
-    OPTION = "#{UI::Styles::MENU_ITEM} w-full cursor-pointer hover:bg-accent hover:text-accent-foreground"
+    OPTION = "#{UI::Styles::MENU_ITEM} w-full cursor-pointer hover:bg-accent hover:text-accent-foreground " \
+             "data-[active=true]:bg-accent data-[active=true]:text-accent-foreground"
     EMPTY  = "py-4 text-center text-sm text-muted-foreground"
 
     def initialize(name:, options: [], value: nil, placeholder: "Select...", **html_attrs)
@@ -41,13 +42,19 @@ module UI
       selected_label = @options.find { |o| o[:value].to_s == @value }&.dig(:label)
       tag.input(
         type: "text",
+        role: "combobox",
         placeholder: @placeholder,
         value: selected_label,
         autocomplete: "off",
+        "aria-autocomplete": "list",
+        "aria-expanded": "false",
+        "aria-controls": list_id,
         class: INPUT,
         data: {
           combobox_target: "input",
-          action: "focus->combobox#open input->combobox#filter"
+          action: "focus->combobox#open input->combobox#filter " \
+                  "keydown.down->combobox#next keydown.up->combobox#prev " \
+                  "keydown.enter->combobox#choose keydown.esc->combobox#close"
         }
       )
     end
@@ -57,20 +64,24 @@ module UI
         data: { combobox_target: "panel" },
         hidden: true,
         class: PANEL) do
-        concat content_tag(:div, class: LIST) {
-          concat options_list
-          concat content_tag(:div, "No results.",
-            class: EMPTY,
-            data: { combobox_target: "empty" },
-            hidden: true)
-        }
+        concat content_tag(:div, options_list,
+          id: list_id,
+          role: "listbox",
+          class: LIST)
+        concat content_tag(:div, "No results.",
+          class: EMPTY,
+          role: "status",
+          data: { combobox_target: "empty" },
+          hidden: true)
       end
     end
 
     def options_list
-      safe_join(@options.map { |opt|
-        content_tag(:button, opt[:label],
-          type: "button",
+      safe_join(@options.each_with_index.map { |opt, index|
+        content_tag(:div, opt[:label],
+          id: option_id(index),
+          role: "option",
+          "aria-selected": (opt[:value].to_s == @value).to_s,
           class: OPTION,
           data: {
             combobox_target: "option",
@@ -79,6 +90,14 @@ module UI
             action: "click->combobox#select"
           })
       })
+    end
+
+    def option_id(index)
+      "#{list_id}-option-#{index}"
+    end
+
+    def list_id
+      @list_id ||= "combobox-list-#{object_id}"
     end
   end
 end

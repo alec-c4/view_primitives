@@ -62,6 +62,8 @@ rails g view_primitives:update --only combobox
 
 The component renders a hidden `<input type="hidden">` (submitted with the form) and a visible text input for filtering. Selecting an option updates the hidden input's value and closes the dropdown. When no options match the search term, a "No results." message is displayed.
 
+The text input follows the ARIA 1.2 combobox pattern (`role="combobox"`, `aria-expanded`, `aria-controls`, `aria-activedescendant`) and the option list supports <kbd>↓</kbd>/<kbd>↑</kbd> to move between visible options, <kbd>Enter</kbd> to select the highlighted one, and <kbd>Esc</kbd> to close without changing the selection.
+
 ## API
 
 | Option | Type | Default | Description |

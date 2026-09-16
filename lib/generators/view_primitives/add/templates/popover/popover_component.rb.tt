@@ -31,15 +31,24 @@ module UI
         class: "relative inline-block",
         data: { controller: "popover", action: "click@document->popover#closeOnClickOutside" },
         **@html_attrs) do
-        concat content_tag(:span, trigger, data: { action: "click->popover#toggle" }, class: "contents") if trigger
+        concat trigger_wrapper if trigger
         concat panel
       end
     end
 
     private
 
+    def trigger_wrapper
+      content_tag(:span, trigger,
+        class: "contents",
+        data: { popover_target: "trigger", action: "click->popover#toggle" },
+        "aria-expanded": "false",
+        "aria-controls": panel_id)
+    end
+
     def panel
       content_tag(:div,
+        id: panel_id,
         class: cn(
           PANEL_BASE,
           ALIGN.fetch(@align, ALIGN[:start]),
@@ -50,6 +59,10 @@ module UI
         hidden: true) do
         content
       end
+    end
+
+    def panel_id
+      @panel_id ||= "popover-panel-#{object_id}"
     end
   end
 end

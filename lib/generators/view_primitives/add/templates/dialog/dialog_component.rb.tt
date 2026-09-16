@@ -22,7 +22,10 @@ module UI
 
     def call
       content_tag(:div, data: { controller: "dialog" }, **@html_attrs) do
-        concat content_tag(:span, trigger, data: { action: "click->dialog#open" }, class: "contents") if trigger
+        concat content_tag(:span, trigger,
+          class: "contents",
+          "aria-haspopup": "dialog",
+          data: { action: "click->dialog#open" }) if trigger
         concat panel
       end
     end

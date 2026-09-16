@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **DropdownMenu** trigger now carries `aria-haspopup="menu"`, `aria-controls`, and syncs `aria-expanded` on open/close/click-outside — screen readers previously had no way to know the trigger toggled a menu (#10)
 - **Sidebar** collapse toggle carries `aria-expanded`/`aria-controls`, kept in sync by the Stimulus controller
 - **Menubar** menu triggers carry `aria-haspopup="menu"`, `aria-controls`, and synced `aria-expanded`, matching the pattern already used by `MegaMenu`/`NavigationMenu`/`Navbar`
+- **Popover** trigger carries `aria-controls` and a synced `aria-expanded`, same pattern as `DropdownMenu`
+- **Dialog**, **AlertDialog**, **Drawer**, **Sheet**, **Command** triggers carry `aria-haspopup="dialog"`
+- **HoverCard** content now also reveals on keyboard focus (`:focus-within`), not just mouse hover
+- **Combobox** input carries the full ARIA 1.2 combobox pattern — `role="combobox"`, `aria-autocomplete`, `aria-expanded`, `aria-controls`, `aria-activedescendant` — and the option list is keyboard-navigable with <kbd>↑</kbd>/<kbd>↓</kbd>/<kbd>Enter</kbd>/<kbd>Esc</kbd>
 
 ## [0.2.3] - 2026-09-02
 

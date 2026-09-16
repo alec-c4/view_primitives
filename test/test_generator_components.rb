@@ -149,6 +149,14 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes source, "_previouslyFocused"
   end
 
+  def test_modal_triggers_have_aria_haspopup_dialog
+    %w[dialog alert_dialog drawer sheet].each do |component|
+      source = File.read(File.join(TEMPLATE_ROOT, component, "#{component}_component.rb.tt"))
+
+      assert_includes source, '"aria-haspopup": "dialog"', "#{component} trigger should carry aria-haspopup=dialog"
+    end
+  end
+
   def test_command_controller_traps_focus
     source = File.read(File.join(TEMPLATE_ROOT, "command", "command_controller.js"))
 
@@ -211,6 +219,22 @@ class TestGeneratorComponents < Minitest::Test
   def test_popover_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "popover", "popover_controller.js"),
       "popover should include popover_controller.js"
+  end
+
+  def test_popover_trigger_has_aria_attributes
+    source = File.read(File.join(TEMPLATE_ROOT, "popover", "popover_component.rb.tt"))
+
+    assert_includes source, 'popover_target: "trigger"'
+    assert_includes source, '"aria-expanded": "false"'
+    assert_includes source, '"aria-controls": panel_id'
+    assert_includes source, "id: panel_id"
+  end
+
+  def test_popover_controller_syncs_aria_expanded
+    js = File.read(File.join(TEMPLATE_ROOT, "popover", "popover_controller.js"))
+
+    assert_includes js, "triggerTarget"
+    assert_includes js, "aria-expanded"
   end
 
   def test_dropdown_menu_has_js_controller
@@ -283,6 +307,12 @@ class TestGeneratorComponents < Minitest::Test
     assert_includes js, "aria-expanded"
   end
 
+  def test_hover_card_reveals_on_keyboard_focus
+    source = File.read(File.join(TEMPLATE_ROOT, "hover_card", "hover_card_component.rb.tt"))
+
+    assert_includes source, "group-focus-within:opacity-100"
+  end
+
   def test_command_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "command", "command_controller.js"),
       "command should include command_controller.js"
@@ -291,11 +321,34 @@ class TestGeneratorComponents < Minitest::Test
 
     assert_includes source, "border-b border-border"
     assert_includes source, "UI::Styles::MENU_SEPARATOR"
+    assert_includes source, '"aria-haspopup": "dialog"'
   end
 
   def test_combobox_has_js_controller
     assert_path_exists File.join(TEMPLATE_ROOT, "combobox", "combobox_controller.js"),
       "combobox should include combobox_controller.js"
+  end
+
+  def test_combobox_input_has_combobox_aria_attributes
+    source = File.read(File.join(TEMPLATE_ROOT, "combobox", "combobox_component.rb.tt"))
+
+    assert_includes source, 'role: "combobox"'
+    assert_includes source, '"aria-autocomplete": "list"'
+    assert_includes source, '"aria-expanded": "false"'
+    assert_includes source, '"aria-controls": list_id'
+    assert_includes source, 'role: "listbox"'
+    assert_includes source, 'role: "option"'
+    assert_includes source, '"aria-selected":'
+  end
+
+  def test_combobox_controller_supports_keyboard_navigation
+    js = File.read(File.join(TEMPLATE_ROOT, "combobox", "combobox_controller.js"))
+
+    assert_includes js, "next("
+    assert_includes js, "prev("
+    assert_includes js, "choose("
+    assert_includes js, "aria-activedescendant"
+    assert_includes js, "aria-expanded"
   end
 
   def test_tags_input_has_js_controller
