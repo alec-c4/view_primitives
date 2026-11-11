@@ -57,3 +57,17 @@ jobs:
         run: bundle exec appraisal ${{ matrix.appraisal }} bundle install
       - name: Run tests
         run: bundle exec appraisal ${{ matrix.appraisal }} rake test
+
+  ci:
+    name: CI
+    if: always()
+    needs: [build, appraisal]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Require the existing CI jobs to succeed
+        env:
+          BUILD_RESULT: ${{ needs.build.result }}
+          APPRAISAL_RESULT: ${{ needs.appraisal.result }}
+        run: |
+          test "$BUILD_RESULT" = success
+          test "$APPRAISAL_RESULT" = success
