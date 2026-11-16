@@ -270,7 +270,7 @@ GEM
     unicode-emoji (4.3.0)
     uri (1.1.2)
     useragent (0.16.11)
-    view_component (4.23.0)
+    view_component (4.24.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       prism (>= 1.0)
@@ -404,7 +404,7 @@ CHECKSUMS
   unicode-emoji (4.3.0) sha256=11c02fa73290378c066bb0562cd4c87d8e1b706fbbe0059ca12746a4244de8ce
   uri (1.1.2) sha256=89292e98eabbef6248b0a0ed5e7e398e152f83f17560023a6d94a7f492b169fb
   useragent (0.16.11) sha256=700e6413ad4bb954bb63547fa098dddf7b0ebe75b40cc6f93b8d54255b173844
-  view_component (4.23.0) sha256=2bcb6fe6251edaec534d4aefc5f735096a8393c3b9b627f6de59fbc859858a01
+  view_component (4.24.0) sha256=03d47405cd63ea5c7154332b122cc24c50382b55e8f94eb2a269ce8ad73ae98a
   view_primitives (0.2.4)
   websocket-driver (0.8.2) sha256=97c556b019bf3410b4961002ac501621e9322d3f8a7bc02161a09301cc4c4146
   websocket-extensions (0.1.5) sha256=1c6ba63092cda343eb53fc657110c71c754c56484aad42578495227d717a8241
